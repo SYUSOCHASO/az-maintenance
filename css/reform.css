@@ -1,0 +1,336 @@
+/* 基本設定 */
+:root {
+    --primary-color: #0066cc;
+    --secondary-color: #ff9900;
+    --accent-color: #00cc66;
+    --text-color: #333;
+    --light-gray: #f5f5f5;
+    --dark-gray: #666;
+}
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+}
+
+/* ヘッダー */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.logo img {
+    height: 50px;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5px 20px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+/* メインコンテンツのスタイル */
+.reform-main {
+    padding-top: 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 120px 20px 80px;
+}
+
+/* ページタイトルのアニメーション */
+.page-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 0.1s; /* 最初に表示させる */
+}
+
+/* アニメーションのキーフレーム */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLine {
+    from {
+        opacity: 0;
+        transform: scaleX(0);
+    }
+    to {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+}
+
+/* タイトルの下線アニメーション */
+.page-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--primary-color);
+    margin: 15px auto;
+    opacity: 0;
+    transform: scaleX(0);
+    animation: fadeInLine 0.8s ease forwards;
+    animation-delay: 0.3s; /* タイトルの後に表示 */
+}
+
+.reform-section {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+}
+
+.reform-content {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* トランジションを調整 */
+    padding: 0 30px;
+    background-color: #f5f9ff;
+}
+
+/* 初期表示時のアニメーション */
+.reform-item {
+    background-color: #f5f9ff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    padding: 0;
+    transition: all 0.5s ease-in-out;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.reform-item:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.reform-item:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.reform-item:nth-child(4) {
+    animation-delay: 0.6s;
+}
+
+.reform-item:nth-child(5) {
+    animation-delay: 0.8s;
+}
+
+.reform-item h2 {
+    color: var(--primary-color);
+    font-size: 2rem;
+    margin: 0;
+    text-align: center;
+    position: relative;
+    padding: 20px;
+}
+
+/* アニメーション用のクラス */
+@keyframes slideDown {
+    from {
+        max-height: 0;
+        opacity: 0;
+    }
+    to {
+        max-height: 1000px;
+        opacity: 1;
+    }
+}
+
+/* .activeクラスのスタイルを追加 */
+.reform-item.active h2 {
+    margin-bottom: 20px;
+}
+
+.reform-item.active .reform-content {
+    opacity: 1;
+    max-height: 1000px;
+    padding: 0 30px 30px;
+}
+
+.reform-image {
+    flex: 1;
+    max-width: 500px;
+    opacity: 0; /* 初期状態で非表示 */
+}
+
+.reform-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.reform-text {
+    flex: 1;
+    opacity: 0; /* 初期状態で非表示 */
+}
+
+.reform-text p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+.reform-item.active .reform-image {
+    animation: slideDownImage 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    /* アニメーション時間を1.2秒に延長し、cubic-bezierで滑らかさを調整 */
+}
+
+.reform-item.active .reform-text {
+    animation: slideUpText 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    /* テキストも同様に調整 */
+}
+
+/* アニメーション用のクラスを修正・追加 */
+@keyframes slideDownImage {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUpText {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.btn-more {
+    display: inline-block;
+    padding: 10px 30px;
+    margin-top: 20px;
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.btn-more:hover {
+    background: var(--secondary-color);
+}
+
+/* Footer */
+.footer {
+    background-color: #f5f5f5;
+    padding: 50px 0 20px;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+}
+
+.footer-logo img {
+    height: 70px;
+}
+
+.footer-links ul {
+    list-style: none;
+    display: flex;
+    gap: 40px;  /* リンク間の間隔も少し広げる */
+}
+
+.footer-links a {
+    color: black;
+    text-decoration: none;
+    font-size: 1rem;  /* または 22px */
+    font-weight: bold;   /* フォントを少し太く */
+    transition: opacity 0.3s ease;  /* ホバーエフェクト用 */
+}
+
+.footer-links a:hover {
+    color: var(--primary-color);  /* #0066ccに変更 */
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .header {
+        padding: 10px 0;
+    }
+
+    .nav-links {
+        display: none; /* ハンバーガーメニュー実装時に使用 */
+    }
+
+    .logo img {
+        height: 40px; /* モバイル時はロゴを少し小さく */
+    }
+
+    .reform-content {
+        flex-direction: column;
+    }
+
+    .reform-image {
+        max-width: 100%;
+    }
+
+    .reform-item {
+        padding: 20px;
+    }
+}
