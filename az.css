@@ -1,0 +1,917 @@
+/* 基本設定 */
+:root {
+    --primary-color: #0066cc;
+    --secondary-color: #ff9900;
+    --accent-color: #00cc66;
+    --text-color: #333;
+    --light-gray: #f5f5f5;
+    --dark-gray: #666;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+    transition: opacity 0.3s ease; /* 透明度のトランジションを追加 */
+}
+
+.logo img {
+    height: 50px;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 5px 20px;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary-color);
+}
+
+/* 右側セクションナビゲーション */
+.section-nav {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 800px; /* 4つのアイテムの合計幅 (120px × 4) */
+    display: flex;
+    flex-direction: row;
+    z-index: 100;
+    justify-content: flex-end; /* 右寄せを追加 */
+}
+
+.section-nav-item {
+    width: 150px; /* flex: 1を削除し、固定幅に変更 */
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    /* 境界線を追加 */
+    border-left: 1px solid rgba(255, 255, 255, 0.2); /* 白の半透明な境界線 */
+    position: relative; /* 疑似要素のために追加 */
+    cursor: pointer;  /* 追加: カーソルをポインターに */
+}
+
+.section-nav-item a {
+    text-decoration: none;
+    color: white;
+    text-align: center;
+    padding: 20px 10px;
+    height: 100%;
+    display: flex;
+    flex-direction: column; /* 縦並びに戻す */
+    align-items: center;
+    justify-content: flex-end; /* centerからflex-endに変更して下寄せ */
+    position: absolute;  /* absoluteに変更 */
+    top: 0;           /* 30%を維持 */
+    gap: 0px;
+}
+
+.section-nav-item a .nav-en,
+.section-nav-item a .nav-jp {
+    position: relative;
+    top: 30%;      /* コンテンツを30%の位置に配置 */
+}
+
+/* 最初の項目の左境界線を消す */
+.section-nav-item:first-child {
+    border-left: none;
+}
+
+.section-nav-item:hover {
+    background: rgba(0, 0, 0, 0.7);
+    width: 170px;
+}
+
+.section-nav-item .nav-en {
+    display: block;
+    font-size: 30px;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    transform: rotate(180deg);
+    margin-top: -5px; /* 負のマージンで更に近づける */
+    position: relative; /* 位置調整のため追加 */
+    left: -30px; /* 左方向への移動を追加 */
+}
+
+.section-nav-item .nav-jp {
+    display: block;
+    font-size: 20px;
+    opacity: 0.8;
+    transform: rotate(-90deg); /* 90度左に回転 */
+    writing-mode: horizontal-tb; /* 横書きに変更 */
+    margin-top: -15px; /* 値を大きくして更に近づける */
+    position: relative; /* 位置の微調整のため追加 */
+    top: -10px; /* 上方向への調整を追加 */
+}
+
+.section-nav-item:last-child .nav-en {
+    position: relative;
+    left: -50px; /* 左方向への移動を追加 */
+}
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+/* セクション共通スタイル */
+section {
+    padding: 80px 0;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--primary-color);
+    margin: 15px auto;
+}
+
+.section-content {
+    z-index: 3;
+    position: relative;
+}
+
+/* ビデオコンテナのスタイル追加 */
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#myVideo {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -1;
+    object-fit: cover;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+/* サービスアイコンのスタイリング */
+.service-icons {
+    position: absolute;
+    bottom: 10%;
+    left: 33%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 2;
+}
+
+/* アイコンの回転アニメーションを定義 */
+@keyframes rotateIcon {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.icon {
+    width: 100px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    margin: 0 auto 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    backdrop-filter: blur(5px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    animation: floatAnimation 3s ease-in-out infinite;
+    transition: background 0.3s ease;  /* 背景色の変化を追加 */
+}
+
+.icon-box:nth-child(2) .icon {
+    animation-delay: 0.5s;
+}
+
+.icon-box:nth-child(3) .icon {
+    animation-delay: 1s;
+}
+
+.icon-box p {
+    font-size: 18px;
+    margin-top: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.icon-box {
+    text-align: center;
+    color: white;
+    width: 200px;
+    transition: transform 0.3s ease;  /* ホバーエフェクト用 */
+}
+
+/* ホバー時の効果を追加 */
+.icon-box:hover {
+    transform: scale(1.1);  /* ホバー時に少し大きく */
+}
+
+/* 既存のfloatAnimationを維持しながら回転を追加 */
+.icon-box:hover .icon {
+    animation: 
+        floatAnimation 3s ease-in-out infinite,
+        rotateIcon 1s linear infinite;
+}
+
+/* アイコンのアニメーション */
+@keyframes floatAnimation {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+/* 初期ローディング用のオーバーレイ */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    z-index: 9999;
+    transition: opacity 1s ease;
+}
+
+.logo-animation-initial {
+    position: fixed;
+    width: 100%;  /* 追加 */
+    height: 100%; /* 追加 */
+    z-index: 10000;
+}
+
+.logo-animation-initial img {
+    position: absolute;
+    width: 640px;
+    opacity: 0;
+    filter: brightness(0);
+    transition: all 2s ease;
+    left: calc(50% - 320px); /* 初期位置を中央に */
+    top: calc(50% - 150px);  /* 初期位置を中央に */
+}
+
+/* ロゴアニメーションのスタイル */
+.logo-animation {
+    position: absolute;
+    left: 5%;
+    top: 10%;
+    z-index: 2;
+    opacity: 0; /* 初期状態は非表示 */
+    transition: opacity 1s ease; /* トランジション時間を短縮 */
+}
+
+.logo-animation img {
+    position: absolute;
+    width: 640px;
+    opacity: 1; /* 0から1に変更 */
+    animation: none; /* fadeInOutアニメーションを削除 */
+    filter: brightness(0) invert(1); /* ロゴの画像の色を白色に */
+}
+
+/* スクロールアニメーション用のスタイル */
+[data-aos] {
+    opacity: 0;
+    transition: all 0.8s ease;
+}
+
+[data-aos].aos-animate {
+    opacity: 1;
+}
+
+.hero {
+    padding-top: 70px;
+}
+
+.hero-animation {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 80vh;
+}
+
+/* about セクション */
+.about {
+    background: var(--light-gray);
+    flex: 1;
+    position: relative;  /* 追加 */
+    background-image: url('image/about.png');  /* 追加 */
+    background-size: cover;  /* 追加 */
+    background-position: center;  /* 追加 */
+    background-repeat: no-repeat;  /* 追加 */
+    min-height: 100vh;  /* 追加: ビューポートの高さいっぱいに */
+    padding-top: 160px;
+    padding-bottom: 300px;  /* 追加: 下部の余白を増やす */
+}
+
+.about-content {
+    display: flex;
+    align-items: center;
+    max-width: 100%;
+    margin: 0 auto;
+    padding-left: 100px;
+    margin-bottom: 80px;
+}
+
+.about-text {
+    flex: 1;
+    padding-right: 100px;  /* この値を大きくすると、間隔が広がります */
+}
+
+.about-text h3 {
+    font-family: "游明朝", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "HGS明朝E", serif;
+    font-size: 1.85rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-top: 140px;
+    margin-bottom: 30px;
+    z-index: 10;
+    position: relative;
+}
+
+.about-text h3 .text-left {
+    text-align: left;
+    margin-left: -80px;  /* この値を調整することで、左への移動量を変更できます */
+    z-index: 10;  /* 変更 */
+}
+
+.about-text h3 .text-right {
+    text-align: left;
+    z-index: 10;  /* 変更 */
+}
+
+.about-text p {
+    font-family: "游明朝", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "HGS明朝E", serif;
+    font-size: 1.75rem;
+    line-height: 2.6;
+    font-weight: bold;
+    position: absolute;
+    margin-top: 50px;
+    right: 90px;
+    z-index: 10;
+}
+
+.about img {
+    width: 80%;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.hover-area-left {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    z-index: 2;
+}
+
+.hover-area-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    z-index: 2;
+}
+
+/* オーバーレイの基本スタイル */
+.hover-area-left,
+.hover-area-right {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    z-index: 5;  /* 変更 */
+}
+
+.overlay-left {
+    left: 0;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    transition: background-color 0.3s ease;
+    z-index: 2;  /* 変更 */
+}
+
+.overlay-right {
+    right: 0;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    transition: background-color 0.3s ease;
+    z-index: 2;  /* 変更 */
+}
+
+/* ホバー時のオーバーレイ効果 */
+.hover-area-left:hover ~ .overlay-right {
+    background-color: rgba(255, 255, 255, 0.7);  /* 白っぽく */
+}
+
+.hover-area-right:hover ~ .overlay-left {
+    background-color: rgba(0, 0, 0, 0.6);  /* 黒っぽく */
+}
+
+/* Servicesセクション */
+.services-section {
+    padding-top: 160px;
+    padding-bottom: 220px;
+    background-color: #e6d5c3; /* ベースの薄い茶色 */
+    background-image: repeating-linear-gradient(
+        90deg,
+        rgba(222, 208, 193, 0.5) 0px,
+        rgba(222, 208, 193, 0.5) 2px,
+        transparent 2px,
+        transparent 20px
+    );
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative; /* 追加 */
+    z-index: 1; /* 追加 */
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-25px); }
+}
+
+.service-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease; /* 背景色の変化を追加 */
+    overflow: hidden;
+    position: relative; /* オーバーレイのために追加 */
+}
+
+.service-card:hover {
+    animation: bounce 1s ease infinite;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    transform: translateY(-5px);
+    background-color: #f0f7ff; /* ホバー時の背景色 */
+}
+
+/* 追加：ホバー時のテキストカラー変更 */
+.service-card:hover h3 {
+    color: #004999; /* ホバー時のタイトル色を濃い青に */
+}
+
+.service-card:hover p {
+    color: #333; /* ホバー時の本文色を少し濃く */
+}
+
+/* 追加：ホバー時の画像エフェクト */
+.service-card:hover .service-image img {
+    filter: brightness(1.1); /* 画像を少し明るく */
+}
+
+.service-image {
+    height: 300px;
+    margin-bottom: 20px;
+    border-radius: 20px 20px 0 0; /* 上部の角だけを丸く */
+    overflow: hidden; /* 画像が角丸からはみ出ないように */
+}
+
+.service-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease, filter 0.3s ease; /* 画像のトランジションを追加 */
+}
+
+.service-card h3 {
+    padding: 40px;
+    color: var(--primary-color);
+    text-align: center;
+    font-size: 2rem;
+}
+
+.service-card p {
+    padding: 0 20px 20px;
+    font-size: 1.55rem;
+    margin-bottom: 40px;
+}
+
+.service-icon {
+    text-align: center;
+    animation: iconFloat 3s ease-in-out infinite;
+}
+
+.service-icon:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.service-icon:nth-child(3) {
+    animation-delay: 1s;
+}
+
+.btn-more {
+    display: block;  /* インラインブロックからブロックに変更 */
+    width: fit-content;  /* ボタンの幅をコンテンツに合わせる */
+    padding: 10px 30px;
+    margin: 20px auto;  /* 左右のマージンをautoに設定して中央揃え */
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+/* 会社タイトル */
+.company-section {
+    position: relative;
+    padding-top: 150px;
+    padding-bottom: 200px;
+    background-color: #2c3e50; /* 深みのあるネイビー */
+    background-image: 
+        linear-gradient(135deg, 
+            rgba(44, 62, 80, 0.9) 0%,
+            rgba(52, 73, 94, 0.9) 100%),
+        repeating-linear-gradient(
+            45deg,
+            rgba(255, 255, 255, 0.05) 0px,
+            rgba(255, 255, 255, 0.05) 2px,
+            transparent 2px,
+            transparent 10px
+        );
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.3);
+}
+
+/* テキストの視認性を確保するために */
+.company-section .section-title,
+.company-section .company-info th,
+.company-section .company-info td {
+    color: #ffffff;
+}
+
+.company-title {
+    position: absolute;
+    bottom: 20%;
+    text-align: center;
+    opacity: 0;
+    animation: titleAppear 1s ease-out 3s forwards;
+}
+
+.company-title h1 {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.tagline {
+    font-size: 1.2rem;
+    color: var(--dark-gray);
+}
+
+.company-content {
+    display: flex;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 20px;
+    gap: 30px; /* 情報と地図の間隔 */
+}
+
+.company-info {
+    flex: 1;
+}
+
+.company-info table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.company-info th,
+.company-info td {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    font-size: 1.1rem;
+}
+
+.company-info th {
+    width: 30%;
+    text-align: left;
+    color: var(--primary-color);
+}
+
+/* 地図のアニメーション定義 */
+@keyframes map3DFlip {
+    from {
+        opacity: 0;
+        transform: perspective(1000px) rotateX(45deg);
+    }
+    to {
+        opacity: 1;
+        transform: perspective(1000px) rotateX(0);
+    }
+}
+
+.company-map {
+    flex: 1;
+    margin-top: 100px;
+    opacity: 0;  /* 初期状態は非表示 */
+    transform-style: preserve-3d;  /* 3D効果を維持 */
+}
+
+.company-map iframe {
+    width: 100%;
+    height: 400px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    backface-visibility: hidden;  /* 3D変換時の裏面を非表示 */
+}
+
+/* ホバー効果はそのまま維持 */
+.company-map iframe:hover {
+    transform: scale(1.02);
+}
+
+/* Contact セクション */
+.contact-section {
+    background: #dfdfdf;
+    padding-top: 150px;
+    padding-bottom: 100px;
+}
+
+.contact-content {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    gap: 50px;
+}
+
+.contact-info {
+    flex: 1;
+    text-align: center;
+}
+
+.phone-number {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    margin: 20px 0;
+}
+
+.contact-form {
+    flex: 2;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.form-group textarea {
+    height: 150px;
+}
+
+.btn-submit {
+    background: var(--primary-color);
+    color: white;
+    padding: 20px 60px;  /* パディングを大きく */
+    font-size: 1.2rem;   /* フォントサイズを大きく */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    display: block;      /* ブロック要素に変更 */
+    margin: 40px auto;   /* 上下のマージンを増やし、左右をautoに */
+    width: fit-content;  /* コンテンツに合わせた幅に */
+}
+
+.btn-submit:hover {
+    background: var(--secondary-color);
+}
+
+/* 必須項目を示すスタイル */
+.required {
+    color: #ff0000;  /* 必須マークの色 */
+    margin-left: 5px;  /* 左側の余白 */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1.2rem;
+    font-weight: 500;  /* ラベルを少し太く */
+}
+
+/* LINEでのお問い合わせのテキストサイズ */
+.contact-info p {
+    font-size: 1.4rem;  /* または 28px */
+    font-weight: bold;
+}
+
+.line-icon {
+    font-size: 150px;  /* アイコンのサイズ */
+    color: #06C755;  /* LINEの公式カラー */
+}
+
+.line-icon i {
+    transition: transform 0.3s ease;
+}
+
+.line-icon i:hover {
+    transform: scale(1.1);  /* ホバー時に少し大きく */
+}
+
+/* Footer */
+.footer {
+    background-color: #f5f5f5;
+    padding: 50px 0 20px;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+}
+
+.footer-logo img {
+    height: 70px;
+}
+
+.footer-links ul {
+    list-style: none;
+    display: flex;
+    gap: 40px;  /* リンク間の間隔も少し広げる */
+}
+
+.footer-links a {
+    color: black;
+    text-decoration: none;
+    font-size: 1rem;  /* または 22px */
+    font-weight: bold;   /* フォントを少し太く */
+    transition: opacity 0.3s ease;  /* ホバーエフェクト用 */
+}
+
+.footer-links a:hover {
+    color: var(--primary-color);  /* #0066ccに変更 */
+}
+
+.recaptcha-container {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .header {
+        padding: 10px 0;
+    }
+
+    .nav-links {
+        display: none; /* ハンバーガーメニュー実装時に使用 */
+    }
+
+    .section-nav {
+        display: none; /* モバイルでは非表示 */
+    }
+
+    .hero-animation {
+        flex-direction: column;
+        height: auto;
+        padding: 40px 0;
+    }
+
+    .service-icon {
+        margin: 20px 0;
+    }
+
+    .icon-animation {
+        width: 120px;
+        height: 120px;
+    }
+
+    .philosophy-content,
+    .services-grid,
+    .works-grid,
+    .company-content,
+    .contact-content {
+        flex-direction: column;
+        grid-template-columns: 1fr;
+    }
+
+    .philosophy-text {
+        padding-right: 0;
+        margin-bottom: 30px;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-links ul {
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 20px;
+    }
+}
