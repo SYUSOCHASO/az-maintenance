@@ -70,6 +70,32 @@ document.addEventListener('DOMContentLoaded', () => {
         if (finalLogoContainer) finalLogoContainer.style.opacity = '1';
     }
 
+    // カウンターアニメーション関数
+    function animateCounter() {
+        const counters = document.querySelectorAll('.counter');
+        
+        counters.forEach(counter => {
+            const target = +counter.getAttribute('data-target');
+            const duration = 2000; // アニメーション時間（ミリ秒）
+            const increment = target / (duration / 16); // 60FPSで計算
+            
+            let current = 0;
+            
+            const updateCounter = () => {
+                current += increment;
+                counter.textContent = Math.floor(current);
+                
+                if (current < target) {
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    counter.textContent = target;
+                }
+            };
+            
+            updateCounter();
+        });
+    }
+
     // スクロール検知による要素のアニメーション
     const observerOptions = {
         threshold: 0.5
@@ -94,6 +120,16 @@ document.addEventListener('DOMContentLoaded', () => {
         threshold: 0.7
     });
 
+    // カウンター用Observer
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                animateCounter();
+                statsObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
     // アニメーション対象要素の監視を開始
     document.querySelectorAll('.animate-on-scroll').forEach(el => {
         observer.observe(el);
@@ -104,6 +140,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (map) {
         map.style.opacity = '0';
         mapObserver.observe(map);
+    }
+
+    // カウンター要素の監視を開始
+    const statsSection = document.querySelector('.stats-section');
+    if (statsSection) {
+        statsObserver.observe(statsSection);
     }
 
     // 動画の自動再生設定
