@@ -357,6 +357,44 @@ section {
     height: 80vh;
 }
 
+/* Stats Section */
+.stats-section {
+    background-color: #f8f9fa;
+    padding: 60px 0;
+    text-align: center;
+}
+
+.stats-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.stats-item {
+    display: inline-block;
+}
+
+.stats-number {
+    font-size: 4rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+}
+
+.stats-number .unit {
+    font-size: 3rem;
+    margin-left: 5px;
+}
+
+.stats-item h3 {
+    font-size: 1.8rem;
+    color: #333;
+    margin: 0;
+}
+
 /* about セクション */
 .about {
     background: var(--light-gray);
