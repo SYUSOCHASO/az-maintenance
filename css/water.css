@@ -1,11 +1,21 @@
 /* 基本設定 */
 :root {
-    --primary-color: #0066cc;
+    --primary-color: #003399;
     --secondary-color: #ff9900;
     --accent-color: #00cc66;
-    --text-color: #333;
+    --text-color: #000;
     --light-gray: #f5f5f5;
     --dark-gray: #666;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
 }
 
 body {
@@ -22,48 +32,100 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    background: rgba(255, 255, 255, 0.95);
+    background: #fff;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     z-index: 1000;
-    transition: all 0.3s ease;
-}
-
-.logo img {
-    height: 50px;
+    padding: 0.5rem 0;
+    transition: transform 0.3s ease;
 }
 
 .nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 5px 20px;
+    padding: 0 4rem;
+}
+
+.header-contact {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.contact-phone {
+    font-size: 3.3rem;
+    font-weight: bold;
+    color: #06C755;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: color 0.3s ease;
+    font-weight: 900;
+    position: relative;
+    left: -1rem; /* 電話番号の位置を左に移動 */
+}
+
+.contact-phone::before {
+    content: '\f095';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 2.4rem;
+    display: inline-block;
+}
+
+.contact-phone:hover {
+    color: #003399;
+}
+
+.logo img {
+    height: 9.5rem;
+    transition: transform 0.3s ease;
+}
+
+.logo img:hover {
+    transform: scale(1.05);
 }
 
 .nav-links {
     display: flex;
     list-style: none;
-    gap: 30px;
+    gap: 3rem;
+    margin-left: -10px; /* 左に移動。値は適宜調整してください */
 }
 
 .nav-links a {
     text-decoration: none;
     color: var(--text-color);
-    font-weight: 500;
-    transition: color 0.3s ease;
+    font-size: 2rem;
+    font-weight: bold;
+    position: relative;
 }
 
-.nav-links a:hover {
-    color: var(--primary-color);
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
 }
 
 .page-title {
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 3.5rem;
     margin-bottom: 50px;
     position: relative;
-    padding-top: 100px; /* この値を増やして余白を調整 */
+    padding-top: 120px; /* この値を増やして余白を調整 */
 }
 
 .page-title::after {
@@ -130,6 +192,10 @@ body {
     border: 10px solid transparent;
 }
 
+.chat-text p{
+    font-size: 1.5rem;
+}
+
 .chat-image {
     margin-top: 15px;
     width: 60%; /* 画像の幅を70%に制限 */
@@ -156,7 +222,7 @@ body {
 .section-title {
     margin: 40px 0 20px;
     color: var(--primary-color);
-    font-size: 1.8rem;
+    font-size: 2.5rem;
     text-align: center;
 }
 
@@ -196,6 +262,16 @@ body {
     color: var(--primary-color);
 }
 
+/* みおちゃんのスピーカー名は左寄せ（デフォルト） */
+.mio .speaker {
+    text-align: left;
+}
+
+/* あずごりくんのスピーカー名は右寄せ */
+.azugori .speaker {
+    text-align: right;
+}
+
 /* みおちゃんとあずごりくんで位置を変える */
 .mio {
     flex-direction: row;
@@ -211,9 +287,11 @@ body {
     transform: translateX(0);
 }
 
+/* フッター */
 .footer {
     background-color: #f5f5f5;
-    padding: 50px 0 20px;
+    color: white;
+    padding: 5rem 0 2rem;
 }
 
 .footer-content {
@@ -233,25 +311,32 @@ body {
 }
 
 .footer-logo img {
-    height: 70px;
+    height: 7.5rem;
 }
 
 .footer-links ul {
-    list-style: none;
     display: flex;
-    gap: 40px;  /* リンク間の間隔も少し広げる */
+    gap: 3rem;
+    list-style: none;
 }
 
 .footer-links a {
     color: black;
     text-decoration: none;
-    font-size: 1rem;  /* または 22px */
-    font-weight: bold;   /* フォントを少し太く */
-    transition: opacity 0.3s ease;  /* ホバーエフェクト用 */
+    font-size: 1.8rem;
+    transition: color 0.3s ease;
 }
 
 .footer-links a:hover {
-    color: var(--primary-color);  /* #0066ccに変更 */
+    color: #003399;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 1.4rem;
 }
 
 /* レスポンシブ対応 */
