@@ -11,27 +11,13 @@
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
-    <div class="loading-overlay"></div>
-    <div class="logo-animation-initial">
-        <img src="image/logo1.png" alt="Logo 1">
-        <img src="image/logo2.png" alt="Logo 2">
-        <img src="image/logo3.png" alt="Logo 3">
-        <img src="image/logo4.png" alt="Logo 4">
-        <img src="image/logo5.png" alt="Logo 5">
-        <img src="image/logo6.png" alt="Logo 6">
-        <img src="image/logo7.png" alt="Logo 7">
-        <img src="image/logo8.png" alt="Logo 8">
-        <img src="image/logo9.png" alt="Logo 9">
-        <img src="image/logo10.png" alt="Logo 10">
-        <img src="image/logo11.png" alt="Logo 11">
-        <img src="image/logo12.png" alt="Logo 12">
-        <img src="image/logo13.png" alt="Logo 13">
-    </div>
 
     <header class="header">
         <nav class="nav">
             <div class="logo">
-                <img src="image/header-logo.png" alt="AZメンテナンス">
+                <a href="#home">
+                    <img src="image/header-logo.png" alt="AZメンテナンス">
+                </a>
             </div>
             <ul class="nav-links">
                 <li><a href="#home" id="home-link">ホーム</a></li>
@@ -40,109 +26,62 @@
                 <li><a href="#company">会社概要</a></li>
                 <li><a href="#contact">お問い合わせ</a></li>
             </ul>
+            <div class="header-contact">
+                <a href="tel:052-990-3608" class="contact-phone">052-990-3608</a>
+            </div>
         </nav>
     </header>
 
     <div class="video-container" id="home">
-        <!-- 右側ナビゲーションを追加 -->
-        <div class="section-nav">
-            <div class="section-nav-item">
-                <a href="#about">
-                    <span class="nav-en">ABOUT US</span>
-                    <span class="nav-jp">企業理念</span>
-                </a>
-            </div>
-            <div class="section-nav-item">
-                <a href="#services">
-                    <span class="nav-en">SERVICES</span>
-                    <span class="nav-jp">事業内容</span>
-                </a>
-            </div>
-            <div class="section-nav-item">
-                <a href="#company">
-                    <span class="nav-en">COMPANY</span>
-                    <span class="nav-jp">会社概要</span>
-                </a>
-            </div>
-            <div class="section-nav-item" id="contact-nav">
-                <a href="#contact">
-                    <span class="nav-en">CONTACT</span>
-                    <span class="nav-jp">お問い合わせ</span>
-                </a>
-            </div>
-        </div>
         <div class="overlay"></div>
-        <video autoplay muted loop playsinline id="myVideo">
-            <source src="reform.mp4" type="video/mp4">
-            お使いのブラウザは動画タグをサポートしていません。
-        </video>
+        <div class="background-image"></div>
 
-        <div class="logo-animation">
-            <img src="image/logo1.png" alt="Logo 1">
-            <img src="image/logo2.png" alt="Logo 2">
-            <img src="image/logo3.png" alt="Logo 3">
-            <img src="image/logo4.png" alt="Logo 4">
-            <img src="image/logo5.png" alt="Logo 5">
-            <img src="image/logo6.png" alt="Logo 6">
-            <img src="image/logo7.png" alt="Logo 7">
-            <img src="image/logo8.png" alt="Logo 8">
-            <img src="image/logo9.png" alt="Logo 9">
-            <img src="image/logo10.png" alt="Logo 10">
-            <img src="image/logo11.png" alt="Logo 11">
-            <img src="image/logo12.png" alt="Logo 12">
-            <img src="image/logo13.png" alt="Logo 13">
+        <div class="hero-content">
+            <h1 class="hero-title"><div class="title-wrapper">あなたの理想を形にする、<br>信頼できるパートナーに。</div></h1>
         </div>
 
-        <!-- 事業アイコンセクション -->
-        <div class="service-icons">
-            <div class="icon-box" onclick="window.location.href='reform.html'" style="cursor: pointer;">
-                <div class="icon reform-icon">
-                    <i class="fas fa-home"></i>
-                </div>
-                <p>リフォーム事業</p>
-            </div>
-            <div class="icon-box" onclick="window.location.href='all.html'" style="cursor: pointer;">
-                <div class="icon electric-icon">
-                    <i class="fas fa-bolt"></i>
-                </div>
-                <p>オール電化事業</p>
-            </div>
-            <div class="icon-box" onclick="window.location.href='house.html'" style="cursor: pointer;">
-                <div class="icon cleaning-icon">
-                    <i class="fas fa-broom"></i>
-                </div>
-                <p>ハウスクリーニング事業</p>
-            </div>
+        <!-- 顧客会員数バナー -->
+        <div class="achievement-banner">
+            <span class="achievement-text">顧客会員数</span>
+            <span class="achievement-number counter" data-target="10000">0</span>
+            <span class="achievement-unit">人</span>
+        </div>
+
+        <!-- クイック見積もりセクション -->
+        <div class="quick-estimate">
+            <a href="reform.html" class="estimate-btn reform-btn">
+                <i class="fas fa-home"></i>
+                <span>リフォーム事業</span>
+                <i class="fas fa-chevron-right arrow"></i>
+            </a>
+            <a href="all.html" class="estimate-btn electric-btn">
+                <i class="fas fa-bolt"></i>
+                <span>オール電化事業</span>
+                <i class="fas fa-chevron-right arrow"></i>
+            </a>
+            <a href="house.html" class="estimate-btn cleaning-btn">
+                <i class="fas fa-broom"></i>
+                <span>ハウスクリーニング事業</span>
+                <i class="fas fa-chevron-right arrow"></i>
+            </a>
         </div>
     </div>
     <script src="az.js"></script>
 
-    <section class="stats-section">
-        <div class="stats-container">
-            <div class="stats-item" data-aos="fade-up">
-                <h3>顧客会員数</h3>
-                <div class="stats-number">
-                    <span class="counter" data-target="10000">0</span>
-                    <span class="unit">人</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <section id="about" class="about">
-        <div class="hover-area-left"></div>
-        <div class="hover-area-right"></div>
-        <div class="overlay-left"></div>
-        <div class="overlay-right"></div>
-        <div class="section-content" data-aos="fade-up">
-            <h2 class="section-title">企業理念</h2>
+        <div class="section-content">
+            <h2 class="section-title" data-aos="fade-up">企業理念</h2>
             <div class="about-content">
                 <div class="about-text">
-                    <h3>
-                        <span class="text-left">「お客様の夢の始まりから、実現の瞬間まで、私たちは常にそばに。</span>
-                        <span class="text-right">あなたの理想を形にする、信頼できるパートナーに」</span>
+                    <h3 data-aos="fade-up" data-aos-delay="200">
+                        <span class="text-left">お客様の夢の始まりから、実現の瞬間まで、私たちは常にそばに。</span>
                     </h3>
-                    <p>私たちAZメンテナンスは、お客様の大切な住まいのリフォームから<br>メンテナンスまで、トータルにサポートいたします。</p>
+                    <div class="about-images" data-aos="fade-up" data-aos-delay="400">
+                        <img src="image/carport.png" alt="カーポート">
+                        <img src="image/kitchen.jpg" alt="キッチン">
+                        <img src="image/gaiheki.jpg" alt="外壁">
+                    </div>
+                    <p data-aos="fade-up" data-aos-delay="600">私たちAZメンテナンスは、お客様の大切な住まいのリフォームから<br>メンテナンスまで、トータルにサポートいたします。</p>
                 </div>
             </div>
         </div>
@@ -150,6 +89,51 @@
     
     <section id="services" class="services-section">
         <h2 class="section-title" data-aos="fade-up">事業内容</h2>
+        
+        <div class="assurance-section">
+            <div class="assurance-grid">
+                <div class="assurance-item" data-aos="fade-up">
+                    <div class="assurance-house">
+                        <h3>リフォーム</h3>
+                        <ul>
+                            <li>・外壁塗装</li>
+                            <li>・外構（カーポート、庭）</li>
+                            <li>・内装（キッチン、トイレ、フローリング）</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="assurance-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="assurance-house">
+                        <h3>オール電化</h3>
+                        <ul>
+                            <li>・エコキュート・IHクッキングヒーター</li>
+                            <li>・太陽光</li>
+                            <li>・蓄電池</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="assurance-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="assurance-house">
+                        <h3>ハウスクリーニング</h3>
+                        <ul>
+                            <li>・エアコン、レンジフード清掃</li>
+                            <li>・排水管洗浄</li>
+                            <li>・お風呂、洗濯槽清掃</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="assurance-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="assurance-house">
+                        <h3>BlueOne Plus</h3>
+                        <ul>
+                            <li>~オール浄水システム~</li>
+                            <li>・無料点検</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="services-grid">
             <div class="service-card" data-aos="flip-left" onclick="window.location.href='reform.html'" style="cursor: pointer;">
                 <div class="service-image">
@@ -172,6 +156,17 @@
                 <h3>ハウスクリーニング</h3>
                 <p>　エアコン、換気扇、床、水回りなど、<br>　プロの技術で徹底的にクリーニング<br>　いたします。</p>
             </div>
+        </div>
+        <p class="services-note">リフォーム・オール電化・ハウスクリーニングについては、お気軽にお問い合わせください。</p>
+    </section>
+
+    <section id="water" class="water-section">
+        <h2 class="section-title" data-aos="fade-up">BlueOne Plus 〜オール浄水システム〜</h2>
+        <p class="services-note services-note-water" data-aos="fade-up" data-aos-delay="200">また、AZメンテナンスではオール浄水システム事業を行っております。<br>お客様の日常生活に清潔で安全な水を提供します。</p>
+        <div class="water-image" data-aos="fade-up" data-aos-delay="400">
+            <img src="image/blueone.png" alt="オール浄水システム">
+            <a href="water.html" class="water-btn">詳しくはこちら</a>
+            <p class="services-note" style="margin-top: 3rem;">オール浄水システムについて気になることがあれば、お気軽にお問い合わせください。</p>
         </div>
     </section>
     
@@ -219,12 +214,10 @@
                     </tr>
                 </table>
             </div>
-            <div class="company-map">
+            <div class="company-map" data-aos="fade-left" data-aos-delay="400">
                 <iframe 
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d600.3899916761587!2d136.90338147677552!3d35.17115337299115!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x600376e7a4884fb1%3A0x93dc6caa8b21217e!2z44CSNDYwLTAwMDgg5oSb55-l55yM5ZCN5Y-k5bGL5biC5Lit5Yy65qCE77yS5LiB55uu77yR77yR4oiS77yX!5e0!3m2!1sja!2sjp!4v1709799171359!5m2!1sja!2sjp" 
-                    width="100%" 
-                    height="400" 
-                    style="border:0;" 
+                    style="border:0; width: 100%; height: 400px;"
                     allowfullscreen="" 
                     loading="lazy" 
                     referrerpolicy="no-referrer-when-downgrade">
@@ -236,12 +229,6 @@
     <section id="contact" class="contact-section">
         <h2 class="section-title" data-aos="fade-up">お問い合わせ</h2>
         <div class="contact-content">
-            <div class="contact-info" data-aos="fade-right">
-                <p>LINEでのお問い合わせ</p>
-                <a href="https://line.me/R/ti/p/@508vblyq?oat_content=url" class="line-icon" target="_blank">
-                    <i class="fab fa-line"></i>
-                </a>
-            </div>
                 <form class="contact-form" data-aos="fade-left">
                     <div class="form-group">
                         <label for="company">会社名</label>
@@ -272,6 +259,12 @@
                     </div>
                     <button type="submit" class="btn-submit">送信する</button>
                 </form>
+                <div class="contact-info" data-aos="fade-right">
+                    <p>LINEでのお問い合わせ</p>
+                    <a href="https://line.me/R/ti/p/@508vblyq?oat_content=url" class="line-icon" target="_blank">
+                        <i class="fab fa-line"></i>
+                    </a>
+                </div>
             </div>
     </section>
     
