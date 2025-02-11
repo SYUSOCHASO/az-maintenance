@@ -138,9 +138,6 @@ body {
     font-size: 5rem;
     margin-bottom: 4rem;
     line-height: 1.4;
-    opacity: 0;
-    animation: fadeInTitle 1s ease forwards;
-    animation-delay: 0.5s;
     font-family: "游明朝", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", serif;
     letter-spacing: 0.1em;
     font-weight: 1000;
@@ -151,21 +148,154 @@ body {
     text-shadow: 
         0 0 1px #333,
         0 0 2px #333;
+    position: relative; /* 追加：実績バッジの位置決めのため */
 }
 
+/* 左上の黄色いバッジ */
+.price-badge {
+    position: absolute;
+    top: -80px;
+    left: 15%; /* 左から15%の位置に変更 */
+    transform: translateX(-50%) rotate(-15deg); /* 中心を基準に配置するための調整を追加 */
+    width: 170px;
+    height: 170px;
+    background-color: #FFD700;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    z-index: 3;
+    /* アニメーション設定を追加 */
+    animation: badgePopup 0.8s ease-out forwards;
+    opacity: 0; /* 初期状態は非表示 */
+}
+
+.badge-text {
+    text-align: center;
+    line-height: 1.2;
+    font-weight: bold;
+    font-size: 1.6rem;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+}
+
+.curved-text {
+    width: 170px;
+    height: 170px;
+    position: absolute;
+    top: 10px;
+    left: 0;
+}
+
+.curved-text text {
+    font-size: 15px;
+    font-weight: bold;
+    fill: #000;
+}
+
+.curved-text path {
+    fill: none;
+}
+
+.curved-text textPath {
+    letter-spacing: 3px; /* 「AZメンテナンスは」のテキスト 1文字1文字の間の間隔 */
+}
+
+.text-line1 {
+    display: none;
+}
+
+.text-line2 {
+    font-size: 2.4rem;
+    margin-top: 65px;
+}
+
+.text-line3 {
+    font-size: 2.4rem;
+}
+
+/* 左側の黄色いバッジ・右側の実績バッジ 　共通のスタイル*/
 .title-wrapper {
+    position: relative;
     display: inline-block;
     background: rgba(255, 255, 255, 0.9); /* 0.9を透明度として設定（achievement-bannerと同じ） */
     padding: 0.8rem 3rem;
     border-radius: 0.5rem;
+    opacity: 0;
+    animation: fadeInTitle 1s ease forwards;
+    animation-delay: 1.6s; /* 実績バッジのアニメーション（0.8s + 0.5s）終了後に開始 */
 }
 
+/* 右側の実績バッジ */
+.achievement-badge {
+    position: absolute;
+    top: -45px;
+    right: 70px; /* 右からの距離を調整。大きくすると左に移動*/
+    background: white;
+    padding: 8px 18px;
+    border-radius: 5px;
+    transform: rotate(5deg);
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    font-size: 1.4rem;
+    line-height: 1.2;
+    text-align: center;
+    opacity: 0;
+    animation: fadeInAchievement 0.5s ease forwards;
+    animation-delay: 0.8s; /* 黄色いバッジのアニメーション（0.8s）終了後に開始 */
+    z-index: 3; /* 追加：メインタイトルより手前に表示 */
+}
+
+.badge-label {
+    display: block;
+    font-size: 2rem; /* 施工実績の「累計施工実績」のテキストのサイズ */
+    color: #333;
+}
+
+.badge-number {
+    display: block;
+    font-size: 2.8rem; /* 施工実績の数字のサイズ */
+    color: #003399;
+    font-weight: bold;
+}
+
+.badge-unit {
+    font-size: 1.8rem; /* 施工実績の「棟突破！！」のテキストのサイズ */
+    color: #333;
+}
+
+/* 黄色いバッジのアニメーション */
+@keyframes badgePopup {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) rotate(-15deg) scale(0);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) rotate(-15deg) scale(1);
+    }
+}
+
+/* 実績バッジのアニメーション */
+@keyframes fadeInAchievement {
+    0% {
+        opacity: 0;
+        transform: translate(20px, -20px) rotate(5deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0, 0) rotate(5deg);
+    }
+}
+
+/* メインタイトルのアニメーション */
 @keyframes fadeInTitle {
-    from {
+    0% {
         opacity: 0;
         transform: translateY(20px);
     }
-    to {
+    100% {
         opacity: 1;
         transform: translateY(0);
     }
