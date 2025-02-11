@@ -37,7 +37,34 @@
         <div class="background-image"></div>
 
         <div class="hero-content">
-            <h1 class="hero-title"><div class="title-wrapper">あなたの理想を形にする、<br>信頼できるパートナーに。</div></h1>
+            <div class="price-badge">
+            <div class="badge-text">
+                <svg viewBox="0 0 150 150" class="curved-text">
+                    <defs>
+                        <!-- ※「AZメンテナンスは」のテキストの弧の形！！　 25 = X座標（左から25ピクセル）　42 = Y座標（上から35ピクセル） 51 = X半径（横方向の半径） 51 = Y半径（縦方向の半径）-->
+                        <path id="curve" d="M 25,42 A 51,51 0 0 1 125,75" fill="transparent"/>
+                    </defs>
+                    <text>
+                        <textPath href="#curve" startOffset="45%" text-anchor="middle" dominant-baseline="hanging">
+                            AZメンテナンスは
+                        </textPath>
+                    </text>
+                </svg>
+                <span class="text-line2">適正価格</span>
+                <span class="text-line3">宣言！</span>
+            </div>
+            </div>
+            <h1 class="hero-title">
+                <!-- 実績バッジを.title-wrapperの外に出す -->
+                <div class="achievement-badge">
+                    <span class="badge-label">累計施工実績</span>
+                    <span class="badge-number">20,000</span>
+                    <span class="badge-unit">棟突破！！</span>
+                </div>
+                <div class="title-wrapper">
+                    あなたの理想を形にする、<br>信頼できるパートナーに。
+                </div>
+            </h1>
         </div>
 
         <!-- 顧客会員数バナー -->
