@@ -159,7 +159,7 @@ body {
     transform: translateX(-50%) rotate(-15deg); /* 中心を基準に配置するための調整を追加 */
     width: 170px;
     height: 170px;
-    background-color: #FFD700;
+    background: linear-gradient(135deg, #DAA520, #FFD700 50%, #DAA520);
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -232,19 +232,78 @@ body {
 .achievement-badge {
     position: absolute;
     top: -45px;
-    right: 70px; /* 右からの距離を調整。大きくすると左に移動*/
-    background: white;
-    padding: 8px 18px;
-    border-radius: 5px;
-    transform: rotate(5deg);
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    right: 70px;
+    background: #fffef8;
+    padding: 12px 22px;
     font-size: 1.4rem;
     line-height: 1.2;
     text-align: center;
     opacity: 0;
     animation: fadeInAchievement 0.5s ease forwards;
-    animation-delay: 0.8s; /* 黄色いバッジのアニメーション（0.8s）終了後に開始 */
-    z-index: 3; /* 追加：メインタイトルより手前に表示 */
+    animation-delay: 0.8s;
+    z-index: 3;
+    transform: rotate(5deg);
+    border: none;
+    filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.2));
+}
+
+.achievement-badge::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background: none;
+    border: 3px solid #333;
+    border-radius: 3px;
+    transform: rotate(-1deg) scale(1.02);
+    z-index: -1;
+}
+
+/* マスコットキャラクター（あずごり君） */
+.achievement-mascot {
+    position: absolute;
+    top: -40px;
+    right: -100px;
+    width: 170px;
+    height: 170px;
+    opacity: 0;
+    animation: fadeInMascot 0.5s ease forwards;
+    animation-delay: 1s;
+    z-index: 3;
+}
+
+.achievement-mascot img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+@keyframes fadeInMascot {
+    0% {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* 吹き出しの三角形部分 */
+.achievement-badge::after {
+    content: '';
+    position: absolute;
+    right: -12px;
+    bottom: 15px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 12px 0 12px 15px;
+    border-color: transparent transparent transparent #fffef8;
+    filter: drop-shadow(1px 1px 0 #333);
+    transform: rotate(-2deg);
 }
 
 .badge-label {
