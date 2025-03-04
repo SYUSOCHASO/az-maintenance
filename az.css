@@ -232,10 +232,10 @@ body {
 .achievement-badge {
     position: absolute;
     top: -45px;
-    right: 70px;
+    right: 20px; /* 値を低くするとより右に移動 */
     background: #fffef8;
-    padding: 12px 22px;
-    font-size: 1.4rem;
+    padding: 15px 15px;
+    font-size: 1.6rem;
     line-height: 1.2;
     text-align: center;
     opacity: 0;
@@ -247,6 +247,7 @@ body {
     filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.2));
 }
 
+/* 枠線の余白 */
 .achievement-badge::before {
     content: '';
     position: absolute;
@@ -261,25 +262,6 @@ body {
     z-index: -1;
 }
 
-/* マスコットキャラクター（あずごり君） */
-.achievement-mascot {
-    position: absolute;
-    top: -40px;
-    right: -100px;
-    width: 170px;
-    height: 170px;
-    opacity: 0;
-    animation: fadeInMascot 0.5s ease forwards;
-    animation-delay: 1s;
-    z-index: 3;
-}
-
-.achievement-mascot img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
 @keyframes fadeInMascot {
     0% {
         opacity: 0;
@@ -291,36 +273,21 @@ body {
     }
 }
 
-/* 吹き出しの三角形部分 */
-.achievement-badge::after {
-    content: '';
-    position: absolute;
-    right: -12px;
-    bottom: 15px;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 12px 0 12px 15px;
-    border-color: transparent transparent transparent #fffef8;
-    filter: drop-shadow(1px 1px 0 #333);
-    transform: rotate(-2deg);
-}
-
 .badge-label {
     display: block;
-    font-size: 2rem; /* 施工実績の「累計施工実績」のテキストのサイズ */
+    font-size: 2.9rem; /* 施工実績の「累計施工実績」のテキストのサイズ */
     color: #333;
 }
 
 .badge-number {
     display: block;
-    font-size: 2.8rem; /* 施工実績の数字のサイズ */
+    font-size: 3.7rem; /* 施工実績の数字のサイズ */
     color: #003399;
     font-weight: bold;
 }
 
 .badge-unit {
-    font-size: 1.8rem; /* 施工実績の「棟突破！！」のテキストのサイズ */
+    font-size: 2.1rem; /* 施工実績の「棟突破！！」のテキストのサイズ */
     color: #333;
 }
 
@@ -488,7 +455,7 @@ body {
     transform: translateX(0.5rem);
 }
 
-.reform-btn {
+.line-btn {
     background: #06C755;
 }
 
