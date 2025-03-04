@@ -53,6 +53,14 @@ body {
     align-items: flex-end;
 }
 
+.contact-message {
+    font-size: 1.5rem;
+    color: #333;
+    margin-top: 0.5rem; /* 上部に余白を追加して下に移動 */
+    margin-bottom: 0.2rem; /* 0.5remから0.2remに減らして間隔を詰める */
+    font-weight: bold;
+}
+
 .contact-phone {
     font-size: 3rem;
     font-weight: bold;
@@ -62,6 +70,14 @@ body {
     align-items: center;
     gap: 1rem;
     transition: color 0.3s ease;
+    margin: 0.1rem 0; /* 0.2remから0.1remに減らして間隔を詰める */
+}
+
+.contact-hours {
+    font-size: 1.3rem;
+    color: #333;
+    margin-top: 0.2rem; /* 0.5remから0.2remに減らして間隔を詰める */
+    font-weight: bold;
 }
 
 .contact-phone::before {
