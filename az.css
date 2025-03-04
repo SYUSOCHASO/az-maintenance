@@ -156,7 +156,7 @@ body {
     line-height: 1.4;
     font-family: "游明朝", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", serif;
     letter-spacing: 0.1em;
-    font-weight: 1000;
+    font-weight: 400; /* boldから100（最も細い）に変更 */
     text-align: center;
     width: 100%;
     color: #333;
@@ -236,8 +236,8 @@ body {
 .title-wrapper {
     position: relative;
     display: inline-block;
-    background: rgba(255, 255, 255, 0.9); /* 0.9を透明度として設定（achievement-bannerと同じ） */
-    padding: 0.8rem 3rem;
+    background: rgba(255, 255, 255, 0.9); /* 0.9から0.8に透明度を増加 */
+    padding: 0.8rem 2rem;
     border-radius: 0.5rem;
     opacity: 0;
     animation: fadeInTitle 1s ease forwards;
@@ -248,8 +248,8 @@ body {
 .achievement-badge {
     position: absolute;
     top: -45px;
-    right: -5px; /* 値を低くするとより右に移動 */
-    background: #fffef8;
+    right: -15px; /* 値を低くするとより右に移動 */
+    background: rgba(255, 255, 255, 0.9); /* 0.9から0.8に透明度を増加 */
     padding: 15px 15px;
     font-size: 1.6rem;
     line-height: 1.2;
@@ -260,7 +260,6 @@ body {
     z-index: 3;
     transform: rotate(5deg);
     border: none;
-    filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.2));
 }
 
 /* 枠線の余白 */
@@ -293,6 +292,7 @@ body {
     display: block;
     font-size: 3.3rem; /* 施工実績の「累計施工実績」のテキストのサイズ */
     color: #333;
+    font-family: "游明朝", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", serif;
 }
 
 .badge-number {
@@ -300,11 +300,13 @@ body {
     font-size: 4.1rem; /* 施工実績の数字のサイズ */
     color: #003399;
     font-weight: bold;
+    font-family: "游明朝", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", serif;
 }
 
 .badge-unit {
     font-size: 2.1rem; /* 施工実績の「棟突破！！」のテキストのサイズ */
     color: #333;
+    font-family: "游明朝", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", serif;
 }
 
 /* 黄色いバッジのアニメーション */
@@ -364,26 +366,31 @@ body {
     opacity: 0;
     animation: fadeInUp 1s ease forwards;
     animation-delay: 1s;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .achievement-text {
-    font-size: 2.8rem;
-    font-weight: bold;
+    font-size: 2.9rem;
+    font-weight: 900; /* 最大の太さ（900）を設定 */
     font-family: "游明朝", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", serif;
+    -webkit-text-stroke: 1px #333; /* テキストの輪郭を太くして強調 */
+    text-shadow: 0 0 1px #333; /* テキストに影を追加してさらに太く見せる */
 }
 
 .achievement-number {
     font-size: 5rem;
-    font-weight: bold;
+    font-weight: 900; /* 最大の太さ（900）を設定 */
     color: #003399;
     font-family: "游明朝", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", serif;
+    -webkit-text-stroke: 1px #003399; /* テキストの輪郭を太くして強調 */
+    text-shadow: 0 0 1px #003399; /* テキストに影を追加してさらに太く見せる */
 }
 
 .achievement-unit {
-    font-size: 2.8rem;
-    font-weight: bold;
+    font-size: 2.9rem;
+    font-weight: 900; /* 最大の太さ（900）を設定 */
     font-family: "游明朝", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", serif;
+    -webkit-text-stroke: 1px #333; /* テキストの輪郭を太くして強調 */
+    text-shadow: 0 0 1px #333; /* テキストに影を追加してさらに太く見せる */
 }
 
 @keyframes fadeInUp {
