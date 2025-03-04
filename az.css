@@ -232,7 +232,7 @@ body {
 .achievement-badge {
     position: absolute;
     top: -45px;
-    right: 20px; /* 値を低くするとより右に移動 */
+    right: -5px; /* 値を低くするとより右に移動 */
     background: #fffef8;
     padding: 15px 15px;
     font-size: 1.6rem;
@@ -275,13 +275,13 @@ body {
 
 .badge-label {
     display: block;
-    font-size: 2.9rem; /* 施工実績の「累計施工実績」のテキストのサイズ */
+    font-size: 3.3rem; /* 施工実績の「累計施工実績」のテキストのサイズ */
     color: #333;
 }
 
 .badge-number {
     display: block;
-    font-size: 3.7rem; /* 施工実績の数字のサイズ */
+    font-size: 4.1rem; /* 施工実績の数字のサイズ */
     color: #003399;
     font-weight: bold;
 }
