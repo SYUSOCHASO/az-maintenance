@@ -33,7 +33,7 @@ body {
     background: #fff;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     z-index: 1000;
-    padding: 0.5rem 0;
+    padding: 0.2rem 0;
     transition: transform 0.3s ease;
 }
 
@@ -53,6 +53,21 @@ body {
     align-items: flex-end;
 }
 
+.contact-message {
+    font-size: 1.5rem;
+    color: #333;
+    margin-top: 0.5rem; /* 上部に余白を追加して下に移動 */
+    margin-bottom: 0.2rem; /* 間隔を詰める */
+    font-weight: 900; /* 最大の太さ（900）を設定 */
+    text-shadow: 0 0 0.05px #333; /* テキストに影を追加して視覚的に太く見せる（より小さく） */
+}
+
+.message-text {
+    position: relative;
+    top: 1px; /* テキストのみを下に1px移動 */
+    display: inline-block;
+}
+
 .contact-phone {
     font-size: 3.3rem;
     font-weight: bold;
@@ -67,12 +82,45 @@ body {
     left: -1rem; /* 電話番号の位置を左に移動 */
 }
 
+.phone-number {
+    display: inline-block;
+    transform: scale(1.06, 0.92); /* 横に1.06倍、縦に0.92倍 */
+    position: relative;
+    right: -5px; /* 右に5px移動 */
+    top: -2px; /* 上に2px移動 */
+}
+
 .contact-phone::before {
     content: '\f095';
     font-family: 'Font Awesome 5 Free';
     font-weight: 900;
     font-size: 2.4rem;
     display: inline-block;
+    transform: rotate(-360deg);
+    position: relative;
+    left: -2px; /* 左に2px移動 */
+    top: 2px; /* 下に2px移動 */
+}
+
+.contact-hours {
+    color: #333;
+    margin-top: 0.2rem;
+    font-weight: bold;
+    position: relative;
+    left: -1px;
+    top: -3px; /* 上に3px移動 */
+}
+
+.hours-label {
+    font-size: 1.3rem; /* 「受付時間」の部分 */
+}
+
+.hours-time {
+    font-size: 1.5rem; /* 「9:00~18:00」の部分だけ少し大きく */
+}
+
+.hours-note {
+    font-size: 1.3rem; /* 「(土日祝も受付可能)」の部分 */
 }
 
 .contact-phone:hover {
@@ -93,6 +141,8 @@ body {
     list-style: none;
     gap: 3rem;
     margin-left: -10px; /* 左に移動。値は適宜調整してください */
+    position: relative;
+    top: -2px; /* 上に2px移動 */
 }
 
 .nav-links a {
