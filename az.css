@@ -430,7 +430,7 @@ body {
 /* クイック見積もりセクション */
 .quick-estimate {
     position: absolute;
-    bottom: 10%;
+    bottom: 5%;
     left: 50%;
     transform: translateX(-50%);
     width: 90%;
@@ -488,7 +488,33 @@ body {
 }
 
 .cleaning-btn {
-    background: var(--primary-color);
+    background: #003399;
+    padding: 0.8rem 2rem;
+}
+
+.contact-info-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.contact-time {
+    font-size: 1.4rem;
+    margin-bottom: 0.2rem;
+    color: white;
+    font-weight: bold;
+}
+
+.contact-tel {
+    font-size: 2.4rem;
+    font-weight: bold;
+    color: white;
+}
+
+.contact-tel i {
+    margin-right: 5px;
 }
 
 /* 企業理念セクション */
@@ -505,11 +531,12 @@ body {
 }
 
 .about-text h3 {
-    font-size: 2.5rem;
+    font-size: 3rem;
     margin-bottom: 4rem;
     line-height: 1.8;
     color: var(--text-color);
     white-space: nowrap;
+    font-weight: bold;
 }
 
 .about-images {
@@ -533,10 +560,12 @@ body {
 }
 
 .about-text p {
-    font-size: 2rem;
-    max-width: 800px;
+    font-size: 2.4rem;
+    max-width: 1200px;
     margin: 0 auto;
     color: #000; /* #333から#000（黒）に変更 */
+    line-height: 1.6;
+    white-space: nowrap;
 }
 
 /* 事業内容セクション */
@@ -617,7 +646,7 @@ body {
 }
 
 .service-item.security::before {
-    background-image: url('image/blueone.png');
+    background-image: url('image/gaiheki.jpg');
 }
 
 .service-item.maintenance:hover::before,
@@ -757,30 +786,15 @@ body {
     color: var(--primary-color);
 }
 
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 3rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    margin-bottom: 4rem;
-}
-
 .services-description {
     text-align: center;
-    font-size: 2rem;
+    font-size: 2.4rem;
     color: var(--text-color);
     margin: 2rem auto 4rem;
     max-width: 1200px;
     padding: 0 2rem;
-}
-
-.services-note {
-    text-align: center;
-    font-size: 2rem;
-    color: var(--text-color);
-    margin-top: 4rem;
+    font-weight: bold;
+    white-space: nowrap;
 }
 
 /* 選ばれる7つの理由セクション */
@@ -847,97 +861,6 @@ body {
     word-wrap: break-word;
     overflow-wrap: break-word;
     font-weight: bold;
-}
-
-/* 浄水システムセクション */
-.water-section {
-    padding: 12rem 0;
-    background: white;
-}
-
-.water-section .section-title {
-    font-size: 3.2rem;
-    margin-bottom: 3rem;
-}
-
-.services-note-water {
-    margin-top: 2rem;
-    text-align: center;
-    font-size: 2rem;
-    color: var(--text-color);
-}
-
-.water-image {
-    text-align: center;
-    margin-top: 3rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.water-image img {
-    max-width: 350px;
-    width: 100%;
-    height: auto;
-    border-radius: 1rem;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    margin-bottom: 2rem;
-}
-
-.water-btn {
-    display: block;
-    padding: 1.5rem 4rem;
-    background-color: #003399;
-    color: white;
-    text-decoration: none;
-    border-radius: 0.5rem;
-    font-size: 1.6rem;
-    transition: opacity 0.3s ease;
-}
-
-.water-btn:hover {
-    opacity: 0.8;
-}
-
-.service-card {
-    background: white;
-    border-radius: 1rem;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-}
-
-.service-card:hover {
-    transform: translateY(-1rem);
-}
-
-.service-image {
-    height: 25rem;
-    overflow: hidden;
-}
-
-.service-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.service-card:hover .service-image img {
-    transform: scale(1.1);
-}
-
-.service-card h3 {
-    font-size: 2.4rem;
-    padding: 2rem;
-    text-align: center;
-    color: var(--primary-color);
-}
-
-.service-card p {
-    font-size: 1.6rem;
-    padding: 0 2rem 2rem;
-    color: #000;
 }
 
 /* 会社概要セクション */
@@ -1135,23 +1058,7 @@ body {
 }
 
 /* レスポンシブ対応 */
-@media (max-width: 1200px) {
-    .services-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .assurance-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 4rem;
-    }
-}
-
 @media (max-width: 768px) {
-    .assurance-grid {
-        grid-template-columns: 1fr;
-        gap: 5rem;
-    }
-
     html {
         font-size: 56.25%;
     }
@@ -1167,23 +1074,6 @@ body {
 
     .hero-text {
         font-size: 1.8rem;
-    }
-
-    .assurance-house::before {
-        font-size: 20rem; /* モバイル表示時は少し小さめに */
-    }
-    
-    .assurance-house {
-        padding: 6rem 2rem 3rem;
-    }
-
-    .service-icons {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .services-grid {
-        grid-template-columns: 1fr;
     }
 
     .company-content,
