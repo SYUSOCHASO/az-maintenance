@@ -3,9 +3,11 @@
     --primary-color: #003399;
     --secondary-color: #ff9900;
     --accent-color: #00cc66;
-    --text-color: #000;
+    --text-color: #333;
     --light-gray: #f5f5f5;
     --dark-gray: #666;
+    --light-blue: #e6f2ff;
+    --medium-blue: #4d94ff;
 }
 
 * {
@@ -16,6 +18,7 @@
 
 html {
     font-size: 62.5%;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -24,6 +27,7 @@ body {
     color: var(--text-color);
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
 }
 
 /* ヘッダー */
@@ -172,206 +176,424 @@ body {
 
 /* メインコンテンツのスタイル */
 .all-main {
-    padding-top: 80px;
-    max-width: 1200px;
+    padding-top: 120px;
     margin: 0 auto;
-    padding: 120px 20px 80px;
 }
 
-/* ページタイトルのアニメーション */
-.page-title {
+/* ヒーローセクション */
+.hero-section {
+    background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('../image/solar.png');
+    background-size: cover;
+    background-position: center;
+    padding: 100px 20px;
     text-align: center;
-    font-size: 3.5rem;
-    padding-top: 40px;
-    margin-bottom: 50px;
     position: relative;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.8s ease forwards;
-    animation-delay: 0.1s; /* 最初に表示させる */
 }
 
-/* タイトルの下線アニメーション */
+.page-title {
+    font-size: 4.2rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+}
+
 .page-title::after {
     content: '';
-    display: block;
-    width: 60px;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
     height: 3px;
-    background: var(--primary-color);
-    margin: 15px auto;
-    opacity: 0;
-    transform: scaleX(0);
-    animation: fadeInLine 0.8s ease forwards;
-    animation-delay: 0.3s; /* タイトルの後に表示 */
+    background-color: var(--secondary-color);
 }
 
-/* アニメーションのキーフレーム */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.page-subtitle {
+    font-size: 2rem;
+    color: var(--text-color);
+    max-width: 800px;
+    margin: 0 auto;
+    font-weight: 500;
 }
 
-@keyframes fadeInLine {
-    from {
-        opacity: 0;
-        transform: scaleX(0);
-    }
-    to {
-        opacity: 1;
-        transform: scaleX(1);
-    }
+/* コンテンツセクション */
+.content-section {
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-.all-section {
-    display: flex;
-    flex-direction: column;
-    gap: 80px;
+.bg-light {
+    background-color: var(--light-gray);
 }
 
-.all-item {
-    background-color: #f5f9ff;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    padding: 0; /* パディングを0に変更 */
-    transition: all 0.5s ease-in-out;
-    overflow: hidden;
-    margin-bottom: 20px; /* 項目間の間隔を追加 */
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUp 0.8s ease forwards;
-}
-
-.all-item:nth-child(2) {
-    animation-delay: 0.2s;
-}
-
-.all-item:nth-child(3) {
-    animation-delay: 0.4s;
-}
-
-.all-item:nth-child(4) {
-    animation-delay: 0.6s;
-}
-
-.all-item:nth-child(5) {
-    animation-delay: 0.8s;
-}
-
-.all-item h2 {
+.section-title {
+    font-size: 3.2rem;
     color: var(--primary-color);
-    font-size: 2.6rem;
-    margin: 0;
     text-align: center;
-    position: relative;
-    padding: 20px;
-    cursor: pointer; /* カーソルをポインターに変更 */
+    margin-bottom: 20px;
+    font-weight: 700;
 }
 
-.all-content {
+.subsection-title {
+    font-size: 2.4rem;
+    color: var(--text-color);
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: 500;
+}
+
+.section-content {
     display: flex;
     gap: 40px;
     align-items: center;
-    opacity: 0;
-    max-height: 0;
-    overflow: hidden;
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* トランジションを調整 */
-    padding: 0;
-    background-color: #f5f9ff;
+    margin-top: 40px;
 }
 
-.all-image {
+.section-content.reverse {
+    flex-direction: row-reverse;
+}
+
+.text-content {
     flex: 1;
-    max-width: 500px;
-    opacity: 0;
-    transform: translateY(-20px); /* 初期位置を調整 */
-    transition: opacity 0.7s ease, transform 0.7s ease; /* トランジションを追加 */
 }
 
-.all-text {
+.image-content {
     flex: 1;
-    opacity: 0;
-    transform: translateY(20px); /* 初期位置を調整 */
-    transition: opacity 0.7s ease, transform 0.7s ease; /* トランジションを追加 */
+    text-align: center;
 }
 
-.all-image img {
-    width: 100%;
+.section-image {
+    max-width: 100%;
     height: auto;
     border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-img[alt="蓄電池"],
-img[alt="エコキュート・IHクッキングヒーター"] {
-    max-width: 300px; /* または希望のサイズ */
-    width: 100%;
-    height: auto;
-    padding-left: 80px;
+/* 蓄電池システムの画像のサイズ */
+.larger-image {
+    transform: scale(1.3); /* 1.3倍に拡大 */
+    margin-left: -20%;
 }
 
-/* アクティブ状態のスタイル */
-.all-item.active .all-content {
-    opacity: 1;
-    max-height: 1000px;
+.text-content p {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    line-height: 1.8;
+}
+
+.feature-list {
+    list-style: none;
+    margin: 20px 0;
+}
+
+.feature-list li {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    padding-left: 25px;
+    position: relative;
+}
+
+.feature-list li::before {
+    content: '\f058';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: var(--accent-color);
+    position: absolute;
+    left: 0;
+}
+
+.feature-highlight {
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+/* メリットセクション */
+.benefits-section {
+    padding: 80px 20px;
+    background-color: var(--light-gray);
+}
+
+.benefits-list {
+    max-width: 1200px;
+    margin: 40px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.benefit-item {
+    display: flex;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.benefit-item:hover {
+    transform: translateY(-5px);
+}
+
+.benefit-content {
+    flex: 1;
     padding: 30px;
 }
 
-.all-item.active .all-image {
-    animation: slideDownImage 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-.all-item.active .all-text {
-    animation: slideUpText 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-/* アニメーション */
-@keyframes slideDownImage {
-    from {
-        opacity: 0;
-        transform: translateY(-30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes slideUpText {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.all-text h3 {
-    color: var(--primary-color);
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-}
-
-.all-text p {
-    font-size: 1.6rem;
-    margin-bottom: 20px;
-}
-
-.visible-title {
-    color: var(--primary-color);
-    font-size: 2.6rem;
-    margin: 0;
-    text-align: center;
-    position: relative;
+.benefit-image {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
     padding: 20px;
-    cursor: pointer;
-    display: block; /* タイトルを常に表示 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.benefit-img {
+    width: 90%;
+    height: 90%;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.benefit-item:hover .benefit-img {
+    transform: scale(1.05);
+}
+
+.benefit-header {
+    margin-bottom: 20px;
+}
+
+.benefit-number {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.benefit-title {
+    font-size: 2.8rem;
+    color: var(--primary-color);
+    margin: 15px 0;
+    font-weight: 700;
+}
+
+.benefit-text {
+    font-size: 1.6rem;
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
+
+/* レスポンシブ対応 - メリットセクション */
+@media (max-width: 768px) {
+    .benefit-item {
+        flex-direction: column;
+    }
+    
+    .benefit-image {
+        min-width: 100%;
+        max-width: 100%;
+        height: 250px;
+    }
+}
+
+/* 設置までの流れ */
+.flow-section {
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.flow-intro {
+    font-size: 1.8rem;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 50px;
+    white-space: nowrap;
+}
+
+.flow-steps {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.flow-step {
+    display: flex;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.flow-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 70px;
+    left: 30px;
+    height: calc(100% - 30px);
+    width: 2px;
+    background-color: var(--primary-color);
+}
+
+.step-number {
+    width: 60px;
+    height: 60px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-right: 30px;
+    flex-shrink: 0;
+    z-index: 1;
+}
+
+.step-content {
+    flex: 1;
+}
+
+.step-title {
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.step-text {
+    font-size: 1.6rem;
+    line-height: 1.8;
+}
+
+/* お問い合わせCTA */
+.cta-section {
+    background: linear-gradient(rgba(0, 51, 153, 0.9), rgba(0, 51, 153, 0.9)), url('../image/solar.png');
+    background-size: cover;
+    background-position: center;
+    padding: 80px 20px;
+    color: white;
+    text-align: center;
+}
+
+.cta-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.cta-title {
+    font-size: 3.2rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.cta-text {
+    font-size: 1.8rem;
+    margin-bottom: 40px;
+    line-height: 1.8;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 30px;
+    border-radius: 5px;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    transform: translateY(-5px);
+}
+
+.cta-button i {
+    margin-right: 10px;
+    font-size: 2rem;
+}
+
+.phone-button {
+    background-color: #06C755;
+    color: white;
+}
+
+.phone-button:hover {
+    background-color: #05a646;
+}
+
+.contact-button {
+    background-color: white;
+    color: var(--primary-color);
+}
+
+.contact-button:hover {
+    background-color: #f0f0f0;
+}
+
+/* 取り扱いメーカーセクション */
+.makers-section {
+    padding: 8rem 0;
+    background: white;
+}
+
+.makers-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.maker-item {
+    width: calc(25% - 3rem); /* 横に4つ並べるために幅を25%に設定（間隔を考慮して調整） */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.maker-item:hover {
+    transform: translateY(-0.5rem);
+}
+
+.maker-logo {
+    width: 180px;
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.maker-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.maker-name {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
 }
 
 /* フッター */
@@ -426,7 +648,37 @@ img[alt="エコキュート・IHクッキングヒーター"] {
     font-size: 1.4rem;
 }
 
+/* アニメーション */
+[data-aos] {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+[data-aos].aos-animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 /* レスポンシブ対応 */
+@media (max-width: 1024px) {
+    .section-content {
+        flex-direction: column;
+    }
+    
+    .section-content.reverse {
+        flex-direction: column;
+    }
+    
+    .text-content, .image-content {
+        width: 100%;
+    }
+    
+    .benefits-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media (max-width: 768px) {
     .header {
         padding: 10px 0;
@@ -458,21 +710,61 @@ img[alt="エコキュート・IHクッキングヒーター"] {
         font-size: 1.2rem;
         text-align: center;
     }
-
-    .all-content {
+    
+    .page-title {
+        font-size: 3rem;
+    }
+    
+    .page-subtitle {
+        font-size: 1.6rem;
+    }
+    
+    .section-title {
+        font-size: 2.6rem;
+    }
+    
+    .subsection-title {
+        font-size: 2rem;
+    }
+    
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .flow-step {
         flex-direction: column;
     }
-
-    .all-image {
-        max-width: 100%;
+    
+    .flow-step:not(:last-child)::after {
+        left: 30px;
+        top: 60px;
+        height: calc(100% - 60px);
     }
-
-    .all-item {
-        padding: 20px;
+    
+    .step-number {
+        margin-bottom: 20px;
     }
-
+    
+    .cta-buttons {
+        flex-direction: column;
+    }
+    
     .footer-content {
         flex-direction: column;
         gap: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    html {
+        font-size: 55%;
+    }
+    
+    .content-section, .benefits-section, .flow-section {
+        padding: 60px 15px;
+    }
+    
+    .benefit-card {
+        padding: 20px;
     }
 }
