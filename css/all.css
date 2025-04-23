@@ -182,12 +182,13 @@ body {
 
 /* ヒーローセクション */
 .hero-section {
-    background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('../image/solar.png');
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url('../image/solar.png');
     background-size: cover;
     background-position: center;
     padding: 100px 20px;
     text-align: center;
     position: relative;
+    height: 300px; /* 高さを指定して画像を表示 */
 }
 
 .page-title {
