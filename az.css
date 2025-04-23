@@ -24,6 +24,21 @@ body {
     overflow-x: hidden;
 }
 
+/* PCでは通常のbrタグを表示 */
+br {
+    display: inline;
+}
+
+/* PCでは pc-break を表示し、mobile-break を非表示 */
+.pc-break {
+    display: inline;
+}
+
+/* モバイル用の改行を通常は非表示に */
+.mobile-break {
+    display: none;
+}
+
 /* ヘッダー */
 .header {
     position: fixed;
@@ -492,6 +507,47 @@ body {
     padding: 0.8rem 2rem;
 }
 
+.mail-btn {
+    background: #8CD21E;
+    padding: 1rem 2rem;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mail-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+    width: 100%;
+}
+
+.mail-top i {
+    font-size: 2.4rem;
+    margin-right: 1rem;
+}
+
+.mail-top span {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.mail-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.mail-bottom span {
+    font-size: 1.8rem;
+    margin-right: 1rem;
+}
+
+.mail-bottom i {
+    font-size: 2.2rem;
+}
+
 .contact-info-btn {
     display: flex;
     flex-direction: column;
@@ -515,6 +571,397 @@ body {
 
 .contact-tel i {
     margin-right: 5px;
+}
+
+/* 取り扱いメーカーセクション */
+.makers-section {
+    padding: 8rem 0;
+    background: white;
+}
+
+.makers-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.maker-item {
+    width: calc(25% - 3rem); /* 横に4つ並べるために幅を25%に設定（間隔を考慮して調整） */
+}
+
+.maker-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.maker-item:hover {
+    transform: translateY(-0.5rem);
+}
+
+.maker-logo {
+    width: 180px;
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.maker-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.maker-name {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* 口コミセクション */
+.reviews-section {
+    padding: 12rem 0;
+    background: #f8f9fa;
+}
+
+
+/* 施工事例セクション */
+.works-section {
+    padding: 12rem 0;
+    background: white;
+}
+
+/* 「クリックで拡大されます」のスタイル */
+.works-description {
+    text-align: center;
+    font-size: 1.8rem;
+    color: var(--text-color);
+    margin: 0 auto 1.5rem; /* 4remから1.5remに変更して間隔を狭く */
+    max-width: 1200px;
+    padding: 0 2rem;
+}
+
+.works-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    overflow: hidden; /* はみ出た部分を隠す */
+}
+
+.works-slider {
+    display: flex;
+    scroll-behavior: smooth;
+    gap: 2rem;
+    padding: 2rem 0;
+    width: 100%;
+    position: relative;
+    flex-wrap: nowrap;
+    /* transition: transform 1.5s ease; */ /* 不要なので削除 */
+}
+
+/* 常に右から左へスクロールするアニメーション（JavaScriptで動的に生成されるため削除） */
+
+/* 施工事例セクションのカードのスタイル */
+.work-item {
+    flex: 0 0 calc(33.333% - 1.5rem);
+    background: rgb(255, 255, 255);
+    border-radius: 1rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    padding: 1rem;
+    transition: transform 0.3s ease !important; /* カードにカーソルを合わせた際の拡大スピードを0.3秒に設定 */
+    min-width: 280px;
+    max-width: 400px;
+    box-sizing: border-box;
+    cursor: pointer; /* カーソルをポインターに変更してクリック可能であることを示す */
+}
+
+.work-item:hover, .work-item-clone:hover {
+    transform: translateY(-0.5rem) scale(1.05) !important; /* カードにカーソルを合わせた際の、上への移動距離とスケールを調整 */
+}
+
+/* モーダルウィンドウのスタイル */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1001;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    max-width: 90%;
+    max-height: 90%;
+    overflow: auto;
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2.8rem;
+    color: #333;
+    cursor: pointer;
+    z-index: 1002;
+}
+
+.modal-images {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.modal-before, .modal-after {
+    position: relative;
+}
+
+.modal-img {
+    width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    border-radius: 0.5rem;
+}
+
+.modal-label {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: #333333;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+
+.modal-after .modal-label {
+    background: #0099ff;
+}
+
+/* モーダルが表示されているときのスタイル */
+.modal.show {
+    display: flex;
+}
+
+/* スクロールを無効にするためのクラス */
+.no-scroll {
+    overflow: hidden;
+}
+
+.work-images {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.work-before {
+    position: relative;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.work-after {
+    position: relative;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.work-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    display: block;
+}
+
+/* beforeのラベルのスタイル */
+.work-label {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: #000000; /* グレー寄りの黒（透明度なし） */
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    z-index: 2;
+}
+
+/* Afterのラベルの背景色を水色に変更 */
+.work-after .work-label {
+    background: #0099ff; /* シンプルな水色（透明度なし） */
+}
+
+.works-controls {
+    margin-top: 3rem;
+}
+
+/* モバイル対応 */
+@media (max-width: 768px) {
+    .work-item {
+        flex: 0 0 calc(100% - 2rem);
+    }
+    
+    .work-images {
+        flex-direction: column;
+    }
+    
+    .work-img {
+        height: 150px;
+    }
+}
+
+.reviews-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    overflow: hidden; /* はみ出た部分を隠す */
+}
+
+.reviews-slider {
+    display: flex;
+    scroll-behavior: smooth;
+    gap: 1.5rem; /* 2remから1.5remに減らしてカード間の間隔を縮小 */
+    padding: 2rem 0;
+    width: 100%;
+    position: relative;
+    flex-wrap: nowrap;
+    transition: transform 1.5s ease; /* 0.5秒から1.5秒に変更 */
+}
+
+.review-card {
+    flex: 0 0 calc(33.333% - 1.5rem); /* カードの幅を指定 */
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    padding: 2rem;
+    transition: transform 0.3s ease;
+    min-width: 280px; /* カードの最小幅 */
+    max-width: 340px; /* カードの最大幅 */
+    box-sizing: border-box; /* パディングを含めた幅の計算 */
+}
+
+.review-card:hover {
+    transform: translateY(-0.5rem);
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.reviewer-avatar {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 1.5rem;
+    flex-shrink: 0;
+}
+
+.reviewer-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.reviewer-info {
+    flex: 1;
+}
+
+.reviewer-name {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.review-rating {
+    color: #FFD700;
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.review-date {
+    font-size: 1.4rem;
+    color: #666;
+}
+
+.review-content p {
+    font-size: 1.6rem;
+    line-height: 1.6;
+    color: #333;
+}
+
+.slider-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+}
+
+.prev-btn, .next-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 4rem;
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.prev-btn:hover, .next-btn:hover {
+    background: #002266;
+}
+
+.slider-dots {
+    display: flex;
+    gap: 1rem;
+    margin: 0 2rem;
+}
+
+.dot {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: #ccc;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.dot.active {
+    background: var(--primary-color);
+}
+
+/* モバイル対応 */
+@media (max-width: 768px) {
+    .review-card {
+        flex: 0 0 calc(100% - 2rem);
+    }
 }
 
 /* 企業理念セクション */
@@ -1063,17 +1510,485 @@ body {
         font-size: 56.25%;
     }
 
+    .header {
+        display: none;
+    }
+
     .nav-links,
     .header-contact {
         display: none;
     }
 
+    /* セクションタイトルのサイズ調整 （企業理念、事業内容、AZメンテナンスが選ばれる7つの理由、会社概要、お問い合わせ）*/
+    .section-title {
+        font-size: 2.7rem; /* タイトルのサイズを小さく */
+        margin-bottom: 15px; /* タイトルの下の余白を調整 */
+    }
+
+    /* モバイルでは mobile-break を表示し、pc-break を非表示 */
+    .pc-break {
+        display: none;
+    }
+
+    /* モバイル版では改行を表示 */
+    .mobile-break {
+        display: inline;
+    }
+
+    /* 黄色いバッジ（適正価格宣言）のサイズ変更と位置調整 */
+    .price-badge {
+        width: 100px;
+        height: 100px;
+        top: -240px;
+        left: 16%;
+        transform: translateX(-50%) rotate(-15deg) scale(0.8);
+    }
+
+    .badge-text {
+        font-size: 1.4rem;
+    }
+
+    .text-line2 {
+        font-size: 1.8rem;
+        margin-top: 45px;
+    }
+
+    .text-line3 {
+        font-size: 1.8rem;
+    }
+
+    /* 黄色いバッジ内のテキスト（AZメンテナンスは）の位置調整 */
+    .curved-text {
+        width: 100px; /* バッジのサイズに合わせて調整 */
+        height: 100px; /* バッジのサイズに合わせて調整 */
+    }
+
+    /* 累計施工実績バッジのサイズ変更と位置調整 */
+    .achievement-badge {
+        top: -92px;
+        right: 5px;
+        padding: 10px 10px;
+        transform: rotate(5deg) scale(0.8);
+    }
+
+    .badge-label {
+        font-size: 1.8rem;
+        font-weight: 800; /* 太さを調整 */
+        -webkit-text-stroke: 0; /* テキストの輪郭を削除 */
+        text-shadow: none; /* テキストの影を削除 */
+    }
+
+    .badge-number {
+        font-size: 3.0rem;
+        font-weight: 800; /* 太さを調整 */
+        -webkit-text-stroke: 0; /* テキストの輪郭を削除 */
+        text-shadow: none; /* テキストの影を削除 */
+    }
+
+    .badge-unit {
+        font-size: 1.6rem;
+        font-weight: 800; /* 太さを調整 */
+        -webkit-text-stroke: 0; /* テキストの輪郭を削除 */
+        text-shadow: none; /* テキストの影を削除 */
+    }
+
+    /* ヒーローセクションのタイトル「あなたの理想を形に、、、」の調整 */
     .hero-title {
-        font-size: 3.2rem;
+        font-size: 3.1rem;
+        margin-top: -150px;
+        top: -80px; /* 「あなたの理想を形に、、、」の高さの調整 */
+        margin-bottom: 1rem;
+        line-height: 1.3;
+        -webkit-text-stroke: 1px #333;
+        white-space: nowrap;
+        text-shadow: 0 0 1px #333;
+        display: inline-block; /* インラインブロック要素に変更 */
+        width: auto; /* 幅を自動調整 */
+        max-width: 100%; /* 最大幅を設定 */
+    }
+
+    /* タイトル「あなたの理想を形に、、、」の後ろの白い調整 */
+    .title-wrapper {
+        padding: 2rem 0.7rem; /* パディングを増やして縦幅を大きく */
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 0.5rem;
+    }
+
+    /* ヒーローコンテンツの調整 */
+    .hero-content {
+        width: auto; /* 幅を自動調整 */
+        max-width: fit-content; /* コンテンツに合わせる */
+        margin: 0 auto; /* 中央揃え */
+        padding: 1rem 2rem; /* パディングを調整 */
     }
 
     .hero-text {
         font-size: 1.8rem;
+    }
+
+    /* 顧客会員数バナーの調整 */
+    .achievement-banner {
+        padding: 1rem 2rem; /* パディングを小さくして全体のサイズを縮小 */
+        flex-direction: row; /* 横並びに設定（デフォルトですが明示的に指定） */
+        align-items: center; /* 中央揃え */
+        gap: 1rem; /* 要素間の間隔を縮小 */
+        top: 50%;
+    }
+    
+    .achievement-text {
+        font-size: 2rem; /* フォントサイズを小さく */
+        white-space: nowrap; /* 改行を防止 */
+        -webkit-text-stroke: 0.5px #333; /* テキストの輪郭を調整 */
+    }
+    
+    .achievement-number {
+        font-size: 3.5rem; /* 数字のサイズを小さく */
+        -webkit-text-stroke: 0.5px #003399; /* テキストの輪郭を調整 */
+    }
+    
+    .achievement-unit {
+        font-size: 2rem; /* 単位のサイズを小さく */
+        -webkit-text-stroke: 0.5px #333; /* テキストの輪郭を調整 */
+    }
+
+    /* クイック見積もりセクションを縦並びに変更 */
+    .quick-estimate {
+        flex-direction: column; /* 縦並びに変更 */
+        align-items: center; /* 中央揃え */
+        gap: 1.5rem; /* 要素間の間隔を調整 */
+        width: 80%; /* 幅を少し狭く */
+        max-width: 300px; /* 最大幅を設定 */
+    }
+    
+    .estimate-btn {
+        width: 100%; /* ボタンの幅を100%に */
+        justify-content: center; /* テキストを中央揃え */
+        padding: 1.5rem 2rem; /* パディングを調整 */
+    }
+
+    /* LINEで見積もりボタンの縦幅を増やす */
+    .line-btn {
+        height: 80px; /* 高さを直接指定 */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* メールフォームボタンのモバイル対応 */
+    .mail-btn {
+        height: auto;
+        padding: 1.5rem 2rem;
+    }
+    
+    .mail-top {
+        margin-bottom: 0.3rem;
+    }
+    
+    .mail-top i {
+        font-size: 2rem;
+        margin-right: 0.5rem;
+    }
+    
+    .mail-top span {
+        font-size: 1.6rem;
+    }
+    
+    .mail-bottom span {
+        font-size: 1.4rem;
+    }
+    
+    .mail-bottom i {
+        font-size: 1.8rem;
+    }
+
+    /* 取り扱いメーカーセクションのモバイル対応 */
+    .makers-section {
+        padding: 6rem 0 4rem;
+    }
+    
+    .makers-content {
+        flex-direction: column;
+        gap: 3rem;
+    }
+    
+    .maker-item {
+        width: 100%;
+    }
+    
+    .maker-logo {
+        width: 160px;
+        height: 80px;
+        margin-bottom: 1rem;
+    }
+    
+    .maker-name {
+        font-size: 1.6rem;
+    }
+
+    /* 企業理念セクションの調整 */
+    .about-text h3 {
+        font-size: 2rem; /* タイトルのサイズを小さく */
+        margin-bottom: 1rem;
+    }
+    
+    .about-text p {
+        font-size: 1.7rem;
+        white-space: normal;
+        text-align: center !important;
+    }
+    
+    .about-images {
+        gap: 0.6rem; /* 画像間の間隔を縮小 */
+    }
+    
+    .about-images img {
+        width: 115px; /* 画像の幅を小さく */
+        height: 90px; /* 画像の高さを小さく */
+    }
+
+    /* 事業内容セクションをモバイル表示で縦並びに変更 */
+    .service-grid {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* 事業内容の説明文「AZメンテナンスでは、メンテナンス、、、」のテキストサイズ */
+    .services-description {
+        font-size: 1.8rem; /* 2.4remから1.8remに縮小 */
+    }
+    
+    /* リフォームを1番目に(実際の順番は違う) */
+    .service-item.reform {
+        order: 2;
+    }
+    
+    /* オール電化を2番目に (実際の順番は違う)*/
+    .service-item.electrification {
+        order: 4;
+    }
+
+    /* メンテナンスを3番目に(実際の順番は違う) */
+    .service-item.maintenance {
+        order: 1;
+    }
+    
+    /* ハウスクリーニングを4番目に (実際の順番は違う)*/
+    .service-item.security {
+        order: 3;
+    }
+    
+    .service-item {
+        min-height: auto; /* 高さを自動調整 */
+        padding: 2rem 1rem; /* パディングを縮小（上下のパディング） */
+        cursor: default !important;
+        pointer-events: auto;
+    }
+
+    /* DETAILリンクのみクリック可能に */
+    .detail-link {
+        position: relative;
+        z-index: 10;
+        cursor: pointer !important;
+        display: inline-block;
+        padding: 0.8rem 1rem;
+        background-color: rgba(29, 29, 29, 0.2);
+        border-radius: 0.3rem;
+        margin-top: 1rem;
+        left: 25%;
+    }
+
+    /* サービスアイコンのサイズを小さく */
+    .service-icon {
+        flex: 0 0 5rem; /* 10remから7remに縮小 */
+        height: 5rem; /* 10remから5remに縮小 */
+        margin-right: 1.5rem; /* 2remから1.5remに縮小 */
+    }
+    
+    .service-icon i {
+        font-size: 3rem; /* 4remから3remに縮小 */
+    }
+    
+    /* サービスコンテンツのタイトルとサブタイトルを横並びに */
+    .service-content h3 {
+        font-size: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1rem;
+    }
+    
+    .service-subtitle {
+        display: inline;
+        font-size: 1.2rem;
+        margin-top: 0;
+        white-space: nowrap;
+    }
+    
+    .service-content p {
+        font-size: 1.4rem; /* 1.6remから1.4remに縮小 */
+    }
+
+    /* モバイルでは.service-content p内の通常のbrタグ（クラスなし）を非表示 */
+    .service-content p br:not(.mobile-break) {
+        display: none;
+    }
+
+    /* 7つの理由セクションのモバイル調整 */
+    .reasons-section {
+        padding: 0 !important; /* パディングを0に */
+        margin-top: -10rem !important; /* 負のマージンで上に移動 */
+    }
+
+    /* セクションタイトルの下の余白も調整 */
+    .reasons-section .section-title {
+        margin-bottom: 3rem !important; /* タイトルの下の余白も減らす */
+    }
+
+    #reasons .reasons-grid,
+    .reasons-section .reasons-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0 !important;
+        align-items: center !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* 1~6番目の項目の調整 */
+    #reasons .reason-house,
+    .reasons-section .reason-house {
+        width: 100% !important;
+        max-width: 430px !important;
+        position: relative !important;
+        margin: 0 !important; /* マージンを正の値に変更 */
+        padding: 0 !important;
+        transform: scale(1.2) !important; /* スケールを1に設定 */
+        min-height: auto !important; /* 高さを自動調整 */
+    }
+
+    /* 7番目（中央に配置される最後の項目）の調整 */
+    #reasons .reason-house-center,
+    .reasons-section .reason-house-center {
+        grid-column: auto !important;
+        justify-self: auto !important;
+        max-width: 430px !important; /* 320pxから480pxに変更 */
+        transform: scale(1.2) !important; /* 1から1.4に変更して他の家と同じに */
+    }
+
+    /* 最後の項目だけは下部のマージンを調整 */
+    #reasons .reason-house:last-child,
+    .reasons-section .reason-house:last-child,
+    #reasons .reason-house-center,
+    .reasons-section .reason-house-center {
+        margin-bottom: 8rem !important;
+    }
+    
+    /* 家の本体部分の調整 */
+    #reasons .house-body,
+    .reasons-section .house-body {
+        padding: 2rem 1rem !important;
+        min-height: 250px !important;
+    }
+    
+    /* 見出しのスタイル調整 */
+    #reasons .reason-house h3,
+    .reasons-section .reason-house h3 {
+        font-size: 1.4rem !important;
+        margin-bottom: 1rem !important;
+        text-align: center !important;
+        margin-top: 9rem !important; /* 上部のマージンを追加して下に下げる */
+    }
+    
+    /* 説明文のスタイル調整 */
+    #reasons .reason-house p,
+    .reasons-section .reason-house p {
+        font-size: 1.1rem !important;
+        text-align: center !important;
+        line-height: 1.4 !important;
+        max-width: 60% !important; /* テキストの最大幅を85%に制限 */
+        margin: 0 auto !important; /* 左右のマージンを自動で中央揃え */
+    }
+
+    /* <br>タグを無効化させる */
+    #reasons .reason-house p br,
+    .reasons-section .reason-house p br {
+        display: none !important; /* brタグを非表示にする */
+    }
+
+    /* mobile-breakクラスを持つbrタグは表示する */
+    #reasons .reason-house p br.mobile-break,
+    .reasons-section .reason-house p br.mobile-break {
+        display: inline !important; /* mobile-breakクラスを持つbrタグを表示 */
+    }
+
+    /* 会社概要セクション全体の調整 */
+    .company-section {
+        padding: 6rem 0 !important; /* 左右のパディングを0に */
+        width: 100% !important; /* 幅を100%に */
+        max-width: 100vw !important; /* 最大幅をビューポート幅に */
+        overflow-x: hidden !important; /* 横スクロールを防止 */
+    }
+    
+    /* 会社概要の内容を小さく */
+    .company-content {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 2rem !important;
+        align-items: center !important;
+        width: 100% !important; /* 幅を100%に */
+        max-width: 100% !important; /* 最大幅を100%に */
+        padding: 0 1rem !important; /* 左右に少しだけパディングを追加 */
+        box-sizing: border-box !important; /* ボックスサイズを調整 */
+    }
+    
+    /* 会社情報テーブルの調整 */
+    .company-info {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+    }
+    
+    .company-info table {
+        transform: scale(1) !important; /* 会社概要のスケール */
+        transform-origin: left top !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* テーブルのセルが長いテキストでもはみ出さないように */
+    .company-info th, 
+    .company-info td {
+        word-break: break-word !important;
+        overflow-wrap: break-word !important;
+        font-size: 1.3rem !important;
+    }
+    
+    /* 地図のサイズを小さく */
+    .company-map {
+        height: 220px !important;
+        width: 80% !important; /* 幅を100%に */
+        margin: 0 !important; /* マージンをリセット */
+    }
+    
+    .company-map iframe {
+        height: 250px !important;
+        width: 100% !important;
+    }
+    
+    /* 会社概要セクションの親コンテナの調整 */
+    .company-section > div {
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+    }
+    
+    /* 会社概要と地図の間隔を調整 */
+    .company-details {
+        margin-bottom: 2rem !important; /* 下の余白を調整 */
+    }
+    
+    .contact-info-btn {
+        width: 100%; /* 電話番号ボタンの幅も100%に */
     }
 
     .company-content,
