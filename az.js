@@ -128,9 +128,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // 施工事例スライダーの実装（常に動き続けるバージョン）
     const worksSlider = document.querySelector('.works-slider');
     const worksContainer = document.querySelector('.works-container');
+    const worksPrevBtn = document.querySelector('.works-prev-btn');
+    const worksNextBtn = document.querySelector('.works-next-btn');
     
     if (worksSlider && worksContainer) {
         const workItems = worksSlider.querySelectorAll('.work-item');
+        let isAutoScrolling = true; // 自動スクロールの状態を管理
+        let scrollInterval; // 長押し用のインターバルID
+        let currentPosition = 0; // 現在のスクロール位置
+        let itemWidth; // アイテムの幅
+        let originalItemsWidth; // オリジナルアイテムの合計幅
         
         // スライダーの初期化
         const initWorksSlider = () => {
@@ -139,8 +146,9 @@ document.addEventListener('DOMContentLoaded', () => {
             existingClones.forEach(clone => clone.remove());
             
             // スライダーを無限ループさせるために、アイテムを複数回複製して追加
-            // 最初のセットは既にあるので、さらに2セット追加（合計3セット表示）
-            for (let i = 0; i < 2; i++) {
+            // 最初のセットは既にあるので、さらに5セット追加（合計6セット表示）
+            // 多めにクローンを用意しておくことで、高速クリック時にも対応
+            for (let i = 0; i < 5; i++) {
                 const clonedItems = Array.from(workItems).map(item => {
                     const clone = item.cloneNode(true);
                     clone.classList.add('work-item-clone'); // クローンにクラスを追加（再初期化時の識別用）
@@ -176,6 +184,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 clonedItems.forEach(item => worksSlider.appendChild(item));
             }
             
+            // アイテムの幅を計算
+            itemWidth = workItems[0].offsetWidth + parseInt(window.getComputedStyle(workItems[0]).marginRight);
+            originalItemsWidth = workItems.length * itemWidth;
+            
             // スライダーのアニメーションを開始
             startWorksAnimation();
         };
@@ -185,10 +197,6 @@ document.addEventListener('DOMContentLoaded', () => {
             // アニメーションをリセット
             worksSlider.style.animation = 'none';
             worksSlider.offsetHeight; // リフロー（再描画）を強制
-            
-            // スライダーの幅を計算
-            const itemWidth = workItems[0].offsetWidth + parseInt(window.getComputedStyle(workItems[0]).marginRight);
-            const originalItemsWidth = workItems.length * itemWidth;
             
             // 施工事例セクションのカードの移動速度
             const animationDuration = originalItemsWidth / 80; // 速度調整（1セット分の幅で計算）- 200から80に変更してスピードを遅く
@@ -211,7 +219,245 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // アニメーションを設定
             worksSlider.style.animation = `scrollWorks ${animationDuration}s linear infinite`;
+            isAutoScrolling = true;
         };
+        
+        // 手動スクロール用の関数
+        const pauseAutoScroll = () => {
+            if (isAutoScrolling) {
+                // 現在のトランスフォーム値を取得
+                const computedStyle = window.getComputedStyle(worksSlider);
+                const matrix = new WebKitCSSMatrix(computedStyle.transform);
+                currentPosition = matrix.m41; // translateXの値
+                
+                // アニメーションを停止
+                worksSlider.style.animation = 'none';
+                worksSlider.style.transform = `translateX(${currentPosition}px)`;
+                isAutoScrolling = false;
+            }
+        };
+        
+        // 自動スクロールを再開（現在の位置から）
+        const resumeAutoScroll = () => {
+            if (!isAutoScrolling) {
+                // トランジションを削除
+                worksSlider.style.transition = 'none';
+                
+                // 現在の位置から自動スクロールを再開
+                const animationDuration = originalItemsWidth / 80; // 速度調整
+                
+                // スタイルタグを作成または更新
+                let styleTag = document.getElementById('works-animation-style');
+                if (!styleTag) {
+                    styleTag = document.createElement('style');
+                    styleTag.id = 'works-animation-style';
+                    document.head.appendChild(styleTag);
+                }
+                
+                // 現在の位置を基準にしたキーフレームを定義
+                styleTag.textContent = `
+                    @keyframes scrollWorks {
+                        0% { transform: translateX(${currentPosition}px); }
+                        100% { transform: translateX(${currentPosition - originalItemsWidth}px); }
+                    }
+                `;
+                
+                // アニメーションを設定
+                worksSlider.style.animation = `scrollWorks ${animationDuration}s linear infinite`;
+                isAutoScrolling = true;
+            }
+        };
+        
+        // カードのクローンを作成する関数（先行してクローンを追加）
+        const createItemClones = (count = 1, prepend = false) => {
+            for (let i = 0; i < count; i++) {
+                const clonedItems = Array.from(workItems).map(item => {
+                    const clone = item.cloneNode(true);
+                    clone.classList.add('work-item-clone');
+                    
+                    // クローンにもホバーエフェクトとクリックイベントを追加
+                    clone.addEventListener('mouseenter', () => {
+                        clone.style.transition = 'none';
+                        clone.style.transform = 'translateY(-0.5rem) scale(1.05)';
+                    });
+                    
+                    clone.addEventListener('mouseleave', () => {
+                        clone.style.transition = 'none';
+                        clone.style.transform = '';
+                    });
+                    
+                    clone.addEventListener('click', () => {
+                        const beforeImg = clone.querySelector('.work-before img').src;
+                        const afterImg = clone.querySelector('.work-after img').src;
+                        
+                        modalBeforeImg.src = beforeImg;
+                        modalAfterImg.src = afterImg;
+                        
+                        modal.classList.add('show');
+                        body.classList.add('no-scroll');
+                    });
+                    
+                    return clone;
+                });
+                
+                // prepend=trueの場合は先頭に追加、そうでなければ末尾に追加
+                if (prepend) {
+                    // 先頭に追加する場合は逆順で追加（元の順序を維持するため）
+                    clonedItems.reverse().forEach(item => worksSlider.prepend(item));
+                } else {
+                    // 末尾に追加
+                    clonedItems.forEach(item => worksSlider.appendChild(item));
+                }
+            }
+        };
+        
+        // 左方向にスクロール
+        const scrollLeft = () => {
+            pauseAutoScroll();
+            
+            // 先行してクローンを追加（高速クリック対応）
+            if (currentPosition > -originalItemsWidth) {
+                // 先行して左側（先頭）にクローンを追加
+                createItemClones(1, true);
+                
+                // 位置を調整（1セット分左に移動して、見た目を維持）
+                currentPosition -= originalItemsWidth;
+                worksSlider.style.transform = `translateX(${currentPosition}px)`;
+            }
+            
+            // スムーズなスクロールのためのトランジション設定
+            worksSlider.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1)';
+            
+            // スクロール量を調整
+            const scrollAmount = itemWidth * 0.7;
+            currentPosition += scrollAmount; // 右に移動（左方向にスクロール）
+            
+            // 位置を更新
+            worksSlider.style.transform = `translateX(${currentPosition}px)`;
+            
+            // トランジション終了後に古いクローンを削除（表示に影響を与えないタイミングで）
+            setTimeout(() => {
+                // トランジションを一時的に無効化
+                worksSlider.style.transition = 'none';
+                
+                // 古いクローンを削除（DOM要素が増えすぎないように）
+                const oldClones = worksSlider.querySelectorAll('.work-item-clone');
+                if (oldClones.length > workItems.length * 6) { // 6セット以上ある場合
+                    // 最も古い1セット分を削除
+                    for (let i = 0; i < workItems.length; i++) {
+                        if (oldClones[i]) oldClones[i].remove();
+                    }
+                }
+                
+                // トランジションを再設定
+                setTimeout(() => {
+                    worksSlider.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1)';
+                }, 50);
+            }, 650); // トランジションの時間より少し長く
+        };
+        
+        // 右方向にスクロール
+        const scrollRight = () => {
+            pauseAutoScroll();
+            
+            // 先行してクローンを追加（高速クリック対応）
+            if (currentPosition < -originalItemsWidth * (worksSlider.querySelectorAll('.work-item-clone').length / workItems.length - 1)) {
+                // 先行して右側（末尾）にクローンを追加
+                createItemClones(1);
+            }
+            
+            // スムーズなスクロールのためのトランジション設定
+            worksSlider.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1)';
+            
+            // スクロール量を調整
+            const scrollAmount = itemWidth * 0.7;
+            currentPosition -= scrollAmount; // 左に移動（右方向にスクロール）
+            
+            // 位置を更新
+            worksSlider.style.transform = `translateX(${currentPosition}px)`;
+            
+            // トランジション終了後に古いクローンを削除（表示に影響を与えないタイミングで）
+            setTimeout(() => {
+                // トランジションを一時的に無効化
+                worksSlider.style.transition = 'none';
+                
+                // 古いクローンを削除（DOM要素が増えすぎないように）
+                const oldClones = worksSlider.querySelectorAll('.work-item-clone');
+                if (oldClones.length > workItems.length * 6) { // 6セット以上ある場合
+                    // 最も古い1セット分を削除
+                    for (let i = 0; i < workItems.length; i++) {
+                        if (oldClones[i]) oldClones[i].remove();
+                    }
+                }
+                
+                // トランジションを再設定
+                setTimeout(() => {
+                    worksSlider.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1)';
+                }, 50);
+            }, 650); // トランジションの時間より少し長く
+        };
+        
+        // ボタンのクリック制限（デバウンス）を管理する変数
+        let isButtonDisabled = false;
+        
+        // ボタンを一時的に無効化する関数
+        const disableButtons = () => {
+            if (!isButtonDisabled) {
+                isButtonDisabled = true;
+                
+                // ボタンの見た目を無効化状態に
+                if (worksPrevBtn) worksPrevBtn.style.opacity = '0.5';
+                if (worksNextBtn) worksNextBtn.style.opacity = '0.5';
+                
+                // 0.7秒後に再度有効化
+                setTimeout(() => {
+                    isButtonDisabled = false;
+                    // ボタンの見た目を元に戻す
+                    if (worksPrevBtn) worksPrevBtn.style.opacity = '1';
+                    if (worksNextBtn) worksNextBtn.style.opacity = '1';
+                }, 700); // 0.7秒間無効化
+            }
+        };
+        
+        // 左ボタンのイベント
+        if (worksPrevBtn) {
+            // クリック時
+            worksPrevBtn.addEventListener('click', () => {
+                if (!isButtonDisabled) {
+                    scrollLeft();
+                    disableButtons(); // ボタンを無効化
+                }
+            });
+            
+            // タッチデバイス対応
+            worksPrevBtn.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                if (!isButtonDisabled) {
+                    scrollLeft();
+                    disableButtons(); // ボタンを無効化
+                }
+            });
+        }
+        
+        // 右ボタンのイベント
+        if (worksNextBtn) {
+            // クリック時
+            worksNextBtn.addEventListener('click', () => {
+                if (!isButtonDisabled) {
+                    scrollRight();
+                    disableButtons(); // ボタンを無効化
+                }
+            });
+            
+            // タッチデバイス対応
+            worksNextBtn.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                if (!isButtonDisabled) {
+                    scrollRight();
+                    disableButtons(); // ボタンを無効化
+                }
+            });
+        }
         
         // スライダーの初期化
         initWorksSlider();
@@ -221,18 +467,25 @@ document.addEventListener('DOMContentLoaded', () => {
             // 少し遅延させて実行（リサイズ中に何度も実行されるのを防ぐ）
             clearTimeout(window.resizeWorksTimer);
             window.resizeWorksTimer = setTimeout(() => {
-                startWorksAnimation();
+                initWorksSlider(); // リサイズ時は完全に再初期化
             }, 200);
         });
         
         // マウスオーバー時にアニメーションを一時停止
         worksContainer.addEventListener('mouseenter', () => {
-            worksSlider.style.animationPlayState = 'paused';
+            if (isAutoScrolling) {
+                worksSlider.style.animationPlayState = 'paused';
+            }
         });
         
         // マウスアウト時にアニメーションを再開
         worksContainer.addEventListener('mouseleave', () => {
-            worksSlider.style.animationPlayState = 'running';
+            if (isAutoScrolling) {
+                worksSlider.style.animationPlayState = 'running';
+            } else {
+                // すぐに自動スクロールを再開（遅延なし）
+                resumeAutoScroll();
+            }
         });
     }
     // ヘッダーの表示/非表示を制御
