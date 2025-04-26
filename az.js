@@ -1,4 +1,74 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // WordPressからニュース記事を取得して表示する関数
+    const fetchWordPressNews = async () => {
+        const wordpressContainer = document.getElementById('wordpress-news');
+        if (!wordpressContainer) return;
+        
+        try {
+            // WordPressのREST APIエンドポイント（サブディレクトリ/wp/にインストールしたWordPressのURL）
+            const response = await fetch('https://azmainte.com/wp/wp-json/wp/v2/posts?_embed&per_page=4');
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const posts = await response.json();
+            
+            // 取得した記事をHTMLに変換して表示
+            posts.forEach(post => {
+                // 画像URLを取得（アイキャッチ画像がある場合）
+                let imageUrl = 'image/header-logo.png'; // デフォルト画像
+                if (post._embedded && 
+                    post._embedded['wp:featuredmedia'] && 
+                    post._embedded['wp:featuredmedia'][0] &&
+                    post._embedded['wp:featuredmedia'][0].source_url) {
+                    imageUrl = post._embedded['wp:featuredmedia'][0].source_url;
+                }
+                
+                // 記事の抜粋を取得（HTMLタグを除去）
+                const excerpt = post.excerpt.rendered
+                    .replace(/<[^>]*>/g, '')
+                    .substring(0, 100) + '...';
+                
+                // 記事カードのHTMLを作成
+                const newsItem = document.createElement('div');
+                newsItem.className = 'news-item';
+                newsItem.innerHTML = `
+                    <img src="${imageUrl}" alt="${post.title.rendered}" class="news-image">
+                    <div class="news-content">
+                        <h3 class="news-title">${post.title.rendered}</h3>
+                        <p class="news-excerpt">${excerpt}</p>
+                        <a href="${post.link}" class="news-link" target="_blank">詳細を見る <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                `;
+                
+                wordpressContainer.appendChild(newsItem);
+            });
+            
+        } catch (error) {
+            console.error('WordPressからのデータ取得に失敗しました:', error);
+            
+            // エラー時にはダミーデータを表示
+            for (let i = 0; i < 4; i++) {
+                const dummyItem = document.createElement('div');
+                dummyItem.className = 'news-item';
+                dummyItem.innerHTML = `
+                    <img src="image/header-logo.png" alt="AZメンテナンス" class="news-image">
+                    <div class="news-content">
+                        <h3 class="news-title">サンプルニュース ${i + 1}</h3>
+                        <p class="news-excerpt">これはサンプルのニュース記事です。WordPressが設定されると、ここに実際のニュース記事が表示されます。</p>
+                        <a href="#" class="news-link">詳細を見る <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                `;
+                
+                wordpressContainer.appendChild(dummyItem);
+            }
+        }
+    };
+    
+    // WordPressニュースの取得を実行
+    fetchWordPressNews();
+    
     // 施工事例のモーダルウィンドウ機能
     const workItems = document.querySelectorAll('.work-item');
     const modal = document.getElementById('workModal');
