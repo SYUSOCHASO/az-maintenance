@@ -783,7 +783,7 @@ br {
     margin: 0 auto;
     padding: 0 2rem;
     position: relative;
-    overflow: hidden; /* はみ出た部分を隠す */
+    overflow: visible;
 }
 
 .works-slider {
@@ -794,7 +794,6 @@ br {
     width: 100%;
     position: relative;
     flex-wrap: nowrap;
-    /* transition: transform 1.5s ease; */ /* 不要なので削除 */
 }
 
 /* 常に右から左へスクロールするアニメーション（JavaScriptで動的に生成されるため削除） */
@@ -815,6 +814,42 @@ br {
 
 .work-item:hover, .work-item-clone:hover {
     transform: translateY(-0.5rem) scale(1.05) !important; /* カードにカーソルを合わせた際の、上への移動距離とスケールを調整 */
+}
+
+/* 施工事例セクションの左右のボタン */
+.works-prev-btn, .works-next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 6rem;
+    height: 6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    z-index: 10;
+}
+
+/* 矢印アイコンのサイズを大きく */
+.works-prev-btn i, .works-next-btn i {
+    font-size: 3rem; /* 矢印のサイズを3remに設定 */
+}
+
+.works-prev-btn {
+    left: -10rem;
+}
+
+.works-next-btn {
+    right: -10rem;
+}
+
+.works-prev-btn:hover, .works-next-btn:hover {
+    background: #002266;
 }
 
 /* モーダルウィンドウのスタイル */
