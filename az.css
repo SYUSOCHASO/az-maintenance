@@ -626,6 +626,135 @@ br {
     color: #333;
 }
 
+/* NEWSセクション */
+.news-section {
+    padding: 12rem 0;
+    background: white;
+}
+
+.news-container {
+    max-width: 1400px; /* 1200pxから1400pxに増加 */
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+#wordpress-news {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.5rem; /* 各ニュース記事の間隔 */
+    margin-top: 4rem;
+}
+
+.news-item {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.news-item:hover {
+    transform: translateY(-0.5rem);
+}
+
+.news-image {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    background-color: #f5f5f5;
+}
+
+.news-content {
+    padding: 2rem;
+}
+
+.news-date {
+    font-size: 1.4rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.news-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    color: var(--text-color);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    line-height: 1.4;
+    height: 5rem;
+}
+
+.news-excerpt {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.4;
+    height: 6.3rem;
+}
+
+.news-link {
+    display: inline-block;
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.news-link:hover {
+    color: var(--secondary-color);
+}
+
+.news-archive-link {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.news-archive-link a {
+    display: inline-block;
+    padding: 1rem 3rem;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.news-archive-link a:hover {
+    background-color: #002266;
+    transform: translateY(-3px);
+}
+
+/* レスポンシブ対応 - NEWSセクション */
+@media (max-width: 1024px) {
+    #wordpress-news {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    #wordpress-news {
+        grid-template-columns: 1fr;
+    }
+    
+    .news-item {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+}
+
 /* 口コミセクション */
 .reviews-section {
     padding: 12rem 0;
