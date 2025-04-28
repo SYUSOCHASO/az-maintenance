@@ -758,14 +758,14 @@ br {
 /* 口コミセクション */
 .reviews-section {
     padding: 12rem 0;
-    background: #f8f9fa;
+    background: white;
 }
 
 
 /* 施工事例セクション */
 .works-section {
     padding: 12rem 0;
-    background: white;
+    background: #f8f9fa;
 }
 
 /* 「クリックで拡大されます」のスタイル */
@@ -1131,7 +1131,7 @@ br {
 /* 企業理念セクション */
 .about {
     padding: 12rem 0;
-    background: white;
+    background: #f8f9fa;
 }
 
 .about-content {
@@ -1626,7 +1626,7 @@ br {
 /* フッター */
 .footer {
     background-color: #f5f5f5;
-    color: white;
+    color: black;
     padding: 5rem 0 2rem;
 }
 
@@ -1664,8 +1664,9 @@ br {
     text-align: center;
     margin-top: 3rem;
     padding-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
     font-size: 1.4rem;
+    color: black;
 }
 
 /* レスポンシブ対応 */
