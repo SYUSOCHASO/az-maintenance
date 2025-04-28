@@ -1,0 +1,772 @@
+/* 基本設定 */
+:root {
+    --primary-color: #003399;
+    --secondary-color: #ff9900;
+    --accent-color: #00cc66;
+    --text-color: #333;
+    --light-gray: #f5f5f5;
+    --dark-gray: #666;
+    --light-blue: #e6f2ff;
+    --medium-blue: #4d94ff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* ヘッダー */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+    padding: 0.2rem 0;
+    transition: transform 0.3s ease;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 4rem;
+}
+
+.header-contact {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.contact-message {
+    font-size: 1.5rem;
+    color: #333;
+    margin-top: 0.5rem; /* 元の値に戻す */
+    margin-bottom: 0.2rem; /* 間隔を詰める */
+    font-weight: 900; /* 最大の太さ（900）を設定 */
+    text-shadow: 0 0 0.05px #333; /* テキストに影を追加して視覚的に太く見せる（より小さく） */
+}
+
+.message-text {
+    position: relative;
+    top: 1px; /* テキストのみを下に1px移動 */
+    display: inline-block;
+}
+
+.contact-phone {
+    font-size: 3.3rem;
+    font-weight: bold;
+    color: #06C755;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: color 0.3s ease;
+    font-weight: 900;
+    position: relative;
+    left: -1rem; /* 電話番号の位置を左に移動 */
+}
+
+.phone-number {
+    display: inline-block;
+    transform: scale(1.06, 0.92); /* 横に1.05倍、縦に1倍 */
+    position: relative;
+    right: -5px; /* 右に5px移動 */
+    top: -2px; /* 上に2px移動 */
+}
+
+.contact-phone::before {
+    content: '\f095';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 2.4rem;
+    display: inline-block;
+    transform: rotate(270deg);
+    position: relative;
+    left: -1px; /* 左に5px移動 */
+    top: 2px; /* 下に2px移動 */
+}
+
+.contact-phone:hover {
+    color: #003399;
+}
+
+.contact-hours {
+    color: #333;
+    margin-top: 0.2rem;
+    font-weight: bold;
+    position: relative;
+    left: -1px;
+    top: -3px; /* 上への移動をなくして相対的に下に移動 */
+}
+
+.hours-label {
+    font-size: 1.3rem; /* 「受付時間」の部分 */
+}
+
+.hours-time {
+    font-size: 1.5rem; /* 「9:00~18:00」の部分だけ少し大きく */
+}
+
+.hours-note {
+    font-size: 1.3rem; /* 「(土日祝も受付可能)」の部分 */
+}
+
+.logo img {
+    height: 9.5rem;
+    transition: transform 0.3s ease;
+}
+
+.logo img:hover {
+    transform: scale(1.05);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 3rem;
+    margin-left: -10px; /* 左に移動。値は適宜調整してください */
+    position: relative;
+    top: -2px; /* 上に1px移動 */
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 2rem;
+    font-weight: bold;
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* メインコンテンツのスタイル */
+.all-main {
+    padding-top: 120px;
+    margin: 0 auto;
+}
+
+/* ヒーローセクション */
+.hero-section {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url('../image/solar.png');
+    background-size: cover;
+    background-position: center;
+    padding: 100px 20px;
+    text-align: center;
+    position: relative;
+    height: 300px; /* 高さを指定して画像を表示 */
+}
+
+.page-title {
+    font-size: 4.2rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+}
+
+.page-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: var(--secondary-color);
+}
+
+.page-subtitle {
+    font-size: 2rem;
+    color: var(--text-color);
+    max-width: 800px;
+    margin: 0 auto;
+    font-weight: 500;
+}
+
+/* コンテンツセクション */
+.content-section {
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.bg-light {
+    background-color: var(--light-gray);
+}
+
+.section-title {
+    font-size: 3.2rem;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.subsection-title {
+    font-size: 2.4rem;
+    color: var(--text-color);
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: 500;
+}
+
+.section-content {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.section-content.reverse {
+    flex-direction: row-reverse;
+}
+
+.text-content {
+    flex: 1;
+}
+
+.image-content {
+    flex: 1;
+    text-align: center;
+}
+
+.section-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* 蓄電池システムの画像のサイズ */
+.larger-image {
+    transform: scale(1.3); /* 1.3倍に拡大 */
+    margin-left: -20%;
+}
+
+.text-content p {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    line-height: 1.8;
+}
+
+.feature-list {
+    list-style: none;
+    margin: 20px 0;
+}
+
+.feature-list li {
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    padding-left: 25px;
+    position: relative;
+}
+
+.feature-list li::before {
+    content: '\f058';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    color: var(--accent-color);
+    position: absolute;
+    left: 0;
+}
+
+.feature-highlight {
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+/* メリットセクション */
+.benefits-section {
+    padding: 80px 20px;
+    background-color: var(--light-gray);
+}
+
+.benefits-list {
+    max-width: 1200px;
+    margin: 40px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.benefit-item {
+    display: flex;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.benefit-item:hover {
+    transform: translateY(-5px);
+}
+
+.benefit-content {
+    flex: 1;
+    padding: 30px;
+}
+
+.benefit-image {
+    flex: 1;
+    min-width: 300px;
+    max-width: 500px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.benefit-img {
+    width: 90%;
+    height: 90%;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.benefit-item:hover .benefit-img {
+    transform: scale(1.05);
+}
+
+.benefit-header {
+    margin-bottom: 20px;
+}
+
+.benefit-number {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.benefit-title {
+    font-size: 2.8rem;
+    color: var(--primary-color);
+    margin: 15px 0;
+    font-weight: 700;
+}
+
+.benefit-text {
+    font-size: 1.6rem;
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
+
+/* レスポンシブ対応 - メリットセクション */
+@media (max-width: 768px) {
+    .benefit-item {
+        flex-direction: column;
+    }
+    
+    .benefit-image {
+        min-width: 100%;
+        max-width: 100%;
+        height: 250px;
+    }
+}
+
+/* 設置までの流れ */
+.flow-section {
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.flow-intro {
+    font-size: 1.8rem;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 50px;
+    white-space: nowrap;
+}
+
+.flow-steps {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.flow-step {
+    display: flex;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.flow-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 70px;
+    left: 30px;
+    height: calc(100% - 30px);
+    width: 2px;
+    background-color: var(--primary-color);
+}
+
+.step-number {
+    width: 60px;
+    height: 60px;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin-right: 30px;
+    flex-shrink: 0;
+    z-index: 1;
+}
+
+.step-content {
+    flex: 1;
+}
+
+.step-title {
+    font-size: 2.2rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.step-text {
+    font-size: 1.6rem;
+    line-height: 1.8;
+}
+
+/* お問い合わせCTA */
+.cta-section {
+    background: linear-gradient(rgba(0, 51, 153, 0.9), rgba(0, 51, 153, 0.9)), url('../image/solar.png');
+    background-size: cover;
+    background-position: center;
+    padding: 80px 20px;
+    color: white;
+    text-align: center;
+}
+
+.cta-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.cta-title {
+    font-size: 3.2rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+.cta-text {
+    font-size: 1.8rem;
+    margin-bottom: 40px;
+    line-height: 1.8;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 30px;
+    border-radius: 5px;
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.cta-button:hover {
+    transform: translateY(-5px);
+}
+
+.cta-button i {
+    margin-right: 10px;
+    font-size: 2rem;
+}
+
+.phone-button {
+    background-color: #06C755;
+    color: white;
+}
+
+.phone-button:hover {
+    background-color: #05a646;
+}
+
+.contact-button {
+    background-color: white;
+    color: var(--primary-color);
+}
+
+.contact-button:hover {
+    background-color: #f0f0f0;
+}
+
+/* 取り扱いメーカーセクション */
+.makers-section {
+    padding: 8rem 0;
+    background: white;
+}
+
+.makers-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.maker-item {
+    width: calc(25% - 3rem); /* 横に4つ並べるために幅を25%に設定（間隔を考慮して調整） */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.maker-item:hover {
+    transform: translateY(-0.5rem);
+}
+
+.maker-logo {
+    width: 180px;
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.maker-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.maker-name {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* フッター */
+.footer {
+    background-color: #f5f5f5;
+    color: black;
+    padding: 5rem 0 2rem;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+}
+
+.footer-logo img {
+    height: 7.5rem;
+}
+
+.footer-links ul {
+    display: flex;
+    gap: 3rem;
+    list-style: none;
+}
+
+.footer-links a {
+    color: black;
+    text-decoration: none;
+    font-size: 1.8rem;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #003399;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 1.4rem;
+    color: black;
+}
+
+/* アニメーション */
+[data-aos] {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+[data-aos].aos-animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 1024px) {
+    .section-content {
+        flex-direction: column;
+    }
+    
+    .section-content.reverse {
+        flex-direction: column;
+    }
+    
+    .text-content, .image-content {
+        width: 100%;
+    }
+    
+    .benefits-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: 10px 0;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .logo img {
+        height: 40px;
+    }
+    
+    .header-contact {
+        align-items: center;
+    }
+    
+    .contact-message {
+        font-size: 1.4rem;
+        text-align: center;
+    }
+    
+    .contact-phone {
+        font-size: 2.4rem;
+        left: 0;
+    }
+    
+    .contact-hours {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+    
+    .page-title {
+        font-size: 3rem;
+    }
+    
+    .page-subtitle {
+        font-size: 1.6rem;
+    }
+    
+    .section-title {
+        font-size: 2.6rem;
+    }
+    
+    .subsection-title {
+        font-size: 2rem;
+    }
+    
+    .benefits-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .flow-step {
+        flex-direction: column;
+    }
+    
+    .flow-step:not(:last-child)::after {
+        left: 30px;
+        top: 60px;
+        height: calc(100% - 60px);
+    }
+    
+    .step-number {
+        margin-bottom: 20px;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        gap: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    html {
+        font-size: 55%;
+    }
+    
+    .content-section, .benefits-section, .flow-section {
+        padding: 60px 15px;
+    }
+    
+    .benefit-card {
+        padding: 20px;
+    }
+}
