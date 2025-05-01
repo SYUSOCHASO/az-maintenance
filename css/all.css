@@ -1,0 +1,420 @@
+/* 基本設定 */
+:root {
+    --primary-color: #003399;
+    --secondary-color: #ff9900;
+    --accent-color: #00cc66;
+    --text-color: #000;
+    --light-gray: #f5f5f5;
+    --dark-gray: #666;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+}
+
+/* ヘッダー */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+    padding: 0.5rem 0;
+    transition: transform 0.3s ease;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 4rem;
+}
+
+.header-contact {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.contact-phone {
+    font-size: 3.3rem;
+    font-weight: bold;
+    color: #06C755;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: color 0.3s ease;
+    font-weight: 900;
+    position: relative;
+    left: -1rem; /* 電話番号の位置を左に移動 */
+}
+
+.contact-phone::before {
+    content: '\f095';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 2.4rem;
+    display: inline-block;
+    transform: rotate(270deg);
+}
+
+.contact-phone:hover {
+    color: #003399;
+}
+
+.logo img {
+    height: 9.5rem;
+    transition: transform 0.3s ease;
+}
+
+.logo img:hover {
+    transform: scale(1.05);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 3rem;
+    margin-left: -10px; /* 左に移動。値は適宜調整してください */
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 2rem;
+    font-weight: bold;
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* メインコンテンツのスタイル */
+.all-main {
+    padding-top: 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 120px 20px 80px;
+}
+
+/* ページタイトルのアニメーション */
+.page-title {
+    text-align: center;
+    font-size: 3.5rem;
+    padding-top: 40px;
+    margin-bottom: 50px;
+    position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 0.1s; /* 最初に表示させる */
+}
+
+/* タイトルの下線アニメーション */
+.page-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--primary-color);
+    margin: 15px auto;
+    opacity: 0;
+    transform: scaleX(0);
+    animation: fadeInLine 0.8s ease forwards;
+    animation-delay: 0.3s; /* タイトルの後に表示 */
+}
+
+/* アニメーションのキーフレーム */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLine {
+    from {
+        opacity: 0;
+        transform: scaleX(0);
+    }
+    to {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+}
+
+.all-section {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+}
+
+.all-item {
+    background-color: #f5f9ff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    padding: 0; /* パディングを0に変更 */
+    transition: all 0.5s ease-in-out;
+    overflow: hidden;
+    margin-bottom: 20px; /* 項目間の間隔を追加 */
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.all-item:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.all-item:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.all-item:nth-child(4) {
+    animation-delay: 0.6s;
+}
+
+.all-item:nth-child(5) {
+    animation-delay: 0.8s;
+}
+
+.all-item h2 {
+    color: var(--primary-color);
+    font-size: 2.6rem;
+    margin: 0;
+    text-align: center;
+    position: relative;
+    padding: 20px;
+    cursor: pointer; /* カーソルをポインターに変更 */
+}
+
+.all-content {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* トランジションを調整 */
+    padding: 0;
+    background-color: #f5f9ff;
+}
+
+.all-image {
+    flex: 1;
+    max-width: 500px;
+    opacity: 0;
+    transform: translateY(-20px); /* 初期位置を調整 */
+    transition: opacity 0.7s ease, transform 0.7s ease; /* トランジションを追加 */
+}
+
+.all-text {
+    flex: 1;
+    opacity: 0;
+    transform: translateY(20px); /* 初期位置を調整 */
+    transition: opacity 0.7s ease, transform 0.7s ease; /* トランジションを追加 */
+}
+
+.all-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+img[alt="蓄電池"],
+img[alt="エコキュート・IHクッキングヒーター"] {
+    max-width: 300px; /* または希望のサイズ */
+    width: 100%;
+    height: auto;
+    padding-left: 80px;
+}
+
+/* アクティブ状態のスタイル */
+.all-item.active .all-content {
+    opacity: 1;
+    max-height: 1000px;
+    padding: 30px;
+}
+
+.all-item.active .all-image {
+    animation: slideDownImage 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.all-item.active .all-text {
+    animation: slideUpText 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* アニメーション */
+@keyframes slideDownImage {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUpText {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.all-text h3 {
+    color: var(--primary-color);
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+.all-text p {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+}
+
+.visible-title {
+    color: var(--primary-color);
+    font-size: 2.6rem;
+    margin: 0;
+    text-align: center;
+    position: relative;
+    padding: 20px;
+    display: block; /* タイトルを常に表示 */
+}
+
+/* クリック可能なタイトルのスタイル */
+.clickable-title {
+    text-decoration: underline; /* 下線を追加 */
+    cursor: pointer; /* カーソルをポインターに変更 */
+    transition: color 0.3s ease; /* 色の変化をスムーズに */
+}
+
+.clickable-title:hover {
+    color: var(--secondary-color); /* ホバー時の色を変更 */
+}
+
+/* フッター */
+.footer {
+    background-color: #f5f5f5;
+    color: white;
+    padding: 5rem 0 2rem;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+}
+
+.footer-logo img {
+    height: 7.5rem;
+}
+
+.footer-links ul {
+    display: flex;
+    gap: 3rem;
+    list-style: none;
+}
+
+.footer-links a {
+    color: black;
+    text-decoration: none;
+    font-size: 1.8rem;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #003399;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 1.4rem;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .header {
+        padding: 10px 0;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .logo img {
+        height: 40px;
+    }
+
+    .all-content {
+        flex-direction: column;
+    }
+
+    .all-image {
+        max-width: 100%;
+    }
+
+    .all-item {
+        padding: 20px;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 30px;
+    }
+}
