@@ -1,0 +1,2296 @@
+/* 基本設定 */
+:root {
+    --primary-color: #003399;
+    --secondary-color: #FFD700;
+    --text-color: #000;
+    --light-gray: #f5f5f5;
+    --dark-gray: #666;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    overflow-x: hidden;
+}
+
+/* PCでは通常のbrタグを表示 */
+br {
+    display: inline;
+}
+
+/* PCでは pc-break を表示し、mobile-break を非表示 */
+.pc-break {
+    display: inline;
+}
+
+/* モバイル用の改行を通常は非表示に */
+.mobile-break {
+    display: none;
+}
+
+/* ヘッダー */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+    padding: 0.5rem 0;
+    transition: transform 0.3s ease;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 4rem;
+}
+
+.header-contact {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.contact-message {
+    font-size: 1.5rem;
+    color: #333;
+    margin-top: 0.5rem; /* 上部に余白を追加して下に移動 */
+    margin-bottom: 0.2rem; /* 0.5remから0.2remに減らして間隔を詰める */
+    font-weight: bold;
+}
+
+.contact-phone {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #06C755;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: color 0.3s ease;
+    margin: 0.1rem 0; /* 0.2remから0.1remに減らして間隔を詰める */
+}
+
+.contact-hours {
+    font-size: 1.3rem;
+    color: #333;
+    margin-top: 0.2rem; /* 0.5remから0.2remに減らして間隔を詰める */
+    font-weight: bold;
+}
+
+.contact-phone::before {
+    content: '\f095';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 2.4rem;
+}
+
+.contact-phone:hover {
+    color: #003399;
+}
+
+.logo img {
+    height: 9.5rem;
+    transition: transform 0.3s ease;
+}
+
+.logo img:hover {
+    transform: scale(1.05);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 3rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 2rem;
+    font-weight: 1000;
+    position: relative;
+    padding: 0.5rem 0;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* メインビジュアル */
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.hero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 2;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 2rem;
+}
+
+.hero-title {
+    font-size: 5rem;
+    margin-bottom: 4rem;
+    line-height: 1.4;
+    font-family: "游明朝", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", serif;
+    letter-spacing: 0.1em;
+    font-weight: 400; /* boldから100（最も細い）に変更 */
+    text-align: center;
+    width: 100%;
+    color: #333;
+    -webkit-text-stroke: 1.5px #333;
+    text-shadow: 
+        0 0 1px #333,
+        0 0 2px #333;
+    position: relative; /* 追加：実績バッジの位置決めのため */
+}
+
+/* 左上の黄色いバッジ */
+.price-badge {
+    position: absolute;
+    top: -80px;
+    left: 15%; /* 左から15%の位置に変更 */
+    transform: translateX(-50%) rotate(-15deg); /* 中心を基準に配置するための調整を追加 */
+    width: 170px;
+    height: 170px;
+    background: linear-gradient(135deg, #DAA520, #FFD700 50%, #DAA520);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    z-index: 3;
+    /* アニメーション設定を追加 */
+    animation: badgePopup 0.8s ease-out forwards;
+    opacity: 0; /* 初期状態は非表示 */
+}
+
+.badge-text {
+    text-align: center;
+    line-height: 1.2;
+    font-weight: bold;
+    font-size: 1.6rem;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+}
+
+.curved-text {
+    width: 170px;
+    height: 170px;
+    position: absolute;
+    top: 10px;
+    left: 0;
+}
+
+.curved-text text {
+    font-size: 15px;
+    font-weight: bold;
+    fill: #000;
+}
+
+.curved-text path {
+    fill: none;
+}
+
+.curved-text textPath {
+    letter-spacing: 3px; /* 「AZメンテナンスは」のテキスト 1文字1文字の間の間隔 */
+}
+
+.text-line1 {
+    display: none;
+}
+
+.text-line2 {
+    font-size: 2.4rem;
+    margin-top: 65px;
+}
+
+.text-line3 {
+    font-size: 2.4rem;
+}
+
+/* 左側の黄色いバッジ・右側の実績バッジ 　共通のスタイル*/
+.title-wrapper {
+    position: relative;
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.9); /* 0.9から0.8に透明度を増加 */
+    padding: 0.8rem 2rem;
+    border-radius: 0.5rem;
+    opacity: 0;
+    animation: fadeInTitle 1s ease forwards;
+    animation-delay: 0.9s; /* アニメーション開始タイミングを早める（1.6s→0.9s） */
+}
+
+/* 右側の実績バッジ */
+.achievement-badge {
+    position: absolute;
+    top: -45px;
+    right: -15px; /* 値を低くするとより右に移動 */
+    background: rgba(255, 255, 255, 0.9); /* 0.9から0.8に透明度を増加 */
+    padding: 15px 15px;
+    font-size: 1.6rem;
+    line-height: 1.2;
+    text-align: center;
+    opacity: 0;
+    animation: fadeInAchievement 0.5s ease forwards;
+    animation-delay: 0.8s;
+    z-index: 3;
+    transform: rotate(5deg);
+    border: none;
+}
+
+/* 枠線の余白 */
+.achievement-badge::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background: none;
+    border: 3px solid #333;
+    border-radius: 3px;
+    transform: rotate(-1deg) scale(1.02);
+    z-index: -1;
+}
+
+@keyframes fadeInMascot {
+    0% {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.badge-label {
+    display: block;
+    font-size: 3.3rem; /* 施工実績の「累計施工実績」のテキストのサイズ */
+    color: #333;
+    font-family: "游明朝", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", serif;
+}
+
+.badge-number {
+    display: block;
+    font-size: 4.1rem; /* 施工実績の数字のサイズ */
+    color: #003399;
+    font-weight: bold;
+    font-family: "游明朝", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", serif;
+}
+
+.badge-unit {
+    font-size: 2.1rem; /* 施工実績の「棟突破！！」のテキストのサイズ */
+    color: #333;
+    font-family: "游明朝", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", serif;
+}
+
+/* 黄色いバッジのアニメーション */
+@keyframes badgePopup {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) rotate(-15deg) scale(0);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) rotate(-15deg) scale(1);
+    }
+}
+
+/* 実績バッジのアニメーション */
+@keyframes fadeInAchievement {
+    0% {
+        opacity: 0;
+        transform: translate(20px, -20px) rotate(5deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(0, 0) rotate(5deg);
+    }
+}
+
+/* メインタイトルのアニメーション */
+@keyframes fadeInTitle {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-text {
+    display: none;
+}
+
+/* 施工実績バナー */
+.achievement-banner {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2rem 6rem;
+    border-radius: 1rem;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    z-index: 2;
+    opacity: 0;
+    animation: fadeInUp 1s ease forwards;
+    animation-delay: 1s;
+}
+
+.achievement-text {
+    font-size: 2.9rem;
+    -webkit-text-stroke: 1px #333; /* テキストの輪郭を太くして強調 */
+    text-shadow: 0 0 1px #333; /* テキストに影を追加してさらに太く見せる */
+}
+
+.achievement-number {
+    font-size: 5rem;
+    font-weight: 900; /* 最大の太さ（900）を設定 */
+    color: #003399;
+    font-family: "游明朝", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", serif;
+    -webkit-text-stroke: 1px #003399; /* テキストの輪郭を太くして強調 */
+    text-shadow: 0 0 1px #003399; /* テキストに影を追加してさらに太く見せる */
+}
+
+.achievement-unit {
+    font-size: 2.9rem;
+    font-weight: 900; /* 最大の太さ（900）を設定 */
+    font-family: "游明朝", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", serif;
+    -webkit-text-stroke: 1px #333; /* テキストの輪郭を太くして強調 */
+    text-shadow: 0 0 1px #333; /* テキストに影を追加してさらに太く見せる */
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate(-50%, calc(-50% + 20px));
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.22);
+    z-index: 1;
+}
+
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('image/top1.png');
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+}
+
+
+/* クイック見積もりセクション */
+.quick-estimate {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    z-index: 2;
+    opacity: 0; /* 初期状態は非表示 */
+    animation: fadeInUp 1s ease forwards; /* フェードインアニメーション追加 */
+    animation-delay: 1.5s; /* タイミングを他の要素の後に設定 */
+}
+
+.estimate-btn {
+    display: flex;
+    align-items: center;
+    padding: 2rem 4rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    color: white;
+    font-size: 2rem;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+    position: relative;
+    min-width: 300px;
+}
+
+.estimate-btn i:not(.arrow) {
+    font-size: 2.4rem;
+    margin-right: 1.5rem;
+}
+
+.estimate-btn .arrow {
+    position: absolute;
+    right: 2rem;
+    font-size: 1.8rem;
+    transition: transform 0.3s ease;
+}
+
+.estimate-btn:hover {
+    transform: translateY(-0.5rem);
+}
+
+.estimate-btn:hover .arrow {
+    transform: translateX(0.5rem);
+}
+
+.line-btn {
+    background: #06C755;
+}
+
+.electric-btn {
+    background: #FFD700;
+    color: #333;
+}
+
+.cleaning-btn {
+    background: #003399;
+    padding: 0.8rem 2rem;
+}
+
+.mail-btn {
+    background: #8CD21E;
+    padding: 1rem 2rem;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mail-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+    width: 100%;
+}
+
+.mail-top i {
+    font-size: 2.4rem;
+    margin-right: 1rem;
+}
+
+.mail-top span {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.mail-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.mail-bottom span {
+    font-size: 1.8rem;
+    margin-right: 1rem;
+}
+
+.mail-bottom i {
+    font-size: 2.2rem;
+}
+
+.contact-info-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.contact-time {
+    font-size: 1.4rem;
+    margin-bottom: 0.2rem;
+    color: white;
+    font-weight: bold;
+}
+
+.contact-tel {
+    font-size: 2.4rem;
+    font-weight: bold;
+    color: white;
+}
+
+.contact-tel i {
+    margin-right: 5px;
+}
+
+/* 取り扱いメーカーセクション */
+.makers-section {
+    padding: 8rem 0;
+    background: white;
+    overflow: hidden; /* スクロール時にはみ出た要素を隠す */
+}
+
+/* メーカー行コンテナ */
+.makers-rows {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6rem; /* 上下の行の間隔 */
+}
+
+/* 各行のスタイル */
+.makers-row {
+    position: relative;
+    width: 100%;
+    overflow: hidden; /* はみ出た部分を隠す */
+}
+
+/* トラックコンテナ（無限スクロールのためのコンテナ） */
+.makers-track {
+    display: flex;
+    gap: 4rem; /* メーカー間の間隔 */
+    animation-duration: 30s; /* アニメーションの時間 */
+    animation-timing-function: linear; /* 一定速度でスクロール */
+    animation-iteration-count: infinite; /* 無限に繰り返し */
+    padding: 1rem;
+    width: max-content; /* コンテンツに合わせて幅を設定 */
+}
+
+/* 右から左への標準スクロールアニメーション（両方の行に適用） */
+.makers-track {
+    animation-name: scroll-right-to-left;
+}
+
+/* 各メーカーアイテム */
+.maker-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s ease;
+    flex: 0 0 auto; /* サイズを固定 */
+    width: 200px; /* 幅を固定 */
+}
+
+.maker-item:hover {
+    transform: translateY(-0.5rem);
+}
+
+.maker-logo {
+    width: 180px;
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
+    padding: 1rem;
+}
+
+.maker-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.maker-name {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #333;
+}
+
+/* スクロールアニメーションのキーフレーム定義 */
+@keyframes scroll-right-to-left {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-100% / 2)); /* 半分の距離だけスクロール */
+    }
+}
+
+/* ホバー時にアニメーションを一時停止 */
+.makers-row:hover .makers-track {
+    animation-play-state: paused;
+}
+
+/* 会員数・施工実績セクション */
+.achievement-section {
+    padding: 8rem 0 2rem;
+    background: #f5f5f5;
+}
+
+.achievement-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.achievement-text h3 {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #333; /* 青色から黒色に変更 */
+    line-height: 1.5;
+    white-space: nowrap;
+    text-shadow: none;
+    -webkit-text-stroke: 0;
+    letter-spacing: 0.03em;
+    position: relative;
+    z-index: 1;
+}
+
+/* 数字部分のハイライト */
+.highlight-number {
+    font-size: 3.5rem; /* 通常よりも大きいサイズ */
+    font-weight: 900; /* より太く */
+    display: inline-block;
+    color: var(--primary-color); /* 数字だけ青色に */
+}
+
+.achievement-image {
+    flex-shrink: 0;
+    opacity: 0;
+    transform: translateX(50px);
+    /* JavaScriptでカウンターアニメーション完了後にアニメーションを適用 */
+}
+
+@keyframes fadeInFromRight {
+    0% {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.achievement-image img {
+    max-width: 150px;
+    height: auto;
+}
+
+@media (max-width: 768px) {
+    .achievement-section {
+        padding: 6rem 0 2rem;
+    }
+    
+    .achievement-container {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem 1rem;
+    }
+    
+    .achievement-text h3 {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .highlight-number {
+        font-size: 2.3rem; /* モバイル用に調整 */
+    }
+    
+    .achievement-image img {
+        max-width: 120px;
+    }
+}
+
+/* NEWSセクション */
+.news-section {
+    padding: 8rem 0;
+    background: white;
+}
+
+.news-container {
+    max-width: 1400px; /* 1200pxから1400pxに増加 */
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+#wordpress-news {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.5rem; /* 各ニュース記事の間隔 */
+    margin-top: 4rem;
+}
+
+.news-item {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.news-item:hover {
+    transform: translateY(-0.5rem);
+}
+
+.news-image {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    background-color: #f5f5f5;
+}
+
+.news-content {
+    padding: 2rem;
+}
+
+.news-date {
+    font-size: 1.4rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.news-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    color: var(--text-color);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    line-height: 1.4;
+    height: 5rem;
+}
+
+.news-excerpt {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.4;
+    height: 6.3rem;
+}
+
+.news-link {
+    display: inline-block;
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.news-link:hover {
+    color: var(--secondary-color);
+}
+
+.news-archive-link {
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.news-archive-link a {
+    display: inline-block;
+    padding: 1rem 3rem;
+    background-color: var(--primary-color);
+    color: white;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.news-archive-link a:hover {
+    background-color: #002266;
+    transform: translateY(-3px);
+}
+
+/* レスポンシブ対応 - NEWSセクション */
+@media (max-width: 1024px) {
+    #wordpress-news {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    #wordpress-news {
+        grid-template-columns: 1fr;
+    }
+    
+    .news-item {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+}
+
+/* 口コミセクション */
+.reviews-section {
+    padding: 12rem 0;
+    background: white;
+}
+
+
+/* 施工事例セクション */
+.works-section {
+    padding: 12rem 0;
+    background: #f8f9fa;
+}
+
+/* 「クリックで拡大されます」のスタイル */
+.works-description {
+    text-align: center;
+    font-size: 1.8rem;
+    color: var(--text-color);
+    margin: 0 auto 1.5rem; /* 4remから1.5remに変更して間隔を狭く */
+    max-width: 1200px;
+    padding: 0 2rem;
+}
+
+.works-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    overflow: visible;
+}
+
+.works-slider {
+    display: flex;
+    scroll-behavior: smooth;
+    gap: 2rem;
+    padding: 2rem 0;
+    width: 100%;
+    position: relative;
+    flex-wrap: nowrap;
+}
+
+/* 常に右から左へスクロールするアニメーション（JavaScriptで動的に生成されるため削除） */
+
+/* 施工事例セクションのカードのスタイル */
+.work-item {
+    flex: 0 0 calc(33.333% - 1.5rem);
+    background: #8CD21E; /* メールフォームボタンと同じ黄緑色に変更 */
+    border-radius: 1rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    padding: 1rem;
+    transition: transform 0.3s ease !important; /* カードにカーソルを合わせた際の拡大スピードを0.3秒に設定 */
+    min-width: 280px;
+    max-width: 400px;
+    box-sizing: border-box;
+    cursor: pointer; /* カーソルをポインターに変更してクリック可能であることを示す */
+}
+
+.work-item:hover, .work-item-clone:hover {
+    transform: translateY(-0.5rem) scale(1.05) !important; /* カードにカーソルを合わせた際の、上への移動距離とスケールを調整 */
+}
+
+/* 施工事例セクションの左右のボタン */
+.works-prev-btn, .works-next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 6rem;
+    height: 6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    z-index: 10;
+}
+
+/* 矢印アイコンのサイズを大きく */
+.works-prev-btn i, .works-next-btn i {
+    font-size: 3rem; /* 矢印のサイズを3remに設定 */
+}
+
+.works-prev-btn {
+    left: -10rem;
+}
+
+.works-next-btn {
+    right: -10rem;
+}
+
+.works-prev-btn:hover, .works-next-btn:hover {
+    background: #002266;
+}
+
+/* モーダルウィンドウのスタイル */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1001;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    max-width: 90%;
+    max-height: 90%;
+    overflow: auto;
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2.8rem;
+    color: #333;
+    cursor: pointer;
+    z-index: 1002;
+}
+
+.modal-images {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.modal-before, .modal-after {
+    position: relative;
+}
+
+.modal-img {
+    width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    border-radius: 0.5rem;
+}
+
+.modal-label {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: #333333;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+
+.modal-after .modal-label {
+    background: #0099ff;
+}
+
+/* モーダルが表示されているときのスタイル */
+.modal.show {
+    display: flex;
+}
+
+/* スクロールを無効にするためのクラス */
+.no-scroll {
+    overflow: hidden;
+}
+
+.work-images {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.work-before {
+    position: relative;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.work-after {
+    position: relative;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.work-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    display: block;
+}
+
+/* beforeのラベルのスタイル */
+.work-label {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: #000000; /* グレー寄りの黒（透明度なし） */
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.3rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    z-index: 2;
+}
+
+/* Afterのラベルの背景色を水色に変更 */
+.work-after .work-label {
+    background: #0099ff; /* シンプルな水色（透明度なし） */
+}
+
+.works-controls {
+    margin-top: 3rem;
+}
+
+/* モバイル対応 */
+@media (max-width: 768px) {
+    .work-item {
+        flex: 0 0 calc(100% - 2rem);
+    }
+    
+    .work-images {
+        flex-direction: column;
+    }
+    
+    .work-img {
+        height: 150px;
+    }
+}
+
+.reviews-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    overflow: hidden; /* はみ出た部分を隠す */
+}
+
+.reviews-slider {
+    display: flex;
+    scroll-behavior: smooth;
+    gap: 1.5rem; /* 2remから1.5remに減らしてカード間の間隔を縮小 */
+    padding: 2rem 0;
+    width: 100%;
+    position: relative;
+    flex-wrap: nowrap;
+    transition: transform 1.5s ease; /* 0.5秒から1.5秒に変更 */
+}
+
+.review-card {
+    flex: 0 0 calc(33.333% - 1.5rem); /* カードの幅を指定 */
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    padding: 2rem;
+    transition: transform 0.3s ease;
+    min-width: 280px; /* カードの最小幅 */
+    max-width: 340px; /* カードの最大幅 */
+    box-sizing: border-box; /* パディングを含めた幅の計算 */
+}
+
+.review-card:hover {
+    transform: translateY(-0.5rem);
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.reviewer-avatar {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 1.5rem;
+    flex-shrink: 0;
+}
+
+.reviewer-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.reviewer-info {
+    flex: 1;
+}
+
+.reviewer-name {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.review-rating {
+    color: #FFD700;
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.review-date {
+    font-size: 1.4rem;
+    color: #666;
+}
+
+.review-content p {
+    font-size: 1.6rem;
+    line-height: 1.6;
+    color: #333;
+}
+
+.slider-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+}
+
+.prev-btn, .next-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 4rem;
+    height: 4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.prev-btn:hover, .next-btn:hover {
+    background: #002266;
+}
+
+.slider-dots {
+    display: flex;
+    gap: 1rem;
+    margin: 0 2rem;
+}
+
+.dot {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    background: #ccc;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.dot.active {
+    background: var(--primary-color);
+}
+
+/* モバイル対応 */
+@media (max-width: 768px) {
+    .review-card {
+        flex: 0 0 calc(100% - 2rem);
+    }
+}
+
+/* 企業理念セクション */
+.about {
+    padding: 12rem 0;
+    background: #f8f9fa;
+}
+
+.about-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    text-align: center;
+}
+
+.about-text h3 {
+    font-size: 3rem;
+    margin-bottom: 4rem;
+    line-height: 1.8;
+    color: var(--text-color);
+    white-space: nowrap;
+    font-weight: bold;
+}
+
+.about-images {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 4rem 0;
+}
+
+.about-images img {
+    width: 250px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 1rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.about-images img:hover {
+    transform: translateY(-0.5rem);
+}
+
+.about-text p {
+    font-size: 2.4rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    color: #000; /* #333から#000（黒）に変更 */
+    line-height: 1.6;
+    white-space: nowrap;
+}
+
+/* 事業内容セクション */
+.services-section {
+    padding: 12rem 0;
+    background: #f8f9fa;
+}
+
+/* Sunny Plusスタイルのサービスグリッド */
+.service-grid-container {
+    width: 100%;
+    margin: 0 0 8rem;
+    padding: 0;
+}
+
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+}
+
+.service-item {
+    position: relative;
+    display: flex;
+    padding: 5rem 3rem;
+    min-height: 30rem;
+    overflow: hidden;
+    transition: all 0.5s ease;
+}
+
+/* サービスアイテムの背景色 */
+.service-item.maintenance {
+    background-color: #2e8b57; /* 濃い緑（SeaGreen） */
+    color: white;
+}
+
+.service-item.electrification {
+    background-color: #e6f5e6; /* 薄緑 */
+    color: #333;
+}
+
+.service-item.reform {
+    background-color: #e6f5e6; /* 薄緑 */
+    color: #333;
+}
+
+.service-item.security {
+    background-color: #2e8b57; /* 濃い緑（SeaGreen） */
+    color: white;
+}
+
+/* サービスアイテムのホバー時の背景画像 */
+.service-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transform: translateY(100%);
+    transition: all 0.5s ease;
+    z-index: 0;
+}
+
+.service-item.maintenance::before {
+    background-image: url('image/reform.jpg');
+}
+
+.service-item.reform::before {
+    background-image: url('image/all.png');
+}
+
+.service-item.electrification::before {
+    background-image: url('image/cleaning.jpg');
+}
+
+.service-item.security::before {
+    background-image: url('image/gaiheki.jpg');
+}
+
+.service-item.maintenance:hover::before,
+.service-item.security:hover::before {
+    opacity: 0.8;
+    transform: translateY(0);
+}
+
+.service-item.reform:hover::before,
+.service-item.electrification:hover::before {
+    opacity: 0.6; /* オール電化とハウスクリーニングの背景画像を暗めに */
+    transform: translateY(0);
+}
+
+.service-item.reform:hover,
+.service-item.electrification:hover {
+    color: white;
+}
+
+.service-item.reform:hover .service-content p,
+.service-item.electrification:hover .service-content p {
+    color: white;
+}
+
+.service-item.reform:hover .service-subtitle,
+.service-item.electrification:hover .service-subtitle {
+    color: white;
+    opacity: 1;
+}
+
+.service-item.maintenance:hover,
+.service-item.security:hover {
+    color: black;
+}
+
+.service-item.maintenance:hover .service-content p,
+.service-item.security:hover .service-content p {
+    color: black;
+}
+
+.service-item.maintenance:hover .service-subtitle,
+.service-item.security:hover .service-subtitle {
+    color: black;
+    opacity: 1;
+}
+
+.service-item .service-icon,
+.service-item .service-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* サービスアイコン */
+.service-icon {
+    flex: 0 0 10rem;
+    height: 10rem;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 2rem;
+    transition: all 0.3s ease;
+}
+
+.service-icon i {
+    font-size: 4rem;
+    color: #2e8b57; /* 濃い緑（SeaGreen） */
+    transition: color 0.3s ease;
+}
+
+.service-item.reform .service-icon i,
+.service-item.electrification .service-icon i {
+    color: #4caf50; /* 中間の緑 */
+}
+
+.service-item.security .service-icon i {
+    color: #2e8b57; /* 濃い緑（SeaGreen） */
+}
+
+.service-item:hover .service-icon i {
+    color: #003399; /* ホバー時のアイコン色を濃い青に変更 */
+}
+
+/* サービスコンテンツ */
+.service-content {
+    flex: 1;
+}
+
+.service-content h3 {
+    font-size: 2.4rem;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+    position: relative;
+}
+
+.service-subtitle {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: normal;
+    margin-top: 0.5rem;
+    opacity: 0.8;
+}
+
+.service-content p {
+    font-size: 1.6rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.detail-link {
+    display: inline-block;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: inherit;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.detail-link i {
+    margin-left: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.service-item:hover .detail-link {
+    transform: translateX(5px);
+}
+
+.service-item:hover .detail-link i {
+    transform: translateX(3px);
+}
+
+.section-title {
+    text-align: center;
+    font-size: 4rem;
+    margin-bottom: 6rem;
+    color: var(--primary-color);
+}
+
+.services-description {
+    text-align: center;
+    font-size: 2.4rem;
+    color: var(--text-color);
+    margin: 2rem auto 4rem;
+    max-width: 1200px;
+    padding: 0 2rem;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* 選ばれる7つの理由セクション */
+.reasons-section {
+    padding: 12rem 0;
+    background: #f8f9fa;
+}
+
+.reasons-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+}
+
+.reason-house {
+    position: relative;
+    margin-bottom: 1rem;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%"><path d="M20,150 L200,50 L380,150 L380,350 L20,350 Z" fill="none" stroke="%23003399" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" style="stroke-dasharray: 5, 5;"/></svg>') no-repeat center;
+    background-size: 100% 100%;
+    padding: 18rem 4rem 6rem;
+    min-height: 400px;
+    transform: scale(1.3);
+    margin: 1rem auto 3rem;
+}
+
+.reason-house-center {
+    grid-column: 1 / span 2;
+    justify-self: center;
+    max-width: 560px;
+    padding: 18rem 4rem 6rem;
+    min-height: 400px;
+    transform: scale(1.3);
+    margin: 1rem auto 3rem;
+}
+
+.house-roof {
+    display: none;
+}
+
+.house-body {
+    position: relative;
+    background: transparent;
+    padding: 3rem 4rem 2rem;
+    min-height: 250px;
+}
+
+.reason-house h3 {
+    font-size: 2.5rem;
+    color: #003399;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: bold;
+}
+
+.reason-house p {
+    font-size: 1.8rem;
+    color: #333;
+    line-height: 1.5;
+    max-width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    font-weight: bold;
+}
+
+/* 会社概要セクション */
+.company-section {
+    padding: 12rem 0;
+    background: #3d444e;
+}
+
+/* 背景色が暗くなるため、テキストの色を白に変更 */
+.company-section .section-title,
+.company-info th,
+.company-info td {
+    color: white;
+}
+
+.company-info th {
+    color: var(--secondary-color);
+}
+
+.company-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    align-items: center; /* centerに変更：垂直方向の中央揃え */
+}
+
+.company-info table {
+    width: 100%;
+    font-size: 1.6rem;
+}
+
+.company-info th,
+.company-info td {
+    padding: 2rem;
+    border-bottom: 1px solid #ddd;
+    white-space: nowrap;
+}
+
+.company-info th {
+    width: 30%;
+    text-align: left;
+    color: white;
+    font-weight: 1000;
+}
+
+.company-map {
+    height: 400px; /* 地図の位置（高さ）を設定 */
+}
+
+.company-map iframe {
+    width: 100%;
+    height: 100%;/* 地図の縦幅はHTMLで設定（400）してあります！！*/
+    border-radius: 1rem;
+    border: none;
+}
+
+/* お問い合わせセクション */
+.contact-section {
+    padding: 12rem 0;
+    background: #f8f9fa;
+}
+
+.contact-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5rem;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.contact-form {
+    background: white;
+    padding: 4rem;
+    border-radius: 1rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    width: 100%;
+}
+
+.contact-info {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.contact-info p {
+    font-size: 2rem;
+    margin-bottom: 0;
+}
+
+.line-icon {
+    font-size: 15rem;
+    color: #06C755;
+    transition: transform 0.3s ease;
+}
+
+.line-icon:hover {
+    transform: scale(1.1);
+}
+
+.form-group {
+    margin-bottom: 2rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 1.7rem;
+    margin-bottom: 1rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.6rem;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.required {
+    color: #ff0000;
+    margin-left: 0.5rem;
+}
+
+.btn-submit {
+    background: var(--primary-color);
+    color: white;
+    font-size: 1.8rem;
+    padding: 1.5rem 4rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    display: block;
+    margin: 4rem auto 0;
+}
+
+.btn-submit:hover {
+    background: #002266;
+}
+
+/* フッター */
+.footer {
+    background-color: #f5f5f5;
+    color: black;
+    padding: 5rem 0 2rem;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-logo img {
+    height: 7.5rem;
+}
+
+.footer-links ul {
+    display: flex;
+    gap: 3rem;
+    list-style: none;
+}
+
+.footer-links a {
+    color: black;
+    text-decoration: none;
+    font-size: 1.8rem;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #003399;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 1.4rem;
+    color: black;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    html {
+        font-size: 56.25%;
+    }
+
+    .header {
+        display: none;
+    }
+
+    .nav-links,
+    .header-contact {
+        display: none;
+    }
+
+    /* セクションタイトルのサイズ調整 （企業理念、事業内容、AZメンテナンスが選ばれる7つの理由、会社概要、お問い合わせ）*/
+    .section-title {
+        font-size: 2.7rem; /* タイトルのサイズを小さく */
+        margin-bottom: 15px; /* タイトルの下の余白を調整 */
+    }
+
+    /* モバイルでは mobile-break を表示し、pc-break を非表示 */
+    .pc-break {
+        display: none;
+    }
+
+    /* モバイル版では改行を表示 */
+    .mobile-break {
+        display: inline;
+    }
+
+    /* 黄色いバッジ（適正価格宣言）のサイズ変更と位置調整 */
+    .price-badge {
+        width: 100px;
+        height: 100px;
+        top: -240px;
+        left: 16%;
+        transform: translateX(-50%) rotate(-15deg) scale(0.8);
+    }
+
+    .badge-text {
+        font-size: 1.4rem;
+    }
+
+    .text-line2 {
+        font-size: 1.8rem;
+        margin-top: 45px;
+    }
+
+    .text-line3 {
+        font-size: 1.8rem;
+    }
+
+    /* 黄色いバッジ内のテキスト（AZメンテナンスは）の位置調整 */
+    .curved-text {
+        width: 100px; /* バッジのサイズに合わせて調整 */
+        height: 100px; /* バッジのサイズに合わせて調整 */
+    }
+
+    /* 累計施工実績バッジのサイズ変更と位置調整 */
+    .achievement-badge {
+        top: -92px;
+        right: 5px;
+        padding: 10px 10px;
+        transform: rotate(5deg) scale(0.8);
+    }
+
+    .badge-label {
+        font-size: 1.8rem;
+        font-weight: 800; /* 太さを調整 */
+        -webkit-text-stroke: 0; /* テキストの輪郭を削除 */
+        text-shadow: none; /* テキストの影を削除 */
+    }
+
+    .badge-number {
+        font-size: 3.0rem;
+        font-weight: 800; /* 太さを調整 */
+        -webkit-text-stroke: 0; /* テキストの輪郭を削除 */
+        text-shadow: none; /* テキストの影を削除 */
+    }
+
+    .badge-unit {
+        font-size: 1.6rem;
+        font-weight: 800; /* 太さを調整 */
+        -webkit-text-stroke: 0; /* テキストの輪郭を削除 */
+        text-shadow: none; /* テキストの影を削除 */
+    }
+
+    /* ヒーローセクションのタイトル「あなたの理想を形に、、、」の調整 */
+    .hero-title {
+        font-size: 3.1rem;
+        margin-top: -150px;
+        top: -80px; /* 「あなたの理想を形に、、、」の高さの調整 */
+        margin-bottom: 1rem;
+        line-height: 1.3;
+        -webkit-text-stroke: 1px #333;
+        white-space: nowrap;
+        text-shadow: 0 0 1px #333;
+        display: inline-block; /* インラインブロック要素に変更 */
+        width: auto; /* 幅を自動調整 */
+        max-width: 100%; /* 最大幅を設定 */
+    }
+
+    /* タイトル「あなたの理想を形に、、、」の後ろの白い調整 */
+    .title-wrapper {
+        padding: 2rem 0.7rem; /* パディングを増やして縦幅を大きく */
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 0.5rem;
+    }
+
+    /* ヒーローコンテンツの調整 */
+    .hero-content {
+        width: auto; /* 幅を自動調整 */
+        max-width: fit-content; /* コンテンツに合わせる */
+        margin: 0 auto; /* 中央揃え */
+        padding: 1rem 2rem; /* パディングを調整 */
+    }
+
+    .hero-text {
+        font-size: 1.8rem;
+    }
+
+    /* 顧客会員数バナーの調整 */
+    .achievement-banner {
+        padding: 1rem 2rem; /* パディングを小さくして全体のサイズを縮小 */
+        flex-direction: row; /* 横並びに設定（デフォルトですが明示的に指定） */
+        align-items: center; /* 中央揃え */
+        gap: 1rem; /* 要素間の間隔を縮小 */
+        top: 50%;
+    }
+    
+    .achievement-text {
+        font-size: 2rem; /* フォントサイズを小さく */
+        white-space: nowrap; /* 改行を防止 */
+        -webkit-text-stroke: 0.5px #333; /* テキストの輪郭を調整 */
+    }
+    
+    .achievement-number {
+        font-size: 3.5rem; /* 数字のサイズを小さく */
+        -webkit-text-stroke: 0.5px #003399; /* テキストの輪郭を調整 */
+    }
+    
+    .achievement-unit {
+        font-size: 2rem; /* 単位のサイズを小さく */
+        -webkit-text-stroke: 0.5px #333; /* テキストの輪郭を調整 */
+    }
+
+    /* クイック見積もりセクションを縦並びに変更 */
+    .quick-estimate {
+        flex-direction: column; /* 縦並びに変更 */
+        align-items: center; /* 中央揃え */
+        gap: 1.5rem; /* 要素間の間隔を調整 */
+        width: 80%; /* 幅を少し狭く */
+        max-width: 300px; /* 最大幅を設定 */
+    }
+    
+    .estimate-btn {
+        width: 100%; /* ボタンの幅を100%に */
+        justify-content: center; /* テキストを中央揃え */
+        padding: 1.5rem 2rem; /* パディングを調整 */
+    }
+
+    /* LINEで見積もりボタンの縦幅を増やす */
+    .line-btn {
+        height: 80px; /* 高さを直接指定 */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* メールフォームボタンのモバイル対応 */
+    .mail-btn {
+        height: auto;
+        padding: 1.5rem 2rem;
+    }
+    
+    .mail-top {
+        margin-bottom: 0.3rem;
+    }
+    
+    .mail-top i {
+        font-size: 2rem;
+        margin-right: 0.5rem;
+    }
+    
+    .mail-top span {
+        font-size: 1.6rem;
+    }
+    
+    .mail-bottom span {
+        font-size: 1.4rem;
+    }
+    
+    .mail-bottom i {
+        font-size: 1.8rem;
+    }
+
+    /* 取り扱いメーカーセクションのモバイル対応 */
+    .makers-section {
+        padding: 6rem 0 4rem;
+    }
+    
+    .makers-content {
+        flex-direction: column;
+        gap: 3rem;
+    }
+    
+    .maker-item {
+        width: 100%;
+    }
+    
+    .maker-logo {
+        width: 160px;
+        height: 80px;
+        margin-bottom: 1rem;
+    }
+    
+    .maker-name {
+        font-size: 1.6rem;
+    }
+
+    /* 企業理念セクションの調整 */
+    .about-text h3 {
+        font-size: 2rem; /* タイトルのサイズを小さく */
+        margin-bottom: 1rem;
+    }
+    
+    .about-text p {
+        font-size: 1.7rem;
+        white-space: normal;
+        text-align: center !important;
+    }
+    
+    .about-images {
+        gap: 0.6rem; /* 画像間の間隔を縮小 */
+    }
+    
+    .about-images img {
+        width: 115px; /* 画像の幅を小さく */
+        height: 90px; /* 画像の高さを小さく */
+    }
+
+    /* 事業内容セクションをモバイル表示で縦並びに変更 */
+    .service-grid {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* 事業内容の説明文「AZメンテナンスでは、メンテナンス、、、」のテキストサイズ */
+    .services-description {
+        font-size: 1.8rem; /* 2.4remから1.8remに縮小 */
+    }
+    
+    /* リフォームを1番目に(実際の順番は違う) */
+    .service-item.reform {
+        order: 2;
+    }
+    
+    /* オール電化を2番目に (実際の順番は違う)*/
+    .service-item.electrification {
+        order: 4;
+    }
+
+    /* メンテナンスを3番目に(実際の順番は違う) */
+    .service-item.maintenance {
+        order: 1;
+    }
+    
+    /* ハウスクリーニングを4番目に (実際の順番は違う)*/
+    .service-item.security {
+        order: 3;
+    }
+    
+    .service-item {
+        min-height: auto; /* 高さを自動調整 */
+        padding: 2rem 1rem; /* パディングを縮小（上下のパディング） */
+        cursor: default !important;
+        pointer-events: auto;
+    }
+
+    /* DETAILリンクのみクリック可能に */
+    .detail-link {
+        position: relative;
+        z-index: 10;
+        cursor: pointer !important;
+        display: inline-block;
+        padding: 0.8rem 1rem;
+        background-color: rgba(29, 29, 29, 0.2);
+        border-radius: 0.3rem;
+        margin-top: 1rem;
+        left: 25%;
+    }
+
+    /* サービスアイコンのサイズを小さく */
+    .service-icon {
+        flex: 0 0 5rem; /* 10remから7remに縮小 */
+        height: 5rem; /* 10remから5remに縮小 */
+        margin-right: 1.5rem; /* 2remから1.5remに縮小 */
+    }
+    
+    .service-icon i {
+        font-size: 3rem; /* 4remから3remに縮小 */
+    }
+    
+    /* サービスコンテンツのタイトルとサブタイトルを横並びに */
+    .service-content h3 {
+        font-size: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1rem;
+    }
+    
+    .service-subtitle {
+        display: inline;
+        font-size: 1.2rem;
+        margin-top: 0;
+        white-space: nowrap;
+    }
+    
+    .service-content p {
+        font-size: 1.4rem; /* 1.6remから1.4remに縮小 */
+    }
+
+    /* モバイルでは.service-content p内の通常のbrタグ（クラスなし）を非表示 */
+    .service-content p br:not(.mobile-break) {
+        display: none;
+    }
+
+    /* 7つの理由セクションのモバイル調整 */
+    .reasons-section {
+        padding: 0 !important; /* パディングを0に */
+        margin-top: -10rem !important; /* 負のマージンで上に移動 */
+    }
+
+    /* セクションタイトルの下の余白も調整 */
+    .reasons-section .section-title {
+        margin-bottom: 3rem !important; /* タイトルの下の余白も減らす */
+    }
+
+    #reasons .reasons-grid,
+    .reasons-section .reasons-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0 !important;
+        align-items: center !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* 1~6番目の項目の調整 */
+    #reasons .reason-house,
+    .reasons-section .reason-house {
+        width: 100% !important;
+        max-width: 430px !important;
+        position: relative !important;
+        margin: 0 !important; /* マージンを正の値に変更 */
+        padding: 0 !important;
+        transform: scale(1.2) !important; /* スケールを1に設定 */
+        min-height: auto !important; /* 高さを自動調整 */
+    }
+
+    /* 7番目（中央に配置される最後の項目）の調整 */
+    #reasons .reason-house-center,
+    .reasons-section .reason-house-center {
+        grid-column: auto !important;
+        justify-self: auto !important;
+        max-width: 430px !important; /* 320pxから480pxに変更 */
+        transform: scale(1.2) !important; /* 1から1.4に変更して他の家と同じに */
+    }
+
+    /* 最後の項目だけは下部のマージンを調整 */
+    #reasons .reason-house:last-child,
+    .reasons-section .reason-house:last-child,
+    #reasons .reason-house-center,
+    .reasons-section .reason-house-center {
+        margin-bottom: 8rem !important;
+    }
+    
+    /* 家の本体部分の調整 */
+    #reasons .house-body,
+    .reasons-section .house-body {
+        padding: 2rem 1rem !important;
+        min-height: 250px !important;
+    }
+    
+    /* 見出しのスタイル調整 */
+    #reasons .reason-house h3,
+    .reasons-section .reason-house h3 {
+        font-size: 1.4rem !important;
+        margin-bottom: 1rem !important;
+        text-align: center !important;
+        margin-top: 9rem !important; /* 上部のマージンを追加して下に下げる */
+    }
+    
+    /* 説明文のスタイル調整 */
+    #reasons .reason-house p,
+    .reasons-section .reason-house p {
+        font-size: 1.1rem !important;
+        text-align: center !important;
+        line-height: 1.4 !important;
+        max-width: 60% !important; /* テキストの最大幅を85%に制限 */
+        margin: 0 auto !important; /* 左右のマージンを自動で中央揃え */
+    }
+
+    /* <br>タグを無効化させる */
+    #reasons .reason-house p br,
+    .reasons-section .reason-house p br {
+        display: none !important; /* brタグを非表示にする */
+    }
+
+    /* mobile-breakクラスを持つbrタグは表示する */
+    #reasons .reason-house p br.mobile-break,
+    .reasons-section .reason-house p br.mobile-break {
+        display: inline !important; /* mobile-breakクラスを持つbrタグを表示 */
+    }
+
+    /* 会社概要セクション全体の調整 */
+    .company-section {
+        padding: 6rem 0 !important; /* 左右のパディングを0に */
+        width: 100% !important; /* 幅を100%に */
+        max-width: 100vw !important; /* 最大幅をビューポート幅に */
+        overflow-x: hidden !important; /* 横スクロールを防止 */
+    }
+    
+    /* 会社概要の内容を小さく */
+    .company-content {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 2rem !important;
+        align-items: center !important;
+        width: 100% !important; /* 幅を100%に */
+        max-width: 100% !important; /* 最大幅を100%に */
+        padding: 0 1rem !important; /* 左右に少しだけパディングを追加 */
+        box-sizing: border-box !important; /* ボックスサイズを調整 */
+    }
+    
+    /* 会社情報テーブルの調整 */
+    .company-info {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+    }
+    
+    .company-info table {
+        transform: scale(1) !important; /* 会社概要のスケール */
+        transform-origin: left top !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* テーブルのセルが長いテキストでもはみ出さないように */
+    .company-info th, 
+    .company-info td {
+        word-break: break-word !important;
+        overflow-wrap: break-word !important;
+        font-size: 1.3rem !important;
+    }
+    
+    /* 地図のサイズを小さく */
+    .company-map {
+        height: 220px !important;
+        width: 80% !important; /* 幅を100%に */
+        margin: 0 !important; /* マージンをリセット */
+    }
+    
+    .company-map iframe {
+        height: 250px !important;
+        width: 100% !important;
+    }
+    
+    /* 会社概要セクションの親コンテナの調整 */
+    .company-section > div {
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+    }
+    
+    /* 会社概要と地図の間隔を調整 */
+    .company-details {
+        margin-bottom: 2rem !important; /* 下の余白を調整 */
+    }
+    
+    .contact-info-btn {
+        width: 100%; /* 電話番号ボタンの幅も100%に */
+    }
+
+    .company-content,
+    .contact-content {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 3rem;
+        text-align: center;
+    }
+
+    .footer-links ul {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+}
