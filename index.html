@@ -58,22 +58,10 @@
             </div>
             <h1 class="hero-title">
                 <!-- 実績バッジを.title-wrapperの外に出す -->
-                <div class="achievement-badge">
-                    <span class="badge-label">累計施工実績</span>
-                    <span class="badge-number">20,000</span>
-                    <span class="badge-unit">　棟突破！！</span>
-                </div>
-                <div class="title-wrapper">
+                            <div class="title-wrapper">
                     あなたの理想を形にする、<br>信頼できるパートナーに。
                 </div>
             </h1>
-        </div>
-
-        <!-- 顧客会員数バナー -->
-        <div class="achievement-banner">
-            <span class="achievement-text">顧客会員数</span>
-            <span class="achievement-number counter" data-target="8560">0</span>
-            <span class="achievement-unit">人</span>
         </div>
 
         <!-- クイック見積もりセクション -->
@@ -104,6 +92,18 @@
     <script src="az.js"></script>
 
     
+
+    <!-- 会員数・施工実績セクション -->
+    <section id="achievement" class="achievement-section">
+        <div class="achievement-container" data-aos="fade-up">
+            <div class="achievement-text">
+                <h3>お陰様で顧客会員数<span class="highlight-number"><span class="counter" data-target="5000">0</span>人</span>突破しました！累計施工実績<span class="highlight-number"><span class="counter" data-target="20000">0</span>棟</span>突破！！</h3>
+            </div>
+            <div class="achievement-image">
+                <img src="image/azugori.png" alt="あずごり">
+            </div>
+        </div>
+    </section>
 
     <!-- NEWSセクション -->
     <section id="news" class="news-section">
@@ -490,78 +490,243 @@
     <section id="makers" class="makers-section">
         <div class="section-content">
             <h2 class="section-title" data-aos="fade-up">取り扱いメーカー</h2>
-            <div class="makers-content">
-                <div class="maker-item" data-aos="fade-up" data-aos-delay="100">
-                    <a href="https://www.lixil.co.jp/" target="_blank" class="maker-logo">
-                        <img src="image/lixil.png" alt="株式会社LIXIL">
-                    </a>
-                    <p class="maker-name">株式会社LIXIL</p>
+            <div class="makers-rows">
+                <!-- 上の行 - 左から右へスクロール -->
+                <div class="makers-row makers-row-left">
+                    <div class="makers-track">
+                        <!-- 上段のメーカー（オリジナル） -->
+                        <div class="maker-item">
+                            <a href="https://www.lixil.co.jp/" target="_blank" class="maker-logo">
+                                <img src="image/lixil.png" alt="株式会社LIXIL">
+                            </a>
+                            <p class="maker-name">株式会社LIXIL</p>
+                        </div>
+                        <div class="maker-item">
+                            <a href="https://jp.toto.com/" target="_blank" class="maker-logo">
+                                <img src="image/toto.png" alt="TOTO株式会社">
+                            </a>
+                            <p class="maker-name">TOTO株式会社</p>
+                        </div>
+                        <div class="maker-item">
+                            <a href="https://sumai.panasonic.jp/hp/" target="_blank" class="maker-logo">
+                                <img src="image/panasonic.png" alt="パナソニック株式会社">
+                            </a>
+                            <p class="maker-name">パナソニック株式会社</p>
+                        </div>
+                        <div class="maker-item">
+                            <a href="https://chofukosan.com/products-info/home-energy-storage/" target="_blank" class="maker-logo">
+                                <img src="image/chohu.png" alt="長府工産株式会社">
+                            </a>
+                            <p class="maker-name">長府工産株式会社</p>
+                        </div>
+                        <div class="maker-item">
+                            <a href="https://csisolar.co.jp/products/ep-cube/" target="_blank" class="maker-logo">
+                                <img src="image/canadian.webp" alt="Canadian Solar">
+                            </a>
+                            <p class="maker-name">Canadian Solar</p>
+                        </div>
+                        <div class="maker-item">
+                            <a href="https://www.ykkap.co.jp/" target="_blank" class="maker-logo">
+                                <img src="image/ykk.png" alt="YKK">
+                            </a>
+                            <p class="maker-name">YKK AP株式会社</p>
+                        </div>
+                        
+                        <!-- 上段のメーカー（複製・無限スクロール用） - 2回繰り返す -->
+                        <div class="maker-item">
+                            <a href="https://www.lixil.co.jp/" target="_blank" class="maker-logo">
+                                <img src="image/lixil.png" alt="株式会社LIXIL">
+                            </a>
+                            <p class="maker-name">株式会社LIXIL</p>
+                        </div>
+                        <div class="maker-item">
+                            <a href="https://jp.toto.com/" target="_blank" class="maker-logo">
+                                <img src="image/toto.png" alt="TOTO株式会社">
+                            </a>
+                            <p class="maker-name">TOTO株式会社</p>
+                        </div>
+                        <div class="maker-item">
+                            <a href="https://sumai.panasonic.jp/hp/" target="_blank" class="maker-logo">
+                                <img src="image/panasonic.png" alt="パナソニック株式会社">
+                            </a>
+                            <p class="maker-name">パナソニック株式会社</p>
+                        </div>
+                        <div class="maker-item">
+                            <a href="https://chofukosan.com/products-info/home-energy-storage/" target="_blank" class="maker-logo">
+                                <img src="image/chohu.png" alt="長府工産株式会社">
+                            </a>
+                            <p class="maker-name">長府工産株式会社</p>
+                        </div>
+                        <div class="maker-item">
+                            <a href="https://csisolar.co.jp/products/ep-cube/" target="_blank" class="maker-logo">
+                                <img src="image/canadian.webp" alt="Canadian Solar">
+                            </a>
+                            <p class="maker-name">Canadian Solar</p>
+                        </div>
+                        <div class="maker-item">
+                            <a href="https://www.ykkap.co.jp/" target="_blank" class="maker-logo">
+                                <img src="image/ykk.png" alt="YKK">
+                            </a>
+                            <p class="maker-name">YKK AP株式会社</p>
+                        </div>
+                        
+                        <!-- 3回目の繰り返し（より滑らかなループのため） -->
+                        <div class="maker-item">
+                            <a href="https://www.lixil.co.jp/" target="_blank" class="maker-logo">
+                                <img src="image/lixil.png" alt="株式会社LIXIL">
+                            </a>
+                            <p class="maker-name">株式会社LIXIL</p>
+                        </div>
+                        <div class="maker-item">
+                            <a href="https://jp.toto.com/" target="_blank" class="maker-logo">
+                                <img src="image/toto.png" alt="TOTO株式会社">
+                            </a>
+                            <p class="maker-name">TOTO株式会社</p>
+                        </div>
+                        <div class="maker-item">
+                            <a href="https://sumai.panasonic.jp/hp/" target="_blank" class="maker-logo">
+                                <img src="image/panasonic.png" alt="パナソニック株式会社">
+                            </a>
+                            <p class="maker-name">パナソニック株式会社</p>
+                        </div>
+                        <div class="maker-item">
+                            <a href="https://chofukosan.com/products-info/home-energy-storage/" target="_blank" class="maker-logo">
+                                <img src="image/chohu.png" alt="長府工産株式会社">
+                            </a>
+                            <p class="maker-name">長府工産株式会社</p>
+                        </div>
+                        <div class="maker-item">
+                            <a href="https://csisolar.co.jp/products/ep-cube/" target="_blank" class="maker-logo">
+                                <img src="image/canadian.webp" alt="Canadian Solar">
+                            </a>
+                            <p class="maker-name">Canadian Solar</p>
+                        </div>
+                        <div class="maker-item">
+                            <a href="https://www.ykkap.co.jp/" target="_blank" class="maker-logo">
+                                <img src="image/ykk.png" alt="YKK">
+                            </a>
+                            <p class="maker-name">YKK AP株式会社</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="maker-item" data-aos="fade-up" data-aos-delay="150">
-                    <a href="https://jp.toto.com/" target="_blank" class="maker-logo">
-                        <img src="image/toto.png" alt="TOTO株式会社">
-                    </a>
-                    <p class="maker-name">TOTO株式会社</p>
-                </div>
-                <div class="maker-item" data-aos="fade-up" data-aos-delay="200">
-                    <a href="https://sumai.panasonic.jp/hp/" target="_blank" class="maker-logo">
-                        <img src="image/panasonic.png" alt="パナソニック株式会社">
-                    </a>
-                    <p class="maker-name">パナソニック株式会社</p>
-                </div>
-                <div class="maker-item" data-aos="fade-up" data-aos-delay="250">
-                    <a href="https://chofukosan.com/products-info/home-energy-storage/" target="_blank" class="maker-logo">
-                        <img src="image/chohu.png" alt="長府工産株式会社">
-                    </a>
-                    <p class="maker-name">長府工産株式会社</p>
-                </div>
-                <div class="maker-item" data-aos="fade-up" data-aos-delay="300">
-                    <a href="https://csisolar.co.jp/products/ep-cube/" target="_blank" class="maker-logo">
-                        <img src="image/canadian.webp" alt="Canadian Solar">
-                    </a>
-                    <p class="maker-name">Canadian Solar</p>
-                </div>
-                <div class="maker-item" data-aos="fade-up" data-aos-delay="350">
-                    <a href="https://www.ykkap.co.jp/" target="_blank" class="maker-logo">
-                        <img src="image/ykk.png" alt="YKK">
-                    </a>
-                    <p class="maker-name">YKK AP株式会社</p>
-                </div>
-                <div class="maker-item" data-aos="fade-up" data-aos-delay="400">
-                    <a href="https://jp.sharp/sunvista/battery/" target="_blank" class="maker-logo">
-                        <img src="image/sharp.png" alt="シャープ株式会社">
-                    </a>
-                    <p class="maker-name">シャープ株式会社</p>
-                </div>
-                <div class="maker-item" data-aos="fade-up" data-aos-delay="450">
-                    <a href="https://socialsolution.omron.com/jp/ja/products_service/energy/product/" target="_blank" class="maker-logo">
-                        <img src="image/omron.webp" alt="OMRON">
-                    </a>
-                    <p class="maker-name">オムロン株式会社</p>
-                </div>
-                <div class="maker-item" data-aos="fade-up" data-aos-delay="500">
-                    <a href="https://www.takara-standard.co.jp/" target="_blank" class="maker-logo">
-                        <img src="image/takara_standard.png" alt="Takara Standard">
-                    </a>
-                    <p class="maker-name">Takara Standard</p>
-                </div>
-                <div class="maker-item" data-aos="fade-up" data-aos-delay="550">
-                    <a href="https://www.corona.co.jp/eco/" target="_blank" class="maker-logo">
-                        <img src="image/corona.png" alt="株式会社コロナ">
-                    </a>
-                    <p class="maker-name">株式会社コロナ</p>
-                </div>
-                <div class="maker-item" data-aos="fade-up" data-aos-delay="600">
-                    <a href="https://www.mitsubishielectric.co.jp/home/ecocute/" target="_blank" class="maker-logo">
-                        <img src="image/mitsubishi.jpg" alt="三菱電機">
-                    </a>
-                    <p class="maker-name">三菱電機</p>
-                </div>
-                <div class="maker-item" data-aos="fade-up" data-aos-delay="650">
-                    <a href="https://www.ac.daikin.co.jp/sumai/alldenka/ecocute" target="_blank" class="maker-logo">
-                        <img src="image/daikin.png" alt="ダイキン工業株式会社">
-                    </a>
-                    <p class="maker-name">ダイキン工業株式会社</p>
+                
+                <!-- 下の行 - 右から左へスクロール -->
+                <div class="makers-row makers-row-right">
+                    <div class="makers-track">
+                        <!-- 下段のメーカー（オリジナル） -->
+                        <div class="maker-item">
+                            <a href="https://jp.sharp/sunvista/battery/" target="_blank" class="maker-logo">
+                                <img src="image/sharp.png" alt="シャープ株式会社">
+                            </a>
+                            <p class="maker-name">シャープ株式会社</p>
+                        </div>
+                        <div class="maker-item">
+                            <a href="https://socialsolution.omron.com/jp/ja/products_service/energy/product/" target="_blank" class="maker-logo">
+                                <img src="image/omron.webp" alt="OMRON">
+                            </a>
+                            <p class="maker-name">オムロン株式会社</p>
+                        </div>
+                        <div class="maker-item">
+                            <a href="https://www.takara-standard.co.jp/" target="_blank" class="maker-logo">
+                                <img src="image/takara_standard.png" alt="Takara Standard">
+                            </a>
+                            <p class="maker-name">Takara Standard</p>
+                        </div>
+                        <div class="maker-item">
+                            <a href="https://www.corona.co.jp/eco/" target="_blank" class="maker-logo">
+                                <img src="image/corona.png" alt="株式会社コロナ">
+                            </a>
+                            <p class="maker-name">株式会社コロナ</p>
+                        </div>
+                        <div class="maker-item">
+                            <a href="https://www.mitsubishielectric.co.jp/home/ecocute/" target="_blank" class="maker-logo">
+                                <img src="image/mitsubishi.jpg" alt="三菱電機">
+                            </a>
+                            <p class="maker-name">三菱電機</p>
+                        </div>
+                        <div class="maker-item">
+                            <a href="https://www.ac.daikin.co.jp/sumai/alldenka/ecocute" target="_blank" class="maker-logo">
+                                <img src="image/daikin.png" alt="ダイキン工業株式会社">
+                            </a>
+                            <p class="maker-name">ダイキン工業株式会社</p>
+                        </div>
+                        
+                        <!-- 下段のメーカー（複製・無限スクロール用） - 2回繰り返す -->
+                        <div class="maker-item">
+                            <a href="https://jp.sharp/sunvista/battery/" target="_blank" class="maker-logo">
+                                <img src="image/sharp.png" alt="シャープ株式会社">
+                            </a>
+                            <p class="maker-name">シャープ株式会社</p>
+                        </div>
+                        <div class="maker-item">
+                            <a href="https://socialsolution.omron.com/jp/ja/products_service/energy/product/" target="_blank" class="maker-logo">
+                                <img src="image/omron.webp" alt="OMRON">
+                            </a>
+                            <p class="maker-name">オムロン株式会社</p>
+                        </div>
+                        <div class="maker-item">
+                            <a href="https://www.takara-standard.co.jp/" target="_blank" class="maker-logo">
+                                <img src="image/takara_standard.png" alt="Takara Standard">
+                            </a>
+                            <p class="maker-name">Takara Standard</p>
+                        </div>
+                        <div class="maker-item">
+                            <a href="https://www.corona.co.jp/eco/" target="_blank" class="maker-logo">
+                                <img src="image/corona.png" alt="株式会社コロナ">
+                            </a>
+                            <p class="maker-name">株式会社コロナ</p>
+                        </div>
+                        <div class="maker-item">
+                            <a href="https://www.mitsubishielectric.co.jp/home/ecocute/" target="_blank" class="maker-logo">
+                                <img src="image/mitsubishi.jpg" alt="三菱電機">
+                            </a>
+                            <p class="maker-name">三菱電機</p>
+                        </div>
+                        <div class="maker-item">
+                            <a href="https://www.ac.daikin.co.jp/sumai/alldenka/ecocute" target="_blank" class="maker-logo">
+                                <img src="image/daikin.png" alt="ダイキン工業株式会社">
+                            </a>
+                            <p class="maker-name">ダイキン工業株式会社</p>
+                        </div>
+                        
+                        <!-- 3回目の繰り返し（より滑らかなループのため） -->
+                        <div class="maker-item">
+                            <a href="https://jp.sharp/sunvista/battery/" target="_blank" class="maker-logo">
+                                <img src="image/sharp.png" alt="シャープ株式会社">
+                            </a>
+                            <p class="maker-name">シャープ株式会社</p>
+                        </div>
+                        <div class="maker-item">
+                            <a href="https://socialsolution.omron.com/jp/ja/products_service/energy/product/" target="_blank" class="maker-logo">
+                                <img src="image/omron.webp" alt="OMRON">
+                            </a>
+                            <p class="maker-name">オムロン株式会社</p>
+                        </div>
+                        <div class="maker-item">
+                            <a href="https://www.takara-standard.co.jp/" target="_blank" class="maker-logo">
+                                <img src="image/takara_standard.png" alt="Takara Standard">
+                            </a>
+                            <p class="maker-name">Takara Standard</p>
+                        </div>
+                        <div class="maker-item">
+                            <a href="https://www.corona.co.jp/eco/" target="_blank" class="maker-logo">
+                                <img src="image/corona.png" alt="株式会社コロナ">
+                            </a>
+                            <p class="maker-name">株式会社コロナ</p>
+                        </div>
+                        <div class="maker-item">
+                            <a href="https://www.mitsubishielectric.co.jp/home/ecocute/" target="_blank" class="maker-logo">
+                                <img src="image/mitsubishi.jpg" alt="三菱電機">
+                            </a>
+                            <p class="maker-name">三菱電機</p>
+                        </div>
+                        <div class="maker-item">
+                            <a href="https://www.ac.daikin.co.jp/sumai/alldenka/ecocute" target="_blank" class="maker-logo">
+                                <img src="image/daikin.png" alt="ダイキン工業株式会社">
+                            </a>
+                            <p class="maker-name">ダイキン工業株式会社</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -607,7 +772,7 @@
                     </div>
                 </div>
                 
-                <div class="service-item security" data-aos="fade-up" data-aos-delay="300" onclick="window.location.href='water.html'" style="cursor: pointer;">
+                <div class="service-item security" data-aos="fade-up" data-aos-delay="300" onclick="window.location.href='maintenance.html'" style="cursor: pointer;">
                     <div class="service-icon">
                         <i class="fas fa-tools"></i>
                     </div>
