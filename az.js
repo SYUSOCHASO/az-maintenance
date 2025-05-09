@@ -1,4 +1,60 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // 7周年セクションのフェードインアニメーション
+    const observeAnniversarySection = () => {
+        const fadeElements = document.querySelectorAll('.fade-in-element, .fade-in-right');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                // 要素が画面に表示されたとき
+                if (entry.isIntersecting) {
+                    // 各要素に表示用のクラスを追加（遅延を設定）
+                    if (entry.target.classList.contains('achievement-anniversary')) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, 300); // 0.3秒後
+                    } else if (entry.target.classList.contains('achievement-subtext')) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, 600); // 0.6秒後
+                    } else if (entry.target.classList.contains('achievement-message')) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, 900); // 0.9秒後
+                    } else if (entry.target.classList.contains('card-1')) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, 1200); // 1.2秒後
+                    } else if (entry.target.classList.contains('card-2')) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, 1500); // 1.5秒後
+                    } else if (entry.target.classList.contains('card-3')) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, 1800); // 1.8秒後
+                    } else if (entry.target.classList.contains('fade-in-right')) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, 2100); // 2.1秒後
+                    } else {
+                        // その他の要素は即時表示
+                        entry.target.classList.add('visible');
+                    }
+                    
+                    // 一度表示されたら監視を解除
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 }); // 10%見えたらアニメーション開始（20%から10%に変更）
+        
+        // 各要素を監視
+        fadeElements.forEach(element => {
+            observer.observe(element);
+        });
+    };
+    
+    // 7周年セクションのアニメーション監視を開始
+    observeAnniversarySection();
     // 取り扱いメーカーセクションの無限スクロール初期化
     // 両方の行を逆方向にスクロールさせる設定
     const tracks = document.querySelectorAll('.makers-track');
@@ -7,35 +63,42 @@ document.addEventListener('DOMContentLoaded', () => {
         tracks[0].style.animationDirection = 'reverse'; // 上の行は逆方向（左から右へ）
         // 下の行はデフォルト（右から左へ）のままにする
     }
-    // 新しいセクションのカウンターアニメーション
+    // 会員数・施工実績セクションのカウンターアニメーション
     const achievementCounters = document.querySelectorAll('#achievement .counter');
     if (achievementCounters.length > 0) {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
+                    // カードの円形アニメーションを開始
+                    const circles = document.querySelectorAll('.card-circle circle');
+                    circles.forEach(circle => {
+                        circle.style.animation = 'circleAnimation 2s ease forwards';
+                    });
+                    
+                    // カウンターアニメーションを実行
                     achievementCounters.forEach(counter => {
-                        // カウンターアニメーションを実行
                         const target = +counter.getAttribute('data-target');
-                        const duration = 4500; // ミリ秒単位でアニメーション時間設定（2000から4500に変更）
+                        const duration = 4000; // ミリ秒単位でアニメーション時間設定（2500msから4000msに延長）
                         const increment = target / (duration / 16);
                         let current = 0;
                         
+                        // カウンターの数値を更新する関数
                         const updateCounter = () => {
                             current += increment;
-                            counter.textContent = Math.floor(current);
+                            
+                            // 桁数に応じてカンマを追加
+                            const formattedNumber = Math.floor(current).toLocaleString();
+                            counter.textContent = formattedNumber;
                             
                             if (current < target) {
                                 requestAnimationFrame(updateCounter);
                             } else {
-                                counter.textContent = target;
+                                // 最終的な数値を設定
+                                counter.textContent = target.toLocaleString();
                                 
-                                // カウンターアニメーションが完了したらマスコット画像を表示する
+                                // 最後のカウンターが完了したらマスコットアニメーションを開始
                                 if (counter === achievementCounters[achievementCounters.length - 1]) {
-                                    const mascotImage = document.querySelector('.achievement-image');
-                                    if (mascotImage) {
-                                        // 画像のアニメーションを適用
-                                        mascotImage.style.animation = 'fadeInFromRight 1s ease forwards';
-                                    }
+                                    // マスコットのアニメーションは既にCSSで設定済み
                                 }
                             }
                         };
@@ -47,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     observer.disconnect();
                 }
             });
-        }, { threshold: 0.1 }); // 10%見えたら実行
+        }, { threshold: 0.1 }); // 10%見えたら実行（30%から10%に変更してより早く表示）
         
         // セクションを監視
         const achievementSection = document.getElementById('achievement');
