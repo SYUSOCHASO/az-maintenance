@@ -444,12 +444,13 @@ br {
 .quick-estimate {
     position: absolute;
     bottom: 10%;
-    transform: translateX(-50%);
-    left: 19%;
-    width: 90%;
-    max-width: 1200px;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: auto;
+    max-width: 1000px;
     display: flex;
-    justify-content: center; /* flex-startからcenterに変更して中央揃え */
+    justify-content: center;
     gap: 2rem;
     z-index: 2;
     opacity: 0; /* 初期状態は非表示 */
@@ -776,9 +777,30 @@ br {
     color: #000;
     text-align: center;
     margin: 1.5rem 0 2.5rem;
-    font-weight: 500;
+    font-weight: 700;
     line-height: 1.6;
     white-space: nowrap;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    letter-spacing: 0.04em;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    color: #000000;
+}
+
+/* 「顧客会員数5,000件突破」と「累計施工実績20,000件達成」のハイライト用スタイル */
+.highlight-text {
+    font-size: 2.4rem; /* フォントサイズを大きく */
+    font-weight: 900; /* より太く */
+    color: #003399; /* 青色に変更 */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.15); /* 影を少し強く */
+    display: inline-block; /* インラインブロック要素に */
+    position: relative; /* 相対位置指定 */
+}
+
+/* モバイル対応 */
+@media (max-width: 768px) {
+    .highlight-text {
+        font-size: 2.2rem; /* モバイルでは少し小さく */
+    }
 }
 
 .achievement-anniversary {
@@ -925,7 +947,55 @@ br {
     flex-direction: column;
     align-items: center;
     flex: 0 0 auto;
-    margin-left: 5rem; /* 2remから5remに増やして右に移動 */
+    margin-left: 17rem; /* より右に移動 */
+}
+
+.mascot-bubble {
+    position: absolute;
+    top: -60px;
+    left: -20px;
+    background: white;
+    border: 2px solid #003399;
+    border-radius: 15px;
+    padding: 10px 15px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    z-index: 2;
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 2s;
+    opacity: 0;
+    transform: translateY(-5px);
+}
+
+.mascot-bubble:after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 30px;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-right: 2px solid #003399;
+    border-bottom: 2px solid #003399;
+    transform: rotate(45deg);
+}
+
+.mascot-bubble p {
+    margin: 0;
+    padding: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #003399;
+    white-space: nowrap;
+}
+
+.mascot-name {
+    margin-top: 0.8rem;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #000000; /* 青色(#003399)から黒色(#000000)に変更 */
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 1.5s;
 }
 
 .achievement-footer {
@@ -935,12 +1005,15 @@ br {
 
 .achievement-message {
     font-size: 2rem;
-    color: #000;
     line-height: 1.6;
-    font-weight: 500;
+    font-weight: 900; /* 700から900へ太さを増加 */
     max-width: 1000px;
     margin: 1.5rem auto 3rem;
     white-space: nowrap;
+    font-family: 'M PLUS Rounded 1c', sans-serif; /* フォントを統一 */
+    letter-spacing: 0.03em;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    color: #000000;
 }
 
 .mascot-image {
@@ -950,6 +1023,17 @@ br {
     transform: translateX(20px);
     animation: fadeInMascot 1s ease forwards;
     animation-delay: 1s; /* アニメーション遅延を短縮 */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 
@@ -1026,12 +1110,17 @@ br {
     
     .mascot-bubble {
         top: -40px;
-        left: -40px;
+        left: 0;
         padding: 0.6rem 1.2rem;
     }
     
     .mascot-bubble p {
         font-size: 1.3rem;
+    }
+    
+    .mascot-name {
+        font-size: 1.5rem;
+        margin-top: 0.5rem;
     }
 }
 
@@ -1544,48 +1633,90 @@ br {
 }
 
 .about-content {
-    max-width: 1200px;
+    max-width: 1400px; /* 1200pxから1400pxに増加して幅を広げる */
     margin: 0 auto;
     padding: 0 2rem;
-    text-align: center;
+}
+
+/* 企業理念セクションのフレックスレイアウト */
+.about-flex-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3rem; /* 5remから3remに減少して間隔を縮める */
+}
+
+/* テキスト部分（左側） */
+.about-text {
+    flex: 0.5; /* 0.6から0.5に変更してテキスト部分のスペースをさらに縮小 */
+    text-align: left;
+    padding-right: 1rem;
 }
 
 .about-text h3 {
-    font-size: 3rem;
-    margin-bottom: 4rem;
+    font-size: 3.2rem;
+    margin-bottom: 3.1rem;
     line-height: 1.8;
     color: var(--text-color);
     white-space: nowrap;
     font-weight: bold;
-}
-
-.about-images {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin: 4rem 0;
-}
-
-.about-images img {
-    width: 250px;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 1rem;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-}
-
-.about-images img:hover {
-    transform: translateY(-0.5rem);
+    font-family: 'M PLUS Rounded 1c', sans-serif; /* 「皆さまのご愛顧により、」と同じフォントファミリーを適用 */
+    letter-spacing: 0.03em; /* 文字間隔を調整 */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* テキストに軽い影を追加 */
 }
 
 .about-text p {
-    font-size: 2.4rem;
-    max-width: 1200px;
-    margin: 0 auto;
+    font-size: 2.3rem;
     color: #000; /* #333から#000（黒）に変更 */
-    line-height: 1.6;
+    line-height: 1.8;
     white-space: nowrap;
+    font-weight: bold;
+    font-family: 'M PLUS Rounded 1c', sans-serif; /* 「皆さまのご愛顧により、」と同じフォントファミリーを適用 */
+    letter-spacing: 0.03em; /* 文字間隔を調整 */
+}
+
+/* 画像部分（右側） */
+.about-image {
+    flex: 1.5; /* 1.4から1.5に変更して画像部分のスペースをさらに拡大 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.family-image {
+    width: 490px; /* 幅を100%に設定 */
+    height: 300px;
+    object-fit: cover;
+    border-radius: 1rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease;
+}
+
+
+/* モバイル対応 */
+@media (max-width: 768px) {
+    .about-flex-container {
+        flex-direction: column;
+        gap: 3rem;
+    }
+    
+    .about-text {
+        text-align: center;
+    }
+    
+    .about-text h3 {
+        font-size: 2.2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .about-text p {
+        font-size: 1.8rem;
+        white-space: normal;
+    }
+    
+    .family-image {
+        max-width: 100%;
+    }
 }
 
 /* 事業内容セクション */
@@ -1597,7 +1728,7 @@ br {
 /* Sunny Plusスタイルのサービスグリッド */
 .service-grid-container {
     width: 100%;
-    margin: 0 0 8rem;
+    margin: 0;
     padding: 0;
 }
 
