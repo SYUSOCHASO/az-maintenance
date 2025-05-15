@@ -64,59 +64,80 @@ document.addEventListener('DOMContentLoaded', () => {
         // 下の行はデフォルト（右から左へ）のままにする
     }
     // 会員数・施工実績セクションのカウンターアニメーション
-    const achievementCounters = document.querySelectorAll('#achievement .counter');
-    if (achievementCounters.length > 0) {
-        const observer = new IntersectionObserver((entries) => {
+    // 各カードを個別に監視し、それぞれが視界に入ったときにカウントアップを開始する
+    const achievementCards = document.querySelectorAll('.achievement-card');
+    if (achievementCards.length > 0) {
+        // 各カードに個別のオブザーバーを設定
+        achievementCards.forEach((card, index) => {
+            // カードごとに新しいObserverを作成
+            const cardObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !card.classList.contains('counted')) {
+                        // 一度だけ実行するためのフラグを設定
+                        card.classList.add('counted');
+                        
+                        // まずカードを表示
+                        setTimeout(() => {
+                            card.classList.add('visible');
+                            
+                            // カードが表示された後にカウンターを開始（遅延を追加）
+                            setTimeout(() => {
+                                const counter = card.querySelector('.counter');
+                                if (counter) {
+                                    // カウントアップアニメーションを開始
+                                    const target = +counter.getAttribute('data-target');
+                                    const duration = 3000; // 3秒でカウントアップ（2秒から1秒延長）
+                                    const increment = target / (duration / 16);
+                                    let current = 0;
+                                    
+                                    // カウンターの数値を更新する関数
+                                    const updateCounter = () => {
+                                        current += increment;
+                                        
+                                        // 桁数に応じてカンマを追加
+                                        const formattedNumber = Math.floor(current).toLocaleString();
+                                        counter.textContent = formattedNumber;
+                                        
+                                        if (current < target) {
+                                            requestAnimationFrame(updateCounter);
+                                        } else {
+                                            // 最終的な数値を設定
+                                            counter.textContent = target.toLocaleString();
+                                        }
+                                    };
+                                    
+                                    // カウントアップを開始
+                                    updateCounter();
+                                }
+                            }, 500); // カードが表示されてから0.5秒後にカウントアップを開始
+                        }, 100 * index); // カードごとに表示に少しずつ遅延をつける
+                        
+                        // このカードの監視を停止
+                        cardObserver.unobserve(card);
+                    }
+                });
+            }, { threshold: 0.5 }); // 半分以上見えたときに実行（しきい値を高くする）
+            
+            // カードの監視を開始
+            cardObserver.observe(card);
+        });
+    }
+    
+    // カードの円形アニメーションも必要であれば同様に設定
+    const circles = document.querySelectorAll('.card-circle circle');
+    if (circles.length > 0) {
+        const circleObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // カードの円形アニメーションを開始
-                    const circles = document.querySelectorAll('.card-circle circle');
-                    circles.forEach(circle => {
-                        circle.style.animation = 'circleAnimation 2s ease forwards';
-                    });
-                    
-                    // カウンターアニメーションを実行
-                    achievementCounters.forEach(counter => {
-                        const target = +counter.getAttribute('data-target');
-                        const duration = 4000; // ミリ秒単位でアニメーション時間設定（2500msから4000msに延長）
-                        const increment = target / (duration / 16);
-                        let current = 0;
-                        
-                        // カウンターの数値を更新する関数
-                        const updateCounter = () => {
-                            current += increment;
-                            
-                            // 桁数に応じてカンマを追加
-                            const formattedNumber = Math.floor(current).toLocaleString();
-                            counter.textContent = formattedNumber;
-                            
-                            if (current < target) {
-                                requestAnimationFrame(updateCounter);
-                            } else {
-                                // 最終的な数値を設定
-                                counter.textContent = target.toLocaleString();
-                                
-                                // 最後のカウンターが完了したらマスコットアニメーションを開始
-                                if (counter === achievementCounters[achievementCounters.length - 1]) {
-                                    // マスコットのアニメーションは既にCSSで設定済み
-                                }
-                            }
-                        };
-                        
-                        updateCounter();
-                    });
-                    
-                    // 一度実行したら監視を解除
-                    observer.disconnect();
+                    entry.target.style.animation = 'circleAnimation 2s ease forwards';
+                    circleObserver.unobserve(entry.target);
                 }
             });
-        }, { threshold: 0.1 }); // 10%見えたら実行（30%から10%に変更してより早く表示）
+        }, { threshold: 0.5 });
         
-        // セクションを監視
-        const achievementSection = document.getElementById('achievement');
-        if (achievementSection) {
-            observer.observe(achievementSection);
-        }
+        circles.forEach(circle => {
+            circleObserver.observe(circle);
+        });
     }
 
     // WordPressからニュース記事を取得して表示する関数
