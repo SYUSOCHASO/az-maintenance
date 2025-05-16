@@ -659,6 +659,13 @@ document.addEventListener('DOMContentLoaded', () => {
         let currentIndex = 0;
         let autoSlideInterval;
         
+        // タッチイベント用の変数
+        let startX = 0;
+        let endX = 0;
+        let isDragging = false;
+        let startTranslate = 0;
+        let isMobileDevice = window.innerWidth <= 768;
+        
         // スライダーの初期化
         const initSlider = () => {
             // カードの幅を再計算
@@ -674,6 +681,32 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // 初期位置に移動
             goToSlide(0);
+            
+            // 現在のデバイスタイプを確認
+            isMobileDevice = window.innerWidth <= 768;
+            
+            // モバイルの場合、スライダーにスクロール可能なスタイルを適用
+            if (isMobileDevice) {
+                reviewsSlider.style.overflowX = 'auto';
+                reviewsSlider.style.scrollBehavior = 'smooth';
+                reviewsSlider.style.WebkitOverflowScrolling = 'touch'; // iOSのスムーススクロール
+                reviewsSlider.style.scrollSnapType = 'x mandatory';
+                
+                // 各カードにスクロールスナップを適用
+                reviewCards.forEach(card => {
+                    card.style.scrollSnapAlign = 'start';
+                });
+            } else {
+                // PCの場合は従来のスライダースタイルを維持
+                reviewsSlider.style.overflowX = 'hidden';
+                reviewsSlider.style.scrollBehavior = 'auto';
+                reviewsSlider.style.WebkitOverflowScrolling = 'auto';
+                reviewsSlider.style.scrollSnapType = 'none';
+                
+                reviewCards.forEach(card => {
+                    card.style.scrollSnapAlign = 'none';
+                });
+            }
         };
         
         // スライダードットの生成（3つのグループに対応する3つのドット）
@@ -716,13 +749,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.style.opacity = '1';
                 card.style.visibility = 'visible';
             });
+            
+            // モバイルデバイスの場合はスクロール位置も更新
+            if (isMobileDevice) {
+                reviewsSlider.scrollLeft = currentIndex * cardWidth;
+            }
         };
         
         // 前のスライドへ
         const goToPrevSlide = () => {
             // モバイル表示では1枚ずつ、PC表示では3枚ずつ表示
             const isMobile = window.innerWidth <= 768;
-            const step = isMobile ? 1 : 3; // モバイルでは1枚ずつ、PCでは3枚ずつ移動
+            // モバイル表示時は0.5枚分だけ移動（移動距離を小さく）、PC表示では3枚ずつ移動
+            const step = isMobile ? 0.5 : 3;
             const visibleCards = isMobile ? 1 : 3;
             const maxIndex = reviewCards.length - visibleCards;
             
@@ -745,8 +784,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const goToNextSlide = () => {
             // モバイル表示では1枚ずつ、PC表示では3枚ずつ表示
             const isMobile = window.innerWidth <= 768;
-            const visibleCards = isMobile ? 1 : 3;
-            const step = isMobile ? 1 : 3; // モバイルでは1枚ずつ、PCでは3枚ずつ移動
+            const visibleCards = isMobile ? 3 : 3;
+            
+            // モバイル表示時は0.5枚分だけ移動（移動距離を小さく）、PC表示では3枚ずつ移動
+            const step = isMobile ? 1 : 3;
             const maxIndex = reviewCards.length - visibleCards;
             
             // 次のインデックスを計算
@@ -775,6 +816,85 @@ document.addEventListener('DOMContentLoaded', () => {
         // ボタンイベントの設定
         if (prevBtn) prevBtn.addEventListener('click', goToPrevSlide);
         if (nextBtn) nextBtn.addEventListener('click', goToNextSlide);
+        
+        // タッチイベントの設定（モバイル用のタッチスワイプ）
+        reviewsSlider.addEventListener('touchstart', (e) => {
+            // 自動スクロールを一時停止
+            clearInterval(autoSlideInterval);
+            
+            startX = e.touches[0].clientX;
+            startTranslate = currentIndex * cardWidth;
+            isDragging = true;
+            
+            // トランジションを一時的に無効化
+            reviewsSlider.style.transition = 'none';
+        }, { passive: true });
+        
+        reviewsSlider.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            
+            endX = e.touches[0].clientX;
+            const diffX = startX - endX;
+            
+            // スライダーをドラッグに合わせて移動
+            if (isMobileDevice) {
+                // モバイルでは自由なスクロールを許可（何もしない）
+            } else {
+                // PCではJavaScriptによる制御
+                const translateX = -startTranslate - diffX;
+                reviewsSlider.style.transform = `translateX(${translateX}px)`;
+            }
+        }, { passive: true });
+        
+        reviewsSlider.addEventListener('touchend', (e) => {
+            if (!isDragging) return;
+            isDragging = false;
+            
+            // トランジションを再度有効化
+            reviewsSlider.style.transition = 'transform 0.3s ease-out';
+            
+            endX = e.changedTouches[0].clientX;
+            const diffX = startX - endX;
+            
+            // スワイプの方向と距離に基づいてスライドを切り替え
+            if (Math.abs(diffX) > cardWidth * 0.2) { // スワイプが十分な距離であれば
+                if (diffX > 0) {
+                    // 左スワイプの場合、次のスライドへ
+                    goToNextSlide();
+                } else {
+                    // 右スワイプの場合、前のスライドへ
+                    goToPrevSlide();
+                }
+            } else {
+                // スワイプが十分でない場合は現在のスライドに戻る
+                goToSlide(currentIndex);
+            }
+            
+            // 自動スクロールを再開
+            startAutoSlide();
+        }, { passive: true });
+        
+        // スクロールイベントを監視して現在のインデックスを更新（モバイル用）
+        reviewsSlider.addEventListener('scroll', () => {
+            if (isMobileDevice) {
+                // スクロール位置からインデックスを計算
+                const scrollLeft = reviewsSlider.scrollLeft;
+                const approxIndex = Math.round(scrollLeft / cardWidth);
+                
+                if (approxIndex !== currentIndex) {
+                    currentIndex = approxIndex;
+                    
+                    // ドットの更新
+                    const activeGroupIndex = Math.floor(currentIndex / 3);
+                    document.querySelectorAll('.dot').forEach((dot, i) => {
+                        dot.classList.toggle('active', i === activeGroupIndex);
+                    });
+                    
+                    // 自動スクロールのリセット
+                    resetAutoSlide();
+                }
+            }
+        }, { passive: true });
         
         // スライダーの初期化
         initSlider();
