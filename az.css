@@ -1154,6 +1154,13 @@ br {
         padding: 0.6rem 1.2rem;
     }
     
+    .mascot-bubble:after {
+        width: 12px;
+        height: 12px;
+        bottom: -6px;
+        left: 20px;
+    }
+    
     .mascot-bubble p {
         font-size: 1.3rem;
     }
