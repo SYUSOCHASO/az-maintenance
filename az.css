@@ -798,9 +798,11 @@ br {
 
 /* モバイル対応 */
 @media (max-width: 768px) {
+    /* これは上のメディアクエリで統合されたためコメントアウト
     .highlight-text {
-        font-size: 2.2rem; /* モバイルでは少し小さく */
+        font-size: 2.2rem; 
     }
+    */
 }
 
 .achievement-anniversary {
@@ -1056,6 +1058,41 @@ br {
 @media (max-width: 768px) {
     .achievement-section {
         padding: 4rem 0 3rem; /* さらにパディングを減らす */
+    }
+    
+    /* 7周年メッセージのモバイル対応 */
+    .achievement-anniversary {
+        font-size: 2.4rem; /* フォントサイズを小さく */
+        margin-left: 0; /* 左マージンを削除 */
+        white-space: normal; /* テキストを折り返す */
+        text-align: center; /* 中央揃え */
+        margin-bottom: 1.5rem; /* 下マージンを小さく */
+    }
+    
+    .anniversary-highlight {
+        font-size: 2.8rem; /* 強調テキストのサイズも小さく */
+    }
+    
+    .achievement-subtext {
+        font-size: 1.6rem; /* テキストサイズを小さく */
+        white-space: normal; /* テキストを折り返す */
+        text-align: center; /* 中央揃え */
+    }
+    
+    .highlight-text {
+        font-size: 1.8rem; /* ハイライトテキストサイズも小さく */
+    }
+    
+    .achievement-message {
+        font-size: 1.6rem; /* メッセージサイズも小さく */
+        line-height: 1.8; /* 行間も調整 */
+        white-space: normal; /* テキストを折り返す */
+        text-align: center; /* 中央揃え */
+        margin: 1rem 0 2rem; /* マージンを調整 */
+    }
+    
+    .header-content {
+        flex-direction: column; /* 縦並びに変更 */
     }
     
     .achievement-flex-container {
