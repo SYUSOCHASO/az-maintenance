@@ -2738,6 +2738,41 @@ br {
         height: 90px; /* 画像の高さを小さく */
     }
 
+    .reviews-slider {
+        -webkit-overflow-scrolling: touch; /* iOSでのスムーススクロール */
+        scroll-snap-type: x mandatory; /* スクロールスナップを追加 */
+        scrollbar-width: none; /* Firefox用のスクロールバー非表示 */
+    }
+    
+    .reviews-slider::-webkit-scrollbar {
+        display: none; /* Chrome/Safari用のスクロールバー非表示 */
+    }
+    
+    .review-card {
+        flex: 0 0 85%; /* モバイルでは幅を調整 */
+        scroll-snap-align: start; /* スクロールスナップ位置を先頭に */
+    }
+    
+    /* スワイプ操作のヒントを表示 */
+    .reviews-container::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        width: 10px;
+        height: 10px;
+        border-top: 2px solid rgba(15, 184, 198, 0.5);
+        border-right: 2px solid rgba(15, 184, 198, 0.5);
+        transform: translateY(-50%) rotate(45deg);
+        animation: swipeHint 1.5s infinite;
+        pointer-events: none;
+    }
+    
+    @keyframes swipeHint {
+        0%, 100% { opacity: 0; }
+        50% { opacity: 1; }
+    }
+
     /* 事業内容セクションをモバイル表示で縦並びに変更 */
     .service-grid {
         display: flex;
