@@ -1527,15 +1527,40 @@ br {
 /* モバイル対応 */
 @media (max-width: 768px) {
     .work-item {
-        flex: 0 0 calc(100% - 2rem);
+        flex: 0 0 calc(90% - 2rem);
+        max-width: 280px;
+        margin: 0 auto;
+        padding: 0.8rem;
     }
     
     .work-images {
         flex-direction: column;
+        gap: 0.8rem;
     }
     
     .work-img {
-        height: 150px;
+        height: 120px;
+    }
+    
+    .work-label {
+        font-size: 1.3rem;
+        padding: 0.4rem 0.8rem;
+    }
+    
+    .works-prev-btn {
+        left: -0.5rem;
+        width: 3.5rem;
+        height: 3.5rem;
+    }
+    
+    .works-next-btn {
+        right: -0.5rem;
+        width: 3.5rem;
+        height: 3.5rem;
+    }
+    
+    .works-prev-btn i, .works-next-btn i {
+        font-size: 2rem;
     }
 }
 
