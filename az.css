@@ -2575,20 +2575,22 @@ br {
     .quick-estimate {
         flex-direction: column; /* 縦並びに変更 */
         align-items: center; /* 中央揃え */
-        gap: 1.5rem; /* 要素間の間隔を調整 */
+        gap: 1.2rem; /* 要素間の間隔を調整 */
         width: 80%; /* 幅を少し狭く */
         max-width: 300px; /* 最大幅を設定 */
+        bottom: 15%; /* 位置を上に移動 */
     }
     
     .estimate-btn {
         width: 100%; /* ボタンの幅を100%に */
         justify-content: center; /* テキストを中央揃え */
-        padding: 1.5rem 2rem; /* パディングを調整 */
+        padding: 1.2rem 1.5rem; /* パディングを小さく調整 */
+        font-size: 1.8rem; /* フォントサイズを少し小さく */
     }
 
-    /* LINEで見積もりボタンの縦幅を増やす */
+    /* LINEで見積もりボタンの縦幅を調整 */
     .line-btn {
-        height: 80px; /* 高さを直接指定 */
+        height: 70px; /* 高さを少し小さく */
         display: flex;
         align-items: center;
         justify-content: center;
@@ -2597,7 +2599,7 @@ br {
     /* メールフォームボタンのモバイル対応 */
     .mail-btn {
         height: auto;
-        padding: 1.5rem 2rem;
+        padding: 1.2rem 1.5rem;
     }
     
     .mail-top {
@@ -2605,16 +2607,16 @@ br {
     }
     
     .mail-top i {
-        font-size: 2rem;
+        font-size: 1.8rem;
         margin-right: 0.5rem;
     }
     
     .mail-top span {
-        font-size: 1.6rem;
+        font-size: 1.4rem;
     }
     
     .mail-bottom span {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
     }
     
     .mail-bottom i {
@@ -2909,6 +2911,16 @@ br {
     
     .contact-info-btn {
         width: 100%; /* 電話番号ボタンの幅も100%に */
+    }
+
+    /* 電話番号ボタンの中のテキストサイズ調整 */
+    .contact-time {
+        font-size: 1.2rem;
+        margin-bottom: 0.2rem;
+    }
+    
+    .contact-tel {
+        font-size: 1.8rem;
     }
 
     .company-content,
