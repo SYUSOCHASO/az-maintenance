@@ -769,14 +769,14 @@ br {
 .header-text {
     flex: 1;
     max-width: 800px;
-    text-align: center;
+    text-align: left;
 }
 
 .achievement-subtext {
     font-size: 2rem;
     color: #000;
-    text-align: center;
-    margin: 1.5rem 0 2.5rem;
+    text-align: left;
+    margin: 1.5rem 0 1.5rem; /* 下部マージンを2.5remから1.5remに減らして間隔を狭く */
     font-weight: 700;
     line-height: 1.6;
     white-space: nowrap;
@@ -814,6 +814,8 @@ br {
     line-height: 1.4;
     display: inline-block;
     padding-bottom: 1rem;
+    margin-left: 210px; /* テキスト「おかげさまでAZメンテナンスは....」の位置を右に移動 */
+    white-space: nowrap; /* テキストの折り返しを防止 */
 }
 
 .achievement-anniversary::after {
@@ -1005,15 +1007,16 @@ br {
 
 .achievement-message {
     font-size: 2rem;
-    line-height: 1.6;
+    line-height: 2.5; /* 1.6から2.5に増加して行間を広げる */
     font-weight: 900; /* 700から900へ太さを増加 */
     max-width: 1000px;
-    margin: 1.5rem auto 3rem;
+    margin: 1.5rem 0 3rem;
     white-space: nowrap;
     font-family: 'M PLUS Rounded 1c', sans-serif; /* フォントを統一 */
     letter-spacing: 0.03em;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
     color: #000000;
+    text-align: left;
 }
 
 .mascot-image {
