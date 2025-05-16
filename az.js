@@ -1,3046 +1,1032 @@
-/* 基本設定 */
-:root {
-    --primary-color: #003399;
-    --secondary-color: #FFD700;
-    --text-color: #000;
-    --light-gray: #f5f5f5;
-    --dark-gray: #666;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    font-size: 62.5%;
-    overflow-x: hidden;
-}
-
-body {
-    font-family: 'Noto Sans JP', sans-serif;
-    line-height: 1.6;
-    color: var(--text-color);
-    overflow-x: hidden;
-}
-
-/* PCでは通常のbrタグを表示 */
-br {
-    display: inline;
-}
-
-/* PCでは pc-break を表示し、mobile-break を非表示 */
-.pc-break {
-    display: inline;
-}
-
-/* モバイル用の改行を通常は非表示に */
-.mobile-break {
-    display: none;
-}
-
-/* ヘッダー */
-.header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: #fff;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    z-index: 1000;
-    padding: 0.5rem 0;
-    transition: transform 0.3s ease;
-}
-
-.nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0 4rem;
-}
-
-.header-contact {
-    text-align: right;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
-
-.contact-message {
-    font-size: 1.5rem;
-    color: #333;
-    margin-top: 0.5rem; /* 上部に余白を追加して下に移動 */
-    margin-bottom: 0.2rem; /* 0.5remから0.2remに減らして間隔を詰める */
-    font-weight: bold;
-}
-
-.contact-phone {
-    font-size: 3rem;
-    font-weight: bold;
-    color: #06C755;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    transition: color 0.3s ease;
-    margin: 0.1rem 0; /* 0.2remから0.1remに減らして間隔を詰める */
-}
-
-.contact-hours {
-    font-size: 1.3rem;
-    color: #333;
-    margin-top: 0.2rem; /* 0.5remから0.2remに減らして間隔を詰める */
-    font-weight: bold;
-}
-
-.contact-phone::before {
-    content: '\f095';
-    font-family: 'Font Awesome 5 Free';
-    font-weight: 900;
-    font-size: 2.4rem;
-}
-
-.contact-phone:hover {
-    color: #003399;
-}
-
-.logo img {
-    height: 9.5rem;
-    transition: transform 0.3s ease;
-}
-
-.logo img:hover {
-    transform: scale(1.05);
-}
-
-.nav-links {
-    display: flex;
-    list-style: none;
-    gap: 3rem;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: var(--text-color);
-    font-size: 2rem;
-    font-weight: 1000;
-    position: relative;
-    padding: 0.5rem 0;
-}
-
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--primary-color);
-    transition: width 0.3s ease;
-}
-
-.nav-links a:hover::after {
-    width: 100%;
-}
-
-/* メインビジュアル */
-.video-container {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-}
-
-.hero-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    z-index: 2;
-    width: 100%;
-    max-width: 1200px;
-    padding: 0 2rem;
-}
-
-.hero-title {
-    font-size: 5rem;
-    margin-bottom: 4rem;
-    line-height: 1.4;
-    font-family: "游明朝", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", serif;
-    letter-spacing: 0.1em;
-    font-weight: 400; /* boldから100（最も細い）に変更 */
-    text-align: center;
-    width: 100%;
-    color: #333;
-    -webkit-text-stroke: 1.5px #333;
-    text-shadow: 
-        0 0 1px #333,
-        0 0 2px #333;
-    position: relative; /* 追加：実績バッジの位置決めのため */
-}
-
-/* 左上の黄色いバッジ */
-.price-badge {
-    position: absolute;
-    top: -80px;
-    left: 15%; /* 左から15%の位置に変更 */
-    transform: translateX(-50%) rotate(-15deg); /* 中心を基準に配置するための調整を追加 */
-    width: 170px;
-    height: 170px;
-    background: linear-gradient(135deg, #DAA520, #FFD700 50%, #DAA520);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-    z-index: 3;
-    /* アニメーション設定を追加 */
-    animation: badgePopup 0.8s ease-out forwards;
-    opacity: 0; /* 初期状態は非表示 */
-}
-
-.badge-text {
-    text-align: center;
-    line-height: 1.2;
-    font-weight: bold;
-    font-size: 1.6rem;
-    color: #000;
-    display: flex;
-    flex-direction: column;
-}
-
-.curved-text {
-    width: 170px;
-    height: 170px;
-    position: absolute;
-    top: 10px;
-    left: 0;
-}
-
-.curved-text text {
-    font-size: 15px;
-    font-weight: bold;
-    fill: #000;
-}
-
-.curved-text path {
-    fill: none;
-}
-
-.curved-text textPath {
-    letter-spacing: 3px; /* 「AZメンテナンスは」のテキスト 1文字1文字の間の間隔 */
-}
-
-.text-line1 {
-    display: none;
-}
-
-.text-line2 {
-    font-size: 2.4rem;
-    margin-top: 65px;
-}
-
-.text-line3 {
-    font-size: 2.4rem;
-}
-
-/* 左側の黄色いバッジ・右側の実績バッジ 　共通のスタイル*/
-.title-wrapper {
-    position: relative;
-    display: inline-block;
-    background: rgba(255, 255, 255, 0.9); /* 0.9から0.8に透明度を増加 */
-    padding: 0.8rem 2rem;
-    border-radius: 0.5rem;
-    opacity: 0;
-    animation: fadeInTitle 1s ease forwards;
-    animation-delay: 0.9s; /* アニメーション開始タイミングを早める（1.6s→0.9s） */
-}
-
-/* 右側の実績バッジ */
-.achievement-badge {
-    position: absolute;
-    top: -45px;
-    right: -15px; /* 値を低くするとより右に移動 */
-    background: rgba(255, 255, 255, 0.9); /* 0.9から0.8に透明度を増加 */
-    padding: 15px 15px;
-    font-size: 1.6rem;
-    line-height: 1.2;
-    text-align: center;
-    opacity: 0;
-    animation: fadeInAchievement 0.5s ease forwards;
-    animation-delay: 0.8s;
-    z-index: 3;
-    transform: rotate(5deg);
-    border: none;
-}
-
-/* 枠線の余白 */
-.achievement-badge::before {
-    content: '';
-    position: absolute;
-    top: -5px;
-    left: -5px;
-    right: -5px;
-    bottom: -5px;
-    background: none;
-    border: 3px solid #333;
-    border-radius: 3px;
-    transform: rotate(-1deg) scale(1.02);
-    z-index: -1;
-}
-
-@keyframes fadeInMascot {
-    0% {
-        opacity: 0;
-        transform: translateX(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-.badge-label {
-    display: block;
-    font-size: 3.3rem; /* 施工実績の「累計施工実績」のテキストのサイズ */
-    color: #333;
-    font-family: "游明朝", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", serif;
-}
-
-.badge-number {
-    display: block;
-    font-size: 4.1rem; /* 施工実績の数字のサイズ */
-    color: #003399;
-    font-weight: bold;
-    font-family: "游明朝", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", serif;
-}
-
-.badge-unit {
-    font-size: 2.1rem; /* 施工実績の「棟突破！！」のテキストのサイズ */
-    color: #333;
-    font-family: "游明朝", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", serif;
-}
-
-/* 黄色いバッジのアニメーション */
-@keyframes badgePopup {
-    0% {
-        opacity: 0;
-        transform: translateX(-50%) rotate(-15deg) scale(0);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(-50%) rotate(-15deg) scale(1);
-    }
-}
-
-/* 実績バッジのアニメーション */
-@keyframes fadeInAchievement {
-    0% {
-        opacity: 0;
-        transform: translate(20px, -20px) rotate(5deg);
-    }
-    100% {
-        opacity: 1;
-        transform: translate(0, 0) rotate(5deg);
-    }
-}
-
-/* メインタイトルのアニメーション */
-@keyframes fadeInTitle {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.hero-text {
-    display: none;
-}
-
-/* 施工実績バナー */
-.achievement-banner {
-    position: absolute;
-    top: 70%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(255, 255, 255, 0.9);
-    padding: 2rem 6rem;
-    border-radius: 1rem;
-    color: #333;
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    z-index: 2;
-    opacity: 0;
-    animation: fadeInUp 1s ease forwards;
-    animation-delay: 1s;
-}
-
-.achievement-text {
-    font-size: 2.9rem;
-    -webkit-text-stroke: 1px #333; /* テキストの輪郭を太くして強調 */
-    text-shadow: 0 0 1px #333; /* テキストに影を追加してさらに太く見せる */
-}
-
-.achievement-number {
-    font-size: 5rem;
-    font-weight: 900; /* 最大の太さ（900）を設定 */
-    color: #003399;
-    font-family: "游明朝", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", serif;
-    -webkit-text-stroke: 1px #003399; /* テキストの輪郭を太くして強調 */
-    text-shadow: 0 0 1px #003399; /* テキストに影を追加してさらに太く見せる */
-}
-
-.achievement-unit {
-    font-size: 2.9rem;
-    font-weight: 900; /* 最大の太さ（900）を設定 */
-    font-family: "游明朝", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", serif;
-    -webkit-text-stroke: 1px #333; /* テキストの輪郭を太くして強調 */
-    text-shadow: 0 0 1px #333; /* テキストに影を追加してさらに太く見せる */
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translate(-50%, calc(-50% + 20px));
-    }
-    to {
-        opacity: 1;
-        transform: translate(-50%, -50%);
-    }
-}
-
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.22);
-    z-index: 1;
-}
-
-.background-image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('image/top1.png');
-    background-size: cover;
-    background-position: center;
-    z-index: -1;
-}
-
-
-/* クイック見積もりセクション */
-.quick-estimate {
-    position: absolute;
-    bottom: 10%;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    width: auto;
-    max-width: 1000px;
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    z-index: 2;
-    opacity: 0; /* 初期状態は非表示 */
-    animation: fadeInUp 1s ease forwards; /* フェードインアニメーション追加 */
-    animation-delay: 1.5s; /* タイミングを他の要素の後に設定 */
-}
-
-.estimate-btn {
-    display: flex;
-    align-items: center;
-    padding: 2rem 4rem;
-    border-radius: 0.5rem;
-    text-decoration: none;
-    color: white;
-    font-size: 2rem;
-    font-weight: bold;
-    transition: transform 0.3s ease;
-    position: relative;
-    min-width: 300px;
-}
-
-.estimate-btn i:not(.arrow) {
-    font-size: 2.4rem;
-    margin-right: 1.5rem;
-}
-
-.estimate-btn .arrow {
-    position: absolute;
-    right: 2rem;
-    font-size: 1.8rem;
-    transition: transform 0.3s ease;
-}
-
-.estimate-btn:hover {
-    transform: translateY(-0.5rem);
-}
-
-.estimate-btn:hover .arrow {
-    transform: translateX(0.5rem);
-}
-
-.line-btn {
-    background: #06C755;
-}
-
-.electric-btn {
-    background: #FFD700;
-    color: #333;
-}
-
-.cleaning-btn {
-    background: #003399;
-    padding: 0.8rem 2rem;
-}
-
-.mail-btn {
-    background: #8CD21E;
-    padding: 1rem 2rem;
-    flex-direction: column;
-    align-items: center;
-}
-
-.mail-top {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 0.5rem;
-    width: 100%;
-}
-
-.mail-top i {
-    font-size: 2.4rem;
-    margin-right: 1rem;
-}
-
-.mail-top span {
-    font-size: 2rem;
-    font-weight: bold;
-}
-
-.mail-bottom {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-}
-
-.mail-bottom span {
-    font-size: 1.8rem;
-    margin-right: 1rem;
-}
-
-.mail-bottom i {
-    font-size: 2.2rem;
-}
-
-.contact-info-btn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-}
-
-.contact-time {
-    font-size: 1.4rem;
-    margin-bottom: 0.2rem;
-    color: white;
-    font-weight: bold;
-}
-
-.contact-tel {
-    font-size: 2.4rem;
-    font-weight: bold;
-    color: white;
-}
-
-.contact-tel i {
-    margin-right: 5px;
-}
-
-/* 取り扱いメーカーセクション */
-.makers-section {
-    padding: 8rem 0;
-    background: #e6f5e6; /* 薄緑 - オール電化・ハウスクリーニングと同じ色 */
-    overflow: hidden; /* スクロール時にはみ出た要素を隠す */
-}
-
-/* メーカー行コンテナ */
-.makers-rows {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 6rem; /* 上下の行の間隔 */
-}
-
-/* 各行のスタイル */
-.makers-row {
-    position: relative;
-    width: 100%;
-    overflow: hidden; /* はみ出た部分を隠す */
-}
-
-/* トラックコンテナ（無限スクロールのためのコンテナ） */
-.makers-track {
-    display: flex;
-    gap: 4rem; /* メーカー間の間隔 */
-    animation-duration: 30s; /* アニメーションの時間 */
-    animation-timing-function: linear; /* 一定速度でスクロール */
-    animation-iteration-count: infinite; /* 無限に繰り返し */
-    padding: 1rem;
-    width: max-content; /* コンテンツに合わせて幅を設定 */
-}
-
-/* 右から左への標準スクロールアニメーション（両方の行に適用） */
-.makers-track {
-    animation-name: scroll-right-to-left;
-}
-
-/* 各メーカーアイテム */
-.maker-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    transition: transform 0.3s ease;
-    flex: 0 0 auto; /* サイズを固定 */
-    width: 200px; /* 幅を固定 */
-}
-
-.maker-item:hover {
-    transform: translateY(-0.5rem);
-}
-
-.maker-logo {
-    width: 180px;
-    height: 90px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 1rem;
-    padding: 1rem;
-}
-
-.maker-logo img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-}
-
-.maker-name {
-    font-size: 1.6rem;
-    font-weight: bold;
-    color: #333;
-}
-
-/* スクロールアニメーションのキーフレーム定義 */
-@keyframes scroll-right-to-left {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(calc(-100% / 2)); /* 半分の距離だけスクロール */
-    }
-}
-
-/* ホバー時にアニメーションを一時停止 */
-.makers-row:hover .makers-track {
-    animation-play-state: paused;
-}
-
-/* 会員数・施工実績セクション */
-.achievement-section {
-    padding: 6rem 0 4rem; /* 縦幅を小さくするためにパディングを減らす */
-    background: linear-gradient(135deg, #f0f8ff 0%, #e6f2ff 100%);
-    position: relative;
-    overflow: hidden;
-}
-
-/* フェードインアニメーション用のクラス */
-.fade-in-element {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-/* アニメーション適用時のクラス（JavaScriptで追加） */
-.fade-in-element.visible {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 1.2s ease, transform 1.2s ease; /* トランジション時間を0.8sから1.2sに延長 */
-}
-
-/* 下から上へのフェードインアニメーション */
-@keyframes fadeInUp {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* 右からフェードインするアニメーション用のクラス */
-.fade-in-right {
-    opacity: 0;
-    transform: translateX(30px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-/* アニメーション適用時のクラス（JavaScriptで追加） */
-.fade-in-right.visible {
-    opacity: 1;
-    transform: translateX(0);
-    transition: opacity 1.2s ease, transform 1.2s ease; /* トランジション時間を0.8sから1.2sに延長 */
-}
-
-/* 右からフェードインするアニメーション */
-@keyframes fadeInRight {
-    0% {
-        opacity: 0;
-        transform: translateX(30px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-.achievement-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="1" fill="%23003399" opacity="0.1"/></svg>');
-    background-size: 30px 30px;
-    opacity: 0.5;
-    z-index: 0;
-}
-
-.achievement-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem; /* パディングを減らす */
-    position: relative;
-    z-index: 1;
-}
-
-.achievement-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.achievement-header {
-    text-align: center;
-    margin-bottom: 2rem; /* マージンを減らす */
-}
-
-.header-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.header-text {
-    flex: 1;
-    max-width: 800px;
-    text-align: left;
-}
-
-.achievement-subtext {
-    font-size: 2rem;
-    color: #000;
-    text-align: left;
-    margin: 1.5rem 0 1.5rem; /* 下部マージンを2.5remから1.5remに減らして間隔を狭く */
-    font-weight: 700;
-    line-height: 1.6;
-    white-space: nowrap;
-    font-family: 'M PLUS Rounded 1c', sans-serif;
-    letter-spacing: 0.04em;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-    color: #000000;
-}
-
-/* 「顧客会員数5,000件突破」と「累計施工実績20,000件達成」のハイライト用スタイル */
-.highlight-text {
-    font-size: 2.4rem; /* フォントサイズを大きく */
-    font-weight: 900; /* より太く */
-    color: #003399; /* 青色に変更 */
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.15); /* 影を少し強く */
-    display: inline-block; /* インラインブロック要素に */
-    position: relative; /* 相対位置指定 */
-}
-
-/* モバイル対応 */
-@media (max-width: 768px) {
-    /* これは上のメディアクエリで統合されたためコメントアウト
-    .highlight-text {
-        font-size: 2.2rem; 
-    }
-    */
-}
-
-.achievement-anniversary {
-    font-size: 3.6rem;
-    font-weight: 700;
-    color: #003399;
-    margin-bottom: 2.5rem;
-    position: relative;
-    text-align: center;
-    letter-spacing: 0.05em;
-    line-height: 1.4;
-    display: inline-block;
-    padding-bottom: 1rem;
-    margin-left: 210px; /* テキスト「おかげさまでAZメンテナンスは....」の位置を右に移動 */
-    white-space: nowrap; /* テキストの折り返しを防止 */
-}
-
-.achievement-anniversary::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 3px;
-    background: linear-gradient(to right, #003399, #8CD21E);
-    border-radius: 3px;
-}
-
-.anniversary-highlight {
-    font-size: 4.2rem;
-    font-weight: 900;
-    color: #FF6B6B;
-    position: relative;
-    display: inline-block;
-    padding: 0 0.5rem;
-    margin: 0 0.3rem;
-    background: linear-gradient(to right, #003399, #06C755);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    text-fill-color: transparent;
-}
-
-.achievement-flex-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    max-width: 1400px; /* コンテナの最大幅を広げる */
-    margin: 0 auto;
-}
-
-.achievement-cards {
-    display: flex;
-    flex-wrap: nowrap; /* 折り返しを防止 */
-    gap: 2rem; /* カード間の間隔を少し広げる */
-    flex: 1;
-    justify-content: center;
-}
-
-.achievement-card {
-    position: relative;
-    width: 320px; /* 幅を大きくする */
-    height: 240px; /* 高さを大きくする */
-    background: white;
-    border-radius: 10px; /* 四角形に変更 */
-    box-shadow: 0 10px 20px rgba(0, 51, 153, 0.1);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 1.2s ease;
-    overflow: hidden;
-    opacity: 0; /* 初期状態は非表示 */
-}
-
-/* カードが表示されたときのスタイル（JavaScriptで.visibleクラスが追加される） */
-.achievement-card.visible {
-    opacity: 1;
-}
-
-.achievement-card:hover {
-    transform: translateY(-0.5rem); /* 上に移動する距離を減らす */
-    box-shadow: 0 15px 30px rgba(0, 51, 153, 0.2);
-}
-
-.card-icon {
-    width: 6rem; /* アイコンサイズを大きく */
-    height: 6rem; /* アイコンサイズを大きく */
-    background: var(--primary-color);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 1.5rem; /* マージンを増やす */
-    position: relative;
-    z-index: 2;
-}
-
-.card-icon i {
-    font-size: 3rem; /* アイコンのフォントサイズを大きく */
-    color: white;
-}
-
-.card-content {
-    text-align: center;
-    position: relative;
-    z-index: 2;
-}
-
-.card-title {
-    font-size: 2.2rem; /* タイトルのフォントサイズを大きく */
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 1rem; /* マージンを増やす */
-}
-
-.card-number {
-    font-size: 5rem; /* 数字のフォントサイズを大きく */
-    font-weight: 900;
-    color: var(--primary-color);
-    line-height: 1;
-    display: flex;
-    align-items: baseline;
-    justify-content: center;
-}
-
-.card-unit {
-    font-size: 2.8rem; /* 単位のフォントサイズを大きく */
-    font-weight: 700;
-    margin-left: 0.5rem;
-}
-
-.card-label {
-    font-size: 2.4rem; /* ラベルのフォントサイズを大きく */
-    font-weight: bold;
-    color: #333;
-    margin-top: 0.8rem; /* マージンを増やす */
-}
-
-.achievement-mascot {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex: 0 0 auto;
-    margin-left: 17rem; /* より右に移動 */
-}
-
-.mascot-bubble {
-    position: absolute;
-    top: -60px;
-    left: -20px;
-    background: white;
-    border: 2px solid #003399;
-    border-radius: 15px;
-    padding: 10px 15px;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
-    z-index: 2;
-    animation: fadeIn 1s ease forwards;
-    animation-delay: 2s;
-    opacity: 0;
-    transform: translateY(-5px);
-}
-
-.mascot-bubble:after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 30px;
-    width: 20px;
-    height: 20px;
-    background: white;
-    border-right: 2px solid #003399;
-    border-bottom: 2px solid #003399;
-    transform: rotate(45deg);
-}
-
-.mascot-bubble p {
-    margin: 0;
-    padding: 0;
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #003399;
-    white-space: nowrap;
-}
-
-.mascot-name {
-    margin-top: 0.8rem;
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: #000000; /* 青色(#003399)から黒色(#000000)に変更 */
-    opacity: 0;
-    animation: fadeIn 1s ease forwards;
-    animation-delay: 1.5s;
-}
-
-.achievement-footer {
-    text-align: center;
-    margin-top: 3rem;
-}
-
-.achievement-message {
-    font-size: 2rem;
-    line-height: 2.5; /* 1.6から2.5に増加して行間を広げる */
-    font-weight: 900; /* 700から900へ太さを増加 */
-    max-width: 1000px;
-    margin: 1.5rem 0 3rem;
-    white-space: nowrap;
-    font-family: 'M PLUS Rounded 1c', sans-serif; /* フォントを統一 */
-    letter-spacing: 0.03em;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-    color: #000000;
-    text-align: left;
-}
-
-.mascot-image {
-    max-width: 150px;
-    height: auto;
-    opacity: 0;
-    transform: translateX(20px);
-    animation: fadeInMascot 1s ease forwards;
-    animation-delay: 1s; /* アニメーション遅延を短縮 */
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-@keyframes fadeInMascot {
-    0% {
-        opacity: 0;
-        transform: translateX(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-
-/* モバイル対応 */
-@media (max-width: 768px) {
-    .achievement-section {
-        padding: 4rem 0 3rem; /* さらにパディングを減らす */
-    }
-    
-    /* 7周年メッセージのモバイル対応 */
-    .achievement-anniversary {
-        font-size: 2.4rem; /* フォントサイズを小さく */
-        margin-left: 0; /* 左マージンを削除 */
-        white-space: normal; /* テキストを折り返す */
-        text-align: center; /* 中央揃え */
-        margin-bottom: 1.5rem; /* 下マージンを小さく */
-    }
-    
-    .anniversary-highlight {
-        font-size: 2.8rem; /* 強調テキストのサイズも小さく */
-    }
-    
-    .achievement-subtext {
-        font-size: 1.6rem; /* テキストサイズを小さく */
-        white-space: normal; /* テキストを折り返す */
-        text-align: center; /* 中央揃え */
-    }
-    
-    .highlight-text {
-        font-size: 1.8rem; /* ハイライトテキストサイズも小さく */
-    }
-    
-    .achievement-message {
-        font-size: 1.6rem; /* メッセージサイズも小さく */
-        line-height: 1.8; /* 行間も調整 */
-        white-space: normal; /* テキストを折り返す */
-        text-align: center; /* 中央揃え */
-        margin: 1rem 0 2rem; /* マージンを調整 */
-    }
-    
-    .header-content {
-        flex-direction: column; /* 縦並びに変更 */
-    }
-    
-    .achievement-flex-container {
-        flex-direction: column;
-        gap: 2rem;
-    }
-    
-    .achievement-cards {
-        flex-direction: column;
-        gap: 2rem;
-        width: 100%;
-    }
-    
-    .achievement-card {
-        width: 100%;
-        max-width: 280px;
-        height: auto;
-        padding: 1.5rem;
-        margin: 0 auto;
-    }
-    
-    .card-icon {
-        width: 4.5rem;
-        height: 4.5rem;
-    }
-    
-    .card-icon i {
-        font-size: 2.2rem;
-    }
-    
-    .card-title {
-        font-size: 1.5rem;
-    }
-    
-    .card-number {
-        font-size: 3rem;
-    }
-    
-    .card-unit {
-        font-size: 1.8rem;
-    }
-    
-    .card-label {
-        font-size: 1.5rem;
-    }
-    
-    .achievement-mascot {
-        margin-left: 0;
-        margin-top: 1rem;
-    }
-    
-    .mascot-image {
-        max-width: 100px;
-    }
-    
-    .mascot-bubble {
-        top: -40px;
-        left: 0;
-        padding: 0.6rem 1.2rem;
-    }
-    
-    .mascot-bubble:after {
-        width: 12px;
-        height: 12px;
-        bottom: -6px;
-        left: 20px;
-    }
-    
-    .mascot-bubble p {
-        font-size: 1.3rem;
-    }
-    
-    .mascot-name {
-        font-size: 1.5rem;
-        margin-top: 0.5rem;
-    }
-}
-
-/* NEWSセクション */
-.news-section {
-    padding: 8rem 0;
-    background: white;
-}
-
-.news-container {
-    max-width: 1400px; /* 1200pxから1400pxに増加 */
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
-#wordpress-news {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2.5rem; /* 各ニュース記事の間隔 */
-    margin-top: 4rem;
-}
-
-.news-item {
-    background: white;
-    border-radius: 1rem;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    overflow: hidden;
-    transition: transform 0.3s ease;
-}
-
-.news-item:hover {
-    transform: translateY(-0.5rem);
-}
-
-.news-image {
-    width: 100%;
-    height: 200px;
-    object-fit: contain;
-    background-color: #f5f5f5;
-}
-
-.news-content {
-    padding: 2rem;
-}
-
-.news-date {
-    font-size: 1.4rem;
-    color: #666;
-    margin-bottom: 1rem;
-}
-
-.news-title {
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin-bottom: 2rem;
-    color: var(--text-color);
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
-    line-height: 1.4;
-    height: 5rem;
-}
-
-.news-excerpt {
-    font-size: 1.5rem;
-    color: #333;
-    margin-bottom: 1.5rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: 1.4;
-    height: 6.3rem;
-}
-
-.news-link {
-    display: inline-block;
-    font-size: 1.4rem;
-    color: var(--primary-color);
-    font-weight: bold;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.news-link:hover {
-    color: var(--secondary-color);
-}
-
-.news-archive-link {
-    text-align: center;
-    margin-top: 3rem;
-}
-
-.news-archive-link a {
-    display: inline-block;
-    padding: 1rem 3rem;
-    background-color: var(--primary-color);
-    color: white;
-    font-size: 1.8rem;
-    font-weight: bold;
-    text-decoration: none;
-    border-radius: 0.5rem;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.news-archive-link a:hover {
-    background-color: #002266;
-    transform: translateY(-3px);
-}
-
-/* レスポンシブ対応 - NEWSセクション */
-@media (max-width: 1024px) {
-    #wordpress-news {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 768px) {
-    #wordpress-news {
-        grid-template-columns: 1fr;
-    }
-    
-    .news-item {
-        max-width: 500px;
-        margin: 0 auto;
-    }
-}
-
-/* 口コミセクション */
-.reviews-section {
-    padding: 12rem 0;
-    background: white;
-}
-
-
-/* 施工事例セクション */
-.works-section {
-    padding: 12rem 0;
-    background: #f8f9fa;
-}
-
-/* 「クリックで拡大されます」のスタイル */
-.works-description {
-    text-align: center;
-    font-size: 1.8rem;
-    color: var(--text-color);
-    margin: 0 auto 1.5rem; /* 4remから1.5remに変更して間隔を狭く */
-    max-width: 1200px;
-    padding: 0 2rem;
-}
-
-.works-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    position: relative;
-    overflow: visible;
-}
-
-.works-slider {
-    display: flex;
-    scroll-behavior: smooth;
-    gap: 2rem;
-    padding: 2rem 0;
-    width: 100%;
-    position: relative;
-    flex-wrap: nowrap;
-}
-
-/* 常に右から左へスクロールするアニメーション（JavaScriptで動的に生成されるため削除） */
-
-/* 施工事例セクションのカードのスタイル */
-.work-item {
-    flex: 0 0 calc(33.333% - 1.5rem);
-    background: #2e8b57; /* 濃い緑（SeaGreen） - 事業内容セクションと同じ色 */
-    border-radius: 1rem;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    padding: 1rem;
-    transition: transform 0.3s ease !important; /* カードにカーソルを合わせた際の拡大スピードを0.3秒に設定 */
-    min-width: 280px;
-    max-width: 400px;
-    box-sizing: border-box;
-    cursor: pointer; /* カーソルをポインターに変更してクリック可能であることを示す */
-}
-
-.work-item:hover, .work-item-clone:hover {
-    transform: translateY(-0.5rem) scale(1.05) !important; /* カードにカーソルを合わせた際の、上への移動距離とスケールを調整 */
-}
-
-/* 施工事例セクションの左右のボタン */
-.works-prev-btn, .works-next-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 6rem;
-    height: 6rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    z-index: 10;
-}
-
-/* 矢印アイコンのサイズを大きく */
-.works-prev-btn i, .works-next-btn i {
-    font-size: 3rem; /* 矢印のサイズを3remに設定 */
-}
-
-.works-prev-btn {
-    left: -10rem;
-}
-
-.works-next-btn {
-    right: -10rem;
-}
-
-.works-prev-btn:hover, .works-next-btn:hover {
-    background: #002266;
-}
-
-/* モーダルウィンドウのスタイル */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 1001;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
-}
-
-.modal-content {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 1rem;
-    max-width: 90%;
-    max-height: 90%;
-    overflow: auto;
-    position: relative;
-}
-
-.modal-close {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    font-size: 2.8rem;
-    color: #333;
-    cursor: pointer;
-    z-index: 1002;
-}
-
-.modal-images {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-
-.modal-before, .modal-after {
-    position: relative;
-}
-
-.modal-img {
-    width: 100%;
-    max-height: 70vh;
-    object-fit: contain;
-    border-radius: 0.5rem;
-}
-
-.modal-label {
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
-    background: #333333;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 0.3rem;
-    font-size: 1.6rem;
-    font-weight: bold;
-}
-
-.modal-after .modal-label {
-    background: #0099ff;
-}
-
-/* モーダルが表示されているときのスタイル */
-.modal.show {
-    display: flex;
-}
-
-/* スクロールを無効にするためのクラス */
-.no-scroll {
-    overflow: hidden;
-}
-
-.work-images {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-.work-before {
-    position: relative;
-    border-radius: 0.5rem;
-    overflow: hidden;
-}
-
-.work-after {
-    position: relative;
-    border-radius: 0.5rem;
-    overflow: hidden;
-}
-
-.work-img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 0.5rem;
-    display: block;
-}
-
-/* beforeのラベルのスタイル */
-.work-label {
-    position: absolute;
-    top: 1rem;
-    left: 1rem;
-    background: #000000; /* グレー寄りの黒（透明度なし） */
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 0.3rem;
-    font-size: 1.5rem;
-    font-weight: bold;
-    z-index: 2;
-}
-
-/* Afterのラベルの背景色を水色に変更 */
-.work-after .work-label {
-    background: #0099ff; /* シンプルな水色（透明度なし） */
-}
-
-.works-controls {
-    margin-top: 3rem;
-}
-
-/* モバイル対応 */
-@media (max-width: 768px) {
-    .work-item {
-        flex: 0 0 calc(90% - 2rem);
-        max-width: 280px;
-        margin: 0 auto;
-        padding: 0.8rem;
-    }
-    
-    .work-images {
-        flex-direction: column;
-        gap: 0.8rem;
-    }
-    
-    .work-img {
-        height: 120px;
-    }
-    
-    .work-label {
-        font-size: 1.3rem;
-        padding: 0.4rem 0.8rem;
-    }
-    
-    .works-prev-btn {
-        left: 0.5rem;
-        width: 3rem;
-        height: 3rem;
-    }
-    
-    .works-next-btn {
-        right: 0.5rem;
-        width: 3rem;
-        height: 3rem;
-    }
-    
-    .works-prev-btn i, .works-next-btn i {
-        font-size: 2rem;
-    }
-}
-
-.reviews-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    position: relative;
-    overflow: hidden; /* はみ出た部分を隠す */
-}
-
-.reviews-slider {
-    display: flex;
-    scroll-behavior: smooth;
-    gap: 1.5rem; /* 2remから1.5remに減らしてカード間の間隔を縮小 */
-    padding: 2rem 0;
-    width: 100%;
-    position: relative;
-    flex-wrap: nowrap;
-    transition: transform 1.5s ease; /* 0.5秒から1.5秒に変更 */
-}
-
-.review-card {
-    flex: 0 0 calc(33.333% - 1.5rem); /* カードの幅を指定 */
-    background: white;
-    border-radius: 1rem;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    padding: 2rem;
-    transition: transform 0.3s ease;
-    min-width: 280px; /* カードの最小幅 */
-    max-width: 340px; /* カードの最大幅 */
-    box-sizing: border-box; /* パディングを含めた幅の計算 */
-}
-
-.review-card:hover {
-    transform: translateY(-0.5rem);
-}
-
-.review-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1.5rem;
-}
-
-.reviewer-avatar {
-    width: 5rem;
-    height: 5rem;
-    border-radius: 50%;
-    overflow: hidden;
-    margin-right: 1.5rem;
-    flex-shrink: 0;
-}
-
-.reviewer-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.reviewer-info {
-    flex: 1;
-}
-
-.reviewer-name {
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-}
-
-.review-rating {
-    color: #FFD700;
-    font-size: 1.4rem;
-    margin-bottom: 0.5rem;
-}
-
-.review-date {
-    font-size: 1.4rem;
-    color: #666;
-}
-
-.review-content p {
-    font-size: 1.6rem;
-    line-height: 1.6;
-    color: #333;
-}
-
-.slider-controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 3rem;
-}
-
-.prev-btn, .next-btn {
-    background: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 4rem;
-    height: 4rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.prev-btn:hover, .next-btn:hover {
-    background: #002266;
-}
-
-.slider-dots {
-    display: flex;
-    gap: 1rem;
-    margin: 0 2rem;
-}
-
-.dot {
-    width: 1rem;
-    height: 1rem;
-    border-radius: 50%;
-    background: #ccc;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.dot.active {
-    background: var(--primary-color);
-}
-
-/* モバイル対応 */
-@media (max-width: 768px) {
-    .review-card {
-        flex: 0 0 calc(100% - 2rem);
-    }
-}
-
-/* 企業理念セクション */
-.about {
-    padding: 12rem 0;
-    background: #f8f9fa;
-}
-
-.about-content {
-    max-width: 1400px; /* 1200pxから1400pxに増加して幅を広げる */
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
-/* 企業理念セクションのフレックスレイアウト */
-.about-flex-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 3rem; /* 5remから3remに減少して間隔を縮める */
-}
-
-/* テキスト部分（左側） */
-.about-text {
-    flex: 0.5; /* 0.6から0.5に変更してテキスト部分のスペースをさらに縮小 */
-    text-align: left;
-    padding-right: 1rem;
-}
-
-.about-text h3 {
-    font-size: 3.2rem;
-    margin-bottom: 3.1rem;
-    line-height: 1.8;
-    color: var(--text-color);
-    white-space: nowrap;
-    font-weight: bold;
-    font-family: 'M PLUS Rounded 1c', sans-serif; /* 「皆さまのご愛顧により、」と同じフォントファミリーを適用 */
-    letter-spacing: 0.03em; /* 文字間隔を調整 */
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.1); /* テキストに軽い影を追加 */
-}
-
-.about-text p {
-    font-size: 2.3rem;
-    color: #000; /* #333から#000（黒）に変更 */
-    line-height: 1.8;
-    white-space: nowrap;
-    font-weight: bold;
-    font-family: 'M PLUS Rounded 1c', sans-serif; /* 「皆さまのご愛顧により、」と同じフォントファミリーを適用 */
-    letter-spacing: 0.03em; /* 文字間隔を調整 */
-}
-
-/* 画像部分（右側） */
-.about-image {
-    flex: 1.5; /* 1.4から1.5に変更して画像部分のスペースをさらに拡大 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.family-image {
-    width: 490px; /* 幅を100%に設定 */
-    height: 300px;
-    object-fit: cover;
-    border-radius: 1rem;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    transition: transform 0.3s ease;
-}
-
-
-/* モバイル対応 */
-@media (max-width: 768px) {
-    .about-flex-container {
-        flex-direction: column;
-        gap: 3rem;
-    }
-    
-    .about-text {
-        text-align: center;
-    }
-    
-    .about-text h3 {
-        font-size: 2.2rem;
-        margin-bottom: 2rem;
-    }
-    
-    .about-text p {
-        font-size: 1.8rem;
-        white-space: normal;
-    }
-    
-    .family-image {
-        max-width: 100%;
-    }
-}
-
-/* 事業内容セクション */
-.services-section {
-    padding: 12rem 0;
-    background: #f8f9fa;
-}
-
-/* Sunny Plusスタイルのサービスグリッド */
-.service-grid-container {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-.service-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0;
-}
-
-.service-item {
-    position: relative;
-    display: flex;
-    padding: 5rem 3rem;
-    min-height: 30rem;
-    overflow: hidden;
-    transition: all 0.5s ease;
-}
-
-/* サービスアイテムの背景色 */
-.service-item.maintenance {
-    background-color: #2e8b57; /* 濃い緑（SeaGreen） */
-    color: white;
-}
-
-.service-item.electrification {
-    background-color: #e6f5e6; /* 薄緑 */
-    color: #333;
-}
-
-.service-item.reform {
-    background-color: #e6f5e6; /* 薄緑 */
-    color: #333;
-}
-
-.service-item.security {
-    background-color: #2e8b57; /* 濃い緑（SeaGreen） */
-    color: white;
-}
-
-/* サービスアイテムのホバー時の背景画像 */
-.service-item::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    opacity: 0;
-    transform: translateY(100%);
-    transition: all 0.5s ease;
-    z-index: 0;
-}
-
-.service-item.maintenance::before {
-    background-image: url('image/reform.jpg');
-}
-
-.service-item.reform::before {
-    background-image: url('image/all.png');
-}
-
-.service-item.electrification::before {
-    background-image: url('image/cleaning.jpg');
-}
-
-.service-item.security::before {
-    background-image: url('image/gaiheki.jpg');
-}
-
-.service-item.maintenance:hover::before,
-.service-item.security:hover::before {
-    opacity: 0.8;
-    transform: translateY(0);
-}
-
-.service-item.reform:hover::before,
-.service-item.electrification:hover::before {
-    opacity: 0.6; /* オール電化とハウスクリーニングの背景画像を暗めに */
-    transform: translateY(0);
-}
-
-.service-item.reform:hover,
-.service-item.electrification:hover {
-    color: white;
-}
-
-.service-item.reform:hover .service-content p,
-.service-item.electrification:hover .service-content p {
-    color: white;
-}
-
-.service-item.reform:hover .service-subtitle,
-.service-item.electrification:hover .service-subtitle {
-    color: white;
-    opacity: 1;
-}
-
-.service-item.maintenance:hover,
-.service-item.security:hover {
-    color: black;
-}
-
-.service-item.maintenance:hover .service-content p,
-.service-item.security:hover .service-content p {
-    color: black;
-}
-
-.service-item.maintenance:hover .service-subtitle,
-.service-item.security:hover .service-subtitle {
-    color: black;
-    opacity: 1;
-}
-
-.service-item .service-icon,
-.service-item .service-content {
-    position: relative;
-    z-index: 1;
-}
-
-/* サービスアイコン */
-.service-icon {
-    flex: 0 0 10rem;
-    height: 10rem;
-    background-color: white;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 2rem;
-    transition: all 0.3s ease;
-}
-
-.service-icon i {
-    font-size: 4rem;
-    color: #2e8b57; /* 濃い緑（SeaGreen） */
-    transition: color 0.3s ease;
-}
-
-.service-item.reform .service-icon i,
-.service-item.electrification .service-icon i {
-    color: #4caf50; /* 中間の緑 */
-}
-
-.service-item.security .service-icon i {
-    color: #2e8b57; /* 濃い緑（SeaGreen） */
-}
-
-.service-item:hover .service-icon i {
-    color: #003399; /* ホバー時のアイコン色を濃い青に変更 */
-}
-
-/* サービスコンテンツ */
-.service-content {
-    flex: 1;
-}
-
-.service-content h3 {
-    font-size: 2.4rem;
-    margin-bottom: 1.5rem;
-    font-weight: bold;
-    position: relative;
-}
-
-.service-subtitle {
-    display: block;
-    font-size: 1.4rem;
-    font-weight: normal;
-    margin-top: 0.5rem;
-    opacity: 0.8;
-}
-
-.service-content p {
-    font-size: 1.6rem;
-    margin-bottom: 2rem;
-    line-height: 1.6;
-}
-
-.detail-link {
-    display: inline-block;
-    font-size: 1.4rem;
-    font-weight: bold;
-    color: inherit;
-    transition: transform 0.3s ease;
-    cursor: pointer;
-}
-
-.detail-link i {
-    margin-left: 0.5rem;
-    transition: transform 0.3s ease;
-}
-
-.service-item:hover .detail-link {
-    transform: translateX(5px);
-}
-
-.service-item:hover .detail-link i {
-    transform: translateX(3px);
-}
-
-.section-title {
-    text-align: center;
-    font-size: 4rem;
-    margin-bottom: 6rem;
-    color: black; /* var(--primary-color)から黒色に変更 */
-}
-
-/* 文字アニメーション用のスタイル */
-.char-animate, .char-animate-short {
-    display: inline-block;
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* 長いテキスト用のアニメーション設定（AZメンテナンスが選ばれる7つの理由） */
-.char-animate:nth-child(1) { animation: charJump1 6s ease-in-out infinite; }
-.char-animate:nth-child(2) { animation: charJump2 6s ease-in-out infinite; }
-.char-animate:nth-child(3) { animation: charJump3 6s ease-in-out infinite; }
-.char-animate:nth-child(4) { animation: charJump4 6s ease-in-out infinite; }
-.char-animate:nth-child(5) { animation: charJump5 6s ease-in-out infinite; }
-.char-animate:nth-child(6) { animation: charJump6 6s ease-in-out infinite; }
-.char-animate:nth-child(7) { animation: charJump7 6s ease-in-out infinite; }
-.char-animate:nth-child(8) { animation: charJump8 6s ease-in-out infinite; }
-.char-animate:nth-child(9) { animation: charJump9 6s ease-in-out infinite; }
-.char-animate:nth-child(10) { animation: charJump10 6s ease-in-out infinite; }
-.char-animate:nth-child(11) { animation: charJump11 6s ease-in-out infinite; }
-.char-animate:nth-child(12) { animation: charJump12 6s ease-in-out infinite; }
-.char-animate:nth-child(13) { animation: charJump13 6s ease-in-out infinite; }
-.char-animate:nth-child(14) { animation: charJump14 6s ease-in-out infinite; }
-.char-animate:nth-child(15) { animation: charJump15 6s ease-in-out infinite; }
-.char-animate:nth-child(16) { animation: charJump16 6s ease-in-out infinite; }
-.char-animate:nth-child(17) { animation: charJump17 6s ease-in-out infinite; }
-.char-animate:nth-child(18) { animation: charJump18 6s ease-in-out infinite; }
-.char-animate:nth-child(19) { animation: charJump19 6s ease-in-out infinite; }
-.char-animate:nth-child(20) { animation: charJump20 6s ease-in-out infinite; }
-
-/* 短いテキスト用のアニメーション設定（NEWS、お客様の声など） */
-.char-animate-short:nth-child(1) { animation: charJumpShort1 3s ease-in-out infinite; }
-.char-animate-short:nth-child(2) { animation: charJumpShort2 3s ease-in-out infinite; }
-.char-animate-short:nth-child(3) { animation: charJumpShort3 3s ease-in-out infinite; }
-.char-animate-short:nth-child(4) { animation: charJumpShort4 3s ease-in-out infinite; }
-.char-animate-short:nth-child(5) { animation: charJumpShort5 3s ease-in-out infinite; }
-.char-animate-short:nth-child(6) { animation: charJumpShort6 3s ease-in-out infinite; }
-.char-animate-short:nth-child(7) { animation: charJumpShort7 3s ease-in-out infinite; }
-.char-animate-short:nth-child(8) { animation: charJumpShort8 3s ease-in-out infinite; }
-.char-animate-short:nth-child(9) { animation: charJumpShort9 3s ease-in-out infinite; }
-.char-animate-short:nth-child(10) { animation: charJumpShort10 3s ease-in-out infinite; }
-
-/* 短いテキスト用のアニメーションキーフレーム */
-@keyframes charJumpShort1 {
-    0%, 20%, 100% { transform: translateY(0); }
-    10% { transform: translateY(-15px); }
-}
-
-@keyframes charJumpShort2 {
-    0%, 10%, 30%, 100% { transform: translateY(0); }
-    20% { transform: translateY(-15px); }
-}
-
-@keyframes charJumpShort3 {
-    0%, 20%, 40%, 100% { transform: translateY(0); }
-    30% { transform: translateY(-15px); }
-}
-
-@keyframes charJumpShort4 {
-    0%, 30%, 50%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-15px); }
-}
-
-@keyframes charJumpShort5 {
-    0%, 40%, 60%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
-}
-
-@keyframes charJumpShort6 {
-    0%, 50%, 70%, 100% { transform: translateY(0); }
-    60% { transform: translateY(-15px); }
-}
-
-@keyframes charJumpShort7 {
-    0%, 60%, 80%, 100% { transform: translateY(0); }
-    70% { transform: translateY(-15px); }
-}
-
-@keyframes charJumpShort8 {
-    0%, 70%, 90%, 100% { transform: translateY(0); }
-    80% { transform: translateY(-15px); }
-}
-
-@keyframes charJumpShort9 {
-    0%, 80%, 100% { transform: translateY(0); }
-    90% { transform: translateY(-15px); }
-}
-
-@keyframes charJumpShort10 {
-    0%, 90%, 100% { transform: translateY(0); }
-    95% { transform: translateY(-15px); }
-}
-
-/* 各文字ごとに個別のアニメーションを定義 - 間隔を広げて1文字ずつゆっくり表示 */
-@keyframes charJump1 {
-    0%, 10%, 100% { transform: translateY(0); }
-    5% { transform: translateY(-15px); }
-}
-
-@keyframes charJump2 {
-    0%, 5%, 15%, 100% { transform: translateY(0); }
-    10% { transform: translateY(-15px); }
-}
-
-@keyframes charJump3 {
-    0%, 10%, 20%, 100% { transform: translateY(0); }
-    15% { transform: translateY(-15px); }
-}
-
-@keyframes charJump4 {
-    0%, 15%, 25%, 100% { transform: translateY(0); }
-    20% { transform: translateY(-15px); }
-}
-
-@keyframes charJump5 {
-    0%, 20%, 30%, 100% { transform: translateY(0); }
-    25% { transform: translateY(-15px); }
-}
-
-@keyframes charJump6 {
-    0%, 25%, 35%, 100% { transform: translateY(0); }
-    30% { transform: translateY(-15px); }
-}
-
-@keyframes charJump7 {
-    0%, 30%, 40%, 100% { transform: translateY(0); }
-    35% { transform: translateY(-15px); }
-}
-
-@keyframes charJump8 {
-    0%, 35%, 45%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-15px); }
-}
-
-@keyframes charJump9 {
-    0%, 40%, 50%, 100% { transform: translateY(0); }
-    45% { transform: translateY(-15px); }
-}
-
-@keyframes charJump10 {
-    0%, 45%, 55%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
-}
-
-@keyframes charJump11 {
-    0%, 50%, 60%, 100% { transform: translateY(0); }
-    55% { transform: translateY(-15px); }
-}
-
-@keyframes charJump12 {
-    0%, 55%, 65%, 100% { transform: translateY(0); }
-    60% { transform: translateY(-15px); }
-}
-
-@keyframes charJump13 {
-    0%, 60%, 70%, 100% { transform: translateY(0); }
-    65% { transform: translateY(-15px); }
-}
-
-@keyframes charJump14 {
-    0%, 65%, 75%, 100% { transform: translateY(0); }
-    70% { transform: translateY(-15px); }
-}
-
-@keyframes charJump15 {
-    0%, 70%, 80%, 100% { transform: translateY(0); }
-    75% { transform: translateY(-15px); }
-}
-
-@keyframes charJump16 {
-    0%, 75%, 85%, 100% { transform: translateY(0); }
-    80% { transform: translateY(-15px); }
-}
-
-@keyframes charJump17 {
-    0%, 80%, 90%, 100% { transform: translateY(0); }
-    85% { transform: translateY(-15px); }
-}
-
-@keyframes charJump18 {
-    0%, 85%, 95%, 100% { transform: translateY(0); }
-    90% { transform: translateY(-15px); }
-}
-
-@keyframes charJump19 {
-    0%, 90%, 100% { transform: translateY(0); }
-    95% { transform: translateY(-15px); }
-}
-
-@keyframes charJump20 {
-    0%, 95%, 100% { transform: translateY(0); }
-    97.5% { transform: translateY(-15px); }
-}
-
-/* 浮遊するテキストアニメーション（残りのセクションタイトル用） */
-.floating-text {
-    position: relative;
-    animation: floatingText 3s ease-in-out infinite;
-}
-
-@keyframes floatingText {
-    0% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
-    100% {
-        transform: translateY(0);
-    }
-}
-
-.services-description {
-    text-align: center;
-    font-size: 2.4rem;
-    color: var(--text-color);
-    margin: 2rem auto 4rem;
-    max-width: 1200px;
-    padding: 0 2rem;
-    font-weight: bold;
-    white-space: nowrap;
-}
-
-/* 選ばれる7つの理由セクション */
-.reasons-section {
-    padding: 12rem 0;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-}
-
-.reasons-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 3rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
-.reason-card {
-    background: white;
-    border-radius: 1.5rem;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    padding: 3rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
-    overflow: hidden;
-}
-
-.reason-number {
-    position: absolute;
-    top: 2rem;
-    right: 2rem;
-    font-size: 6rem;
-    font-weight: 900;
-    color: rgba(0, 51, 153, 0.08);
-    line-height: 1;
-}
-
-.reason-icon {
-    width: 8rem;
-    height: 8rem;
-    background: #2e8b57; /* 濃い緑（SeaGreen） - 事業内容セクションと同じ色 */
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 2rem;
-}
-
-.reason-icon i {
-    font-size: 3.5rem;
-    color: white;
-}
-
-.reason-card h3 {
-    font-size: 2.2rem;
-    color: #2e8b57; /* 濃い緑（SeaGreen） - 事業内容セクションと同じ色 */
-    margin-bottom: 1.5rem;
-    position: relative;
-    z-index: 1;
-}
-
-.reason-card p {
-    font-size: 1.6rem;
-    color: #333;
-    line-height: 1.6;
-    position: relative;
-    z-index: 1;
-}
-
-/* 会社概要セクション */
-.company-section {
-    padding: 12rem 0;
-    background: #3d444e;
-}
-
-/* 背景色が暗くなるため、テキストの色を白に変更 */
-.company-section .section-title,
-.company-info th,
-.company-info td {
-    color: white;
-}
-
-.company-info th {
-    color: var(--secondary-color);
-}
-
-.company-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    align-items: center; /* centerに変更：垂直方向の中央揃え */
-}
-
-.company-info table {
-    width: 100%;
-    font-size: 1.6rem;
-}
-
-.company-info th,
-.company-info td {
-    padding: 2rem;
-    border-bottom: 1px solid #ddd;
-    white-space: nowrap;
-}
-
-.company-info th {
-    width: 30%;
-    text-align: left;
-    color: white;
-    font-weight: 1000;
-}
-
-.company-map {
-    height: 400px; /* 地図の位置（高さ）を設定 */
-}
-
-.company-map iframe {
-    width: 100%;
-    height: 100%;/* 地図の縦幅はHTMLで設定（400）してあります！！*/
-    border-radius: 1rem;
-    border: none;
-}
-
-/* お問い合わせセクション */
-.contact-section {
-    padding: 12rem 0;
-    background: #f8f9fa;
-}
-
-.contact-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5rem;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
-.contact-form {
-    background: white;
-    padding: 4rem;
-    border-radius: 1rem;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    width: 100%;
-}
-
-.contact-info {
-    text-align: center;
-    margin-top: 2rem;
-}
-
-.contact-info p {
-    font-size: 2rem;
-    margin-bottom: 0;
-}
-
-.line-icon {
-    font-size: 15rem;
-    color: #06C755;
-    transition: transform 0.3s ease;
-}
-
-.line-icon:hover {
-    transform: scale(1.1);
-}
-
-.form-group {
-    margin-bottom: 2rem;
-}
-
-.form-group label {
-    display: block;
-    font-size: 1.7rem;
-    margin-bottom: 1rem;
-}
-
-.form-group input,
-.form-group textarea {
-    width: 100%;
-    padding: 1rem;
-    font-size: 1.6rem;
-    border: 1px solid #ddd;
-    border-radius: 0.5rem;
-    transition: border-color 0.3s ease;
-}
-
-.form-group input:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: var(--primary-color);
-}
-
-.required {
-    color: #ff0000;
-    margin-left: 0.5rem;
-}
-
-.btn-submit {
-    background: var(--primary-color);
-    color: white;
-    font-size: 1.8rem;
-    padding: 1.5rem 4rem;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: background 0.3s ease;
-    display: block;
-    margin: 4rem auto 0;
-}
-
-.btn-submit:hover {
-    background: #002266;
-}
-
-/* フッター */
-.footer {
-    background-color: #f5f5f5;
-    color: black;
-    padding: 5rem 0 2rem;
-}
-
-.footer-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.footer-logo img {
-    height: 7.5rem;
-}
-
-.footer-links ul {
-    display: flex;
-    gap: 3rem;
-    list-style: none;
-}
-
-.footer-links a {
-    color: black;
-    text-decoration: none;
-    font-size: 1.8rem;
-    transition: color 0.3s ease;
-}
-
-.footer-links a:hover {
-    color: #003399;
-}
-
-.footer-bottom {
-    text-align: center;
-    margin-top: 3rem;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    font-size: 1.4rem;
-    color: black;
-}
-
-/* レスポンシブ対応 */
-@media (max-width: 768px) {
-    html {
-        font-size: 56.25%;
-    }
-
-    .header {
-        display: none;
-    }
-
-    .nav-links,
-    .header-contact {
-        display: none;
-    }
-
-    /* セクションタイトルのサイズ調整 （企業理念、事業内容、AZメンテナンスが選ばれる7つの理由、会社概要、お問い合わせ）*/
-    .section-title {
-        font-size: 2.7rem; /* タイトルのサイズを小さく */
-        margin-bottom: 15px; /* タイトルの下の余白を調整 */
-    }
-
-    /* モバイルでは mobile-break を表示し、pc-break を非表示 */
-    .pc-break {
-        display: none;
-    }
-
-    /* モバイル版では改行を表示 */
-    .mobile-break {
-        display: inline;
-    }
-
-    /* 黄色いバッジ（適正価格宣言）のサイズ変更と位置調整 */
-    .price-badge {
-        width: 100px;
-        height: 100px;
-        top: -240px;
-        left: 16%;
-        transform: translateX(-50%) rotate(-15deg) scale(0.8);
-    }
-
-    .badge-text {
-        font-size: 1.4rem;
-    }
-
-    .text-line2 {
-        font-size: 1.8rem;
-        margin-top: 45px;
-    }
-
-    .text-line3 {
-        font-size: 1.8rem;
-    }
-
-    /* 黄色いバッジ内のテキスト（AZメンテナンスは）の位置調整 */
-    .curved-text {
-        width: 100px; /* バッジのサイズに合わせて調整 */
-        height: 100px; /* バッジのサイズに合わせて調整 */
-    }
-
-    /* 累計施工実績バッジのサイズ変更と位置調整 */
-    .achievement-badge {
-        top: -92px;
-        right: 5px;
-        padding: 10px 10px;
-        transform: rotate(5deg) scale(0.8);
-    }
-
-    .badge-label {
-        font-size: 1.8rem;
-        font-weight: 800; /* 太さを調整 */
-        -webkit-text-stroke: 0; /* テキストの輪郭を削除 */
-        text-shadow: none; /* テキストの影を削除 */
-    }
-
-    .badge-number {
-        font-size: 3.0rem;
-        font-weight: 800; /* 太さを調整 */
-        -webkit-text-stroke: 0; /* テキストの輪郭を削除 */
-        text-shadow: none; /* テキストの影を削除 */
-    }
-
-    .badge-unit {
-        font-size: 1.6rem;
-        font-weight: 800; /* 太さを調整 */
-        -webkit-text-stroke: 0; /* テキストの輪郭を削除 */
-        text-shadow: none; /* テキストの影を削除 */
-    }
-
-    /* ヒーローセクションのタイトル「あなたの理想を形に、、、」の調整 */
-    .hero-title {
-        font-size: 3.1rem;
-        margin-top: -150px;
-        top: -80px; /* 「あなたの理想を形に、、、」の高さの調整 */
-        margin-bottom: 1rem;
-        line-height: 1.3;
-        -webkit-text-stroke: 1px #333;
-        white-space: nowrap;
-        text-shadow: 0 0 1px #333;
-        display: inline-block; /* インラインブロック要素に変更 */
-        width: auto; /* 幅を自動調整 */
-        max-width: 100%; /* 最大幅を設定 */
-    }
-
-    /* タイトル「あなたの理想を形に、、、」の後ろの白い調整 */
-    .title-wrapper {
-        padding: 2rem 0.7rem; /* パディングを増やして縦幅を大きく */
-        background: rgba(255, 255, 255, 0.9);
-        border-radius: 0.5rem;
-    }
-
-    /* ヒーローコンテンツの調整 */
-    .hero-content {
-        width: auto; /* 幅を自動調整 */
-        max-width: fit-content; /* コンテンツに合わせる */
-        margin: 0 auto; /* 中央揃え */
-        padding: 1rem 2rem; /* パディングを調整 */
-    }
-
-    .hero-text {
-        font-size: 1.8rem;
-    }
-
-    /* 顧客会員数バナーの調整 */
-    .achievement-banner {
-        padding: 1rem 2rem; /* パディングを小さくして全体のサイズを縮小 */
-        flex-direction: row; /* 横並びに設定（デフォルトですが明示的に指定） */
-        align-items: center; /* 中央揃え */
-        gap: 1rem; /* 要素間の間隔を縮小 */
-        top: 50%;
-    }
-    
-    .achievement-text {
-        font-size: 2rem; /* フォントサイズを小さく */
-        white-space: nowrap; /* 改行を防止 */
-        -webkit-text-stroke: 0.5px #333; /* テキストの輪郭を調整 */
-    }
-    
-    .achievement-number {
-        font-size: 3.5rem; /* 数字のサイズを小さく */
-        -webkit-text-stroke: 0.5px #003399; /* テキストの輪郭を調整 */
-    }
-    
-    .achievement-unit {
-        font-size: 2rem; /* 単位のサイズを小さく */
-        -webkit-text-stroke: 0.5px #333; /* テキストの輪郭を調整 */
-    }
-
-    /* クイック見積もりセクションを縦並びに変更 */
-    .quick-estimate {
-        flex-direction: column; /* 縦並びに変更 */
-        align-items: center; /* 中央揃え */
-        gap: 1.2rem; /* 要素間の間隔を調整 */
-        width: 80%; /* 幅を少し狭く */
-        max-width: 300px; /* 最大幅を設定 */
-        bottom: 15%; /* 位置を上に移動 */
-    }
-    
-    .estimate-btn {
-        width: 100%; /* ボタンの幅を100%に */
-        justify-content: center; /* テキストを中央揃え */
-        padding: 1.2rem 1.5rem; /* パディングを小さく調整 */
-        font-size: 1.8rem; /* フォントサイズを少し小さく */
-    }
-
-    /* LINEで見積もりボタンの縦幅を調整 */
-    .line-btn {
-        height: 70px; /* 高さを少し小さく */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    /* メールフォームボタンのモバイル対応 */
-    .mail-btn {
-        height: auto;
-        padding: 1.2rem 1.5rem;
-    }
-    
-    .mail-top {
-        margin-bottom: 0.3rem;
-    }
-    
-    .mail-top i {
-        font-size: 1.8rem;
-        margin-right: 0.5rem;
-    }
-    
-    .mail-top span {
-        font-size: 1.4rem;
-    }
-    
-    .mail-bottom span {
-        font-size: 1.3rem;
-    }
-    
-    .mail-bottom i {
-        font-size: 1.8rem;
-    }
-
-    /* 取り扱いメーカーセクションのモバイル対応 */
-    .makers-section {
-        padding: 6rem 0 4rem;
-    }
-    
-    .makers-content {
-        flex-direction: column;
-        gap: 3rem;
-    }
-    
-    .maker-item {
-        width: 100%;
-    }
-    
-    .maker-logo {
-        width: 160px;
-        height: 80px;
-        margin-bottom: 1rem;
-    }
-    
-    .maker-name {
-        font-size: 1.6rem;
-    }
-
-    /* 企業理念セクションの調整 */
-    .about-text h3 {
-        font-size: 2rem; /* タイトルのサイズを小さく */
-        margin-bottom: 1rem;
-    }
-    
-    .about-text p {
-        font-size: 1.7rem;
-        white-space: normal;
-        text-align: center !important;
-    }
-    
-    .about-images {
-        gap: 0.6rem; /* 画像間の間隔を縮小 */
-    }
-    
-    .about-images img {
-        width: 115px; /* 画像の幅を小さく */
-        height: 90px; /* 画像の高さを小さく */
-    }
-
-    .reviews-slider {
-        -webkit-overflow-scrolling: touch; /* iOSでのスムーススクロール */
-        scroll-snap-type: x mandatory; /* スクロールスナップを追加 */
-        scrollbar-width: none; /* Firefox用のスクロールバー非表示 */
-    }
-    
-    .reviews-slider::-webkit-scrollbar {
-        display: none; /* Chrome/Safari用のスクロールバー非表示 */
-    }
-    
-    .review-card {
-        flex: 0 0 85%; /* モバイルでは幅を調整 */
-        scroll-snap-align: start; /* スクロールスナップ位置を先頭に */
-    }
-    
-    /* スワイプ操作のヒントを表示 */
-    .reviews-container::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        right: 15px;
-        width: 10px;
-        height: 10px;
-        border-top: 2px solid rgba(15, 184, 198, 0.5);
-        border-right: 2px solid rgba(15, 184, 198, 0.5);
-        transform: translateY(-50%) rotate(45deg);
-        animation: swipeHint 1.5s infinite;
-        pointer-events: none;
-    }
-    
-    @keyframes swipeHint {
-        0%, 100% { opacity: 0; }
-        50% { opacity: 1; }
-    }
-
-    /* 事業内容セクションをモバイル表示で縦並びに変更 */
-    .service-grid {
-        display: flex;
-        flex-direction: column;
-    }
-
-    /* 事業内容の説明文「AZメンテナンスでは、メンテナンス、、、」のテキストサイズ */
-    .services-description {
-        font-size: 1.8rem; /* 2.4remから1.8remに縮小 */
-    }
-    
-    /* リフォームを1番目に(実際の順番は違う) */
-    .service-item.reform {
-        order: 2;
-    }
-    
-    /* オール電化を2番目に (実際の順番は違う)*/
-    .service-item.electrification {
-        order: 4;
-    }
-
-    /* メンテナンスを3番目に(実際の順番は違う) */
-    .service-item.maintenance {
-        order: 1;
-    }
-    
-    /* ハウスクリーニングを4番目に (実際の順番は違う)*/
-    .service-item.security {
-        order: 3;
-    }
-    
-    .service-item {
-        min-height: auto; /* 高さを自動調整 */
-        padding: 2rem 1rem; /* パディングを縮小（上下のパディング） */
-        cursor: default !important;
-        pointer-events: auto;
-    }
-
-    /* DETAILリンクのみクリック可能に */
-    .detail-link {
-        position: relative;
-        z-index: 10;
-        cursor: pointer !important;
-        display: inline-block;
-        padding: 0.8rem 1rem;
-        background-color: rgba(29, 29, 29, 0.2);
-        border-radius: 0.3rem;
-        margin-top: 1rem;
-        left: 25%;
-    }
-
-    /* サービスアイコンのサイズを小さく */
-    .service-icon {
-        flex: 0 0 5rem; /* 10remから7remに縮小 */
-        height: 5rem; /* 10remから5remに縮小 */
-        margin-right: 1.5rem; /* 2remから1.5remに縮小 */
-    }
-    
-    .service-icon i {
-        font-size: 3rem; /* 4remから3remに縮小 */
-    }
-    
-    /* サービスコンテンツのタイトルとサブタイトルを横並びに */
-    .service-content h3 {
-        font-size: 2rem;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 1rem;
-    }
-    
-    .service-subtitle {
-        display: inline;
-        font-size: 1.2rem;
-        margin-top: 0;
-        white-space: nowrap;
-    }
-    
-    .service-content p {
-        font-size: 1.4rem; /* 1.6remから1.4remに縮小 */
-    }
-
-    /* モバイルでは.service-content p内の通常のbrタグ（クラスなし）を非表示 */
-    .service-content p br:not(.mobile-break) {
-        display: none;
-    }
-
-    /* 7つの理由セクションのモバイル調整 */
-    .reasons-section {
-        padding: 0 !important; /* パディングを0に */
-        margin-top: -10rem !important; /* 負のマージンで上に移動 */
-    }
-
-    /* セクションタイトルの下の余白も調整 */
-    .reasons-section .section-title {
-        margin-bottom: 3rem !important; /* タイトルの下の余白も減らす */
-    }
-
-    #reasons .reasons-grid,
-    .reasons-section .reasons-grid {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 0 !important;
-        align-items: center !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    
-    /* 1~6番目の項目の調整 */
-    #reasons .reason-house,
-    .reasons-section .reason-house {
-        width: 100% !important;
-        max-width: 430px !important;
-        position: relative !important;
-        margin: 0 !important; /* マージンを正の値に変更 */
-        padding: 0 !important;
-        transform: scale(1.2) !important; /* スケールを1に設定 */
-        min-height: auto !important; /* 高さを自動調整 */
-    }
-
-    /* 7番目（中央に配置される最後の項目）の調整 */
-    #reasons .reason-house-center,
-    .reasons-section .reason-house-center {
-        grid-column: auto !important;
-        justify-self: auto !important;
-        max-width: 430px !important; /* 320pxから480pxに変更 */
-        transform: scale(1.2) !important; /* 1から1.4に変更して他の家と同じに */
-    }
-
-    /* 最後の項目だけは下部のマージンを調整 */
-    #reasons .reason-house:last-child,
-    .reasons-section .reason-house:last-child,
-    #reasons .reason-house-center,
-    .reasons-section .reason-house-center {
-        margin-bottom: 8rem !important;
-    }
-    
-    /* 家の本体部分の調整 */
-    #reasons .house-body,
-    .reasons-section .house-body {
-        padding: 2rem 1rem !important;
-        min-height: 250px !important;
-    }
-    
-    /* 見出しのスタイル調整 */
-    #reasons .reason-house h3,
-    .reasons-section .reason-house h3 {
-        font-size: 1.4rem !important;
-        margin-bottom: 1rem !important;
-        text-align: center !important;
-        margin-top: 9rem !important; /* 上部のマージンを追加して下に下げる */
-    }
-    
-    /* 説明文のスタイル調整 */
-    #reasons .reason-house p,
-    .reasons-section .reason-house p {
-        font-size: 1.1rem !important;
-        text-align: center !important;
-        line-height: 1.4 !important;
-        max-width: 60% !important; /* テキストの最大幅を85%に制限 */
-        margin: 0 auto !important; /* 左右のマージンを自動で中央揃え */
-    }
-
-    /* <br>タグを無効化させる */
-    #reasons .reason-house p br,
-    .reasons-section .reason-house p br {
-        display: none !important; /* brタグを非表示にする */
-    }
-
-    /* mobile-breakクラスを持つbrタグは表示する */
-    #reasons .reason-house p br.mobile-break,
-    .reasons-section .reason-house p br.mobile-break {
-        display: inline !important; /* mobile-breakクラスを持つbrタグを表示 */
-    }
-
-    /* 会社概要セクション全体の調整 */
-    .company-section {
-        padding: 6rem 0 !important; /* 左右のパディングを0に */
-        width: 100% !important; /* 幅を100%に */
-        max-width: 100vw !important; /* 最大幅をビューポート幅に */
-        overflow-x: hidden !important; /* 横スクロールを防止 */
-    }
-    
-    /* 会社概要の内容を小さく */
-    .company-content {
-        display: flex !important;
-        flex-direction: column !important;
-        gap: 2rem !important;
-        align-items: center !important;
-        width: 100% !important; /* 幅を100%に */
-        max-width: 100% !important; /* 最大幅を100%に */
-        padding: 0 1rem !important; /* 左右に少しだけパディングを追加 */
-        box-sizing: border-box !important; /* ボックスサイズを調整 */
-    }
-    
-    /* 会社情報テーブルの調整 */
-    .company-info {
-        width: 100% !important;
-        max-width: 100% !important;
-        overflow-x: hidden !important;
-    }
-    
-    .company-info table {
-        transform: scale(1) !important; /* 会社概要のスケール */
-        transform-origin: left top !important;
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-    
-    /* テーブルのセルが長いテキストでもはみ出さないように */
-    .company-info th, 
-    .company-info td {
-        word-break: break-word !important;
-        overflow-wrap: break-word !important;
-        font-size: 1.3rem !important;
-    }
-    
-    /* 地図のサイズを小さく */
-    .company-map {
-        height: 220px !important;
-        width: 80% !important; /* 幅を100%に */
-        margin: 0 !important; /* マージンをリセット */
-    }
-    
-    .company-map iframe {
-        height: 250px !important;
-        width: 100% !important;
-    }
-    
-    /* 会社概要セクションの親コンテナの調整 */
-    .company-section > div {
-        padding: 0 !important;
-        margin: 0 !important;
-        width: 100% !important;
-    }
-    
-    /* 会社概要と地図の間隔を調整 */
-    .company-details {
-        margin-bottom: 2rem !important; /* 下の余白を調整 */
-    }
-    
-    .contact-info-btn {
-        width: 100%; /* 電話番号ボタンの幅も100%に */
-    }
-
-    /* 電話番号ボタンの中のテキストサイズ調整 */
-    .contact-time {
-        font-size: 1.2rem;
-        margin-bottom: 0.2rem;
-    }
-    
-    .contact-tel {
-        font-size: 1.8rem;
-    }
-
-    .company-content,
-    .contact-content {
-        grid-template-columns: 1fr;
-    }
-
-    .footer-content {
-        flex-direction: column;
-        gap: 3rem;
-        text-align: center;
-    }
-
-    .footer-links ul {
-        flex-direction: column;
-        gap: 1.5rem;
-    }
-}
+document.addEventListener('DOMContentLoaded', () => {
+    // 7周年セクションのフェードインアニメーション
+    const observeAnniversarySection = () => {
+        const fadeElements = document.querySelectorAll('.fade-in-element, .fade-in-right');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                // 要素が画面に表示されたとき
+                if (entry.isIntersecting) {
+                    // 各要素に表示用のクラスを追加（遅延を設定）
+                    if (entry.target.classList.contains('achievement-anniversary')) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, 300); // 0.3秒後
+                    } else if (entry.target.classList.contains('achievement-subtext')) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, 600); // 0.6秒後
+                    } else if (entry.target.classList.contains('achievement-message')) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, 900); // 0.9秒後
+                    } else if (entry.target.classList.contains('card-1')) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, 1200); // 1.2秒後
+                    } else if (entry.target.classList.contains('card-2')) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, 1500); // 1.5秒後
+                    } else if (entry.target.classList.contains('card-3')) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, 1800); // 1.8秒後
+                    } else if (entry.target.classList.contains('fade-in-right')) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, 2100); // 2.1秒後
+                    } else {
+                        // その他の要素は即時表示
+                        entry.target.classList.add('visible');
+                    }
+                    
+                    // 一度表示されたら監視を解除
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 }); // 10%見えたらアニメーション開始（20%から10%に変更）
+        
+        // 各要素を監視
+        fadeElements.forEach(element => {
+            observer.observe(element);
+        });
+    };
+    
+    // 7周年セクションのアニメーション監視を開始
+    observeAnniversarySection();
+    // 取り扱いメーカーセクションの無限スクロール初期化
+    // 両方の行を逆方向にスクロールさせる設定
+    const tracks = document.querySelectorAll('.makers-track');
+    if (tracks.length) {
+        // 上の行と下の行でスクロール方向を反転
+        tracks[0].style.animationDirection = 'reverse'; // 上の行は逆方向（左から右へ）
+        // 下の行はデフォルト（右から左へ）のままにする
+    }
+    // 会員数・施工実績セクションのカウンターアニメーション
+    // 各カードを個別に監視し、それぞれが視界に入ったときにカウントアップを開始する
+    const achievementCards = document.querySelectorAll('.achievement-card');
+    if (achievementCards.length > 0) {
+        // 各カードに個別のオブザーバーを設定
+        achievementCards.forEach((card, index) => {
+            // カードごとに新しいObserverを作成
+            const cardObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !card.classList.contains('counted')) {
+                        // 一度だけ実行するためのフラグを設定
+                        card.classList.add('counted');
+                        
+                        // まずカードを表示
+                        setTimeout(() => {
+                            card.classList.add('visible');
+                            
+                            // カードが表示された後にカウンターを開始（遅延を追加）
+                            setTimeout(() => {
+                                const counter = card.querySelector('.counter');
+                                if (counter) {
+                                    // カウントアップアニメーションを開始
+                                    const target = +counter.getAttribute('data-target');
+                                    const duration = 3000; // 3秒でカウントアップ（2秒から1秒延長）
+                                    const increment = target / (duration / 16);
+                                    let current = 0;
+                                    
+                                    // カウンターの数値を更新する関数
+                                    const updateCounter = () => {
+                                        current += increment;
+                                        
+                                        // 桁数に応じてカンマを追加
+                                        const formattedNumber = Math.floor(current).toLocaleString();
+                                        counter.textContent = formattedNumber;
+                                        
+                                        if (current < target) {
+                                            requestAnimationFrame(updateCounter);
+                                        } else {
+                                            // 最終的な数値を設定
+                                            counter.textContent = target.toLocaleString();
+                                        }
+                                    };
+                                    
+                                    // カウントアップを開始
+                                    updateCounter();
+                                }
+                            }, 500); // カードが表示されてから0.5秒後にカウントアップを開始
+                        }, 100 * index); // カードごとに表示に少しずつ遅延をつける
+                        
+                        // このカードの監視を停止
+                        cardObserver.unobserve(card);
+                    }
+                });
+            }, { threshold: 0.5 }); // 半分以上見えたときに実行（しきい値を高くする）
+            
+            // カードの監視を開始
+            cardObserver.observe(card);
+        });
+    }
+    
+    // カードの円形アニメーションも必要であれば同様に設定
+    const circles = document.querySelectorAll('.card-circle circle');
+    if (circles.length > 0) {
+        const circleObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'circleAnimation 2s ease forwards';
+                    circleObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        circles.forEach(circle => {
+            circleObserver.observe(circle);
+        });
+    }
+
+    // WordPressからニュース記事を取得して表示する関数
+    const fetchWordPressNews = async () => {
+        const wordpressContainer = document.getElementById('wordpress-news');
+        if (!wordpressContainer) return;
+        
+        try {
+            // WordPressのREST APIエンドポイント（サブディレクトリ/wp/にインストールしたWordPressのURL）
+            const response = await fetch('https://azmainte.com/wp/wp-json/wp/v2/posts?_embed&per_page=4');
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const posts = await response.json();
+            
+            // 取得した記事をHTMLに変換して表示
+            posts.forEach(post => {
+                // 画像URLを取得（アイキャッチ画像がある場合）
+                let imageUrl = 'image/header-logo.png'; // デフォルト画像
+                if (post._embedded && 
+                    post._embedded['wp:featuredmedia'] && 
+                    post._embedded['wp:featuredmedia'][0] &&
+                    post._embedded['wp:featuredmedia'][0].source_url) {
+                    imageUrl = post._embedded['wp:featuredmedia'][0].source_url;
+                }
+                
+                // 記事の抜粋を取得（HTMLタグを除去）
+                const excerpt = post.excerpt.rendered
+                    .replace(/<[^>]*>/g, '')
+                    .substring(0, 100) + '...';
+                
+                // 記事カードのHTMLを作成
+                const newsItem = document.createElement('div');
+                newsItem.className = 'news-item';
+                newsItem.innerHTML = `
+                    <img src="${imageUrl}" alt="${post.title.rendered}" class="news-image">
+                    <div class="news-content">
+                        <h3 class="news-title">${post.title.rendered}</h3>
+                        <p class="news-excerpt">${excerpt}</p>
+                        <a href="${post.link}" class="news-link" target="_blank">詳細を見る <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                `;
+                
+                wordpressContainer.appendChild(newsItem);
+            });
+            
+        } catch (error) {
+            console.error('WordPressからのデータ取得に失敗しました:', error);
+            
+            // エラー時にはダミーデータを表示
+            for (let i = 0; i < 4; i++) {
+                const dummyItem = document.createElement('div');
+                dummyItem.className = 'news-item';
+                dummyItem.innerHTML = `
+                    <img src="image/header-logo.png" alt="AZメンテナンス" class="news-image">
+                    <div class="news-content">
+                        <h3 class="news-title">サンプルニュース ${i + 1}</h3>
+                        <p class="news-excerpt">これはサンプルのニュース記事です。WordPressが設定されると、ここに実際のニュース記事が表示されます。</p>
+                        <a href="#" class="news-link">詳細を見る <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                `;
+                
+                wordpressContainer.appendChild(dummyItem);
+            }
+        }
+    };
+    
+    // WordPressニュースの取得を実行
+    fetchWordPressNews();
+    
+    // 施工事例のモーダルウィンドウ機能
+    const workItems = document.querySelectorAll('.work-item');
+    const modal = document.getElementById('workModal');
+    const modalClose = document.querySelector('.modal-close');
+    const modalBeforeImg = document.getElementById('modalBeforeImg');
+    const modalAfterImg = document.getElementById('modalAfterImg');
+    const body = document.body;
+    
+    // 施工事例カードのホバーエフェクトを即時適用（CSSトランジションを使わない）
+    workItems.forEach(item => {
+        // マウスオーバー時に即座に拡大
+        item.addEventListener('mouseenter', () => {
+            // CSSトランジションを無効化
+            item.style.transition = 'none';
+            // 即座に拡大
+            item.style.transform = 'translateY(-0.5rem) scale(1.05)';
+        });
+        
+        // マウスアウト時に即座に元のサイズに戻す
+        item.addEventListener('mouseleave', () => {
+            // CSSトランジションを無効化
+            item.style.transition = 'none';
+            // 即座に元のサイズに戻す
+            item.style.transform = '';
+        });
+        
+        // クリックイベント
+        item.addEventListener('click', () => {
+            // カード内の画像のURLを取得
+            const beforeImg = item.querySelector('.work-before img').src;
+            const afterImg = item.querySelector('.work-after img').src;
+            
+            // モーダル内の画像にURLをセット
+            modalBeforeImg.src = beforeImg;
+            modalAfterImg.src = afterImg;
+            
+            // モーダルを表示
+            modal.classList.add('show');
+            body.classList.add('no-scroll'); // スクロールを無効化
+        });
+    });
+    
+    // 閉じるボタンのクリックイベント
+    modalClose.addEventListener('click', () => {
+        modal.classList.remove('show');
+        body.classList.remove('no-scroll'); // スクロールを有効化
+    });
+    
+    // モーダルの外側をクリックしたときにも閉じる
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.classList.remove('show');
+            body.classList.remove('no-scroll'); // スクロールを有効化
+        }
+    });
+    
+    // 施工事例スライダーの実装（常に動き続けるバージョン）
+    const worksSlider = document.querySelector('.works-slider');
+    const worksContainer = document.querySelector('.works-container');
+    const worksPrevBtn = document.querySelector('.works-prev-btn');
+    const worksNextBtn = document.querySelector('.works-next-btn');
+    
+    if (worksSlider && worksContainer) {
+        const workItems = worksSlider.querySelectorAll('.work-item');
+        let isAutoScrolling = true; // 自動スクロールの状態を管理
+        let scrollInterval; // 長押し用のインターバルID
+        let currentPosition = 0; // 現在のスクロール位置
+        let itemWidth; // アイテムの幅
+        let originalItemsWidth; // オリジナルアイテムの合計幅
+        
+        // スライダーの初期化
+        const initWorksSlider = () => {
+            // 既存のクローンを削除（再初期化時のため）
+            const existingClones = worksSlider.querySelectorAll('.work-item-clone');
+            existingClones.forEach(clone => clone.remove());
+            
+            // スライダーを無限ループさせるために、アイテムを複数回複製して追加
+            // 最初のセットは既にあるので、さらに5セット追加（合計6セット表示）
+            // 多めにクローンを用意しておくことで、高速クリック時にも対応
+            for (let i = 0; i < 5; i++) {
+                const clonedItems = Array.from(workItems).map(item => {
+                    const clone = item.cloneNode(true);
+                    clone.classList.add('work-item-clone'); // クローンにクラスを追加（再初期化時の識別用）
+                    
+                    // クローンにもホバーエフェクトとクリックイベントを追加
+                    clone.addEventListener('mouseenter', () => {
+                        // CSSトランジションを無効化
+                        clone.style.transition = 'none';
+                        // 即座に拡大
+                        clone.style.transform = 'translateY(-0.5rem) scale(1.05)';
+                    });
+                    
+                    clone.addEventListener('mouseleave', () => {
+                        // CSSトランジションを無効化
+                        clone.style.transition = 'none';
+                        // 即座に元のサイズに戻す
+                        clone.style.transform = '';
+                    });
+                    
+                    clone.addEventListener('click', () => {
+                        const beforeImg = clone.querySelector('.work-before img').src;
+                        const afterImg = clone.querySelector('.work-after img').src;
+                        
+                        modalBeforeImg.src = beforeImg;
+                        modalAfterImg.src = afterImg;
+                        
+                        modal.classList.add('show');
+                        body.classList.add('no-scroll');
+                    });
+                    
+                    return clone;
+                });
+                clonedItems.forEach(item => worksSlider.appendChild(item));
+            }
+            
+            // アイテムの幅を計算
+            itemWidth = workItems[0].offsetWidth + parseInt(window.getComputedStyle(workItems[0]).marginRight);
+            originalItemsWidth = workItems.length * itemWidth;
+            
+            // スライダーのアニメーションを開始
+            startWorksAnimation();
+        };
+        
+        // スライダーのアニメーションを開始
+        const startWorksAnimation = () => {
+            // アニメーションをリセット
+            worksSlider.style.animation = 'none';
+            worksSlider.offsetHeight; // リフロー（再描画）を強制
+            
+            // 施工事例セクションのカードの移動速度
+            const animationDuration = originalItemsWidth / 80; // 速度調整（1セット分の幅で計算）- 200から80に変更してスピードを遅く
+            
+            // スタイルタグを作成または更新
+            let styleTag = document.getElementById('works-animation-style');
+            if (!styleTag) {
+                styleTag = document.createElement('style');
+                styleTag.id = 'works-animation-style';
+                document.head.appendChild(styleTag);
+            }
+            
+            // キーフレームを定義
+            styleTag.textContent = `
+                @keyframes scrollWorks {
+                    0% { transform: translateX(0); }
+                    100% { transform: translateX(-${originalItemsWidth}px); }
+                }
+            `;
+            
+            // アニメーションを設定
+            worksSlider.style.animation = `scrollWorks ${animationDuration}s linear infinite`;
+            isAutoScrolling = true;
+        };
+        
+        // 手動スクロール用の関数
+        const pauseAutoScroll = () => {
+            if (isAutoScrolling) {
+                // 現在のトランスフォーム値を取得
+                const computedStyle = window.getComputedStyle(worksSlider);
+                const matrix = new WebKitCSSMatrix(computedStyle.transform);
+                currentPosition = matrix.m41; // translateXの値
+                
+                // アニメーションを停止
+                worksSlider.style.animation = 'none';
+                worksSlider.style.transform = `translateX(${currentPosition}px)`;
+                isAutoScrolling = false;
+            }
+        };
+        
+        // 自動スクロールを再開（現在の位置から）
+        const resumeAutoScroll = () => {
+            if (!isAutoScrolling) {
+                // トランジションを削除
+                worksSlider.style.transition = 'none';
+                
+                // 現在の位置から自動スクロールを再開
+                const animationDuration = originalItemsWidth / 80; // 速度調整
+                
+                // スタイルタグを作成または更新
+                let styleTag = document.getElementById('works-animation-style');
+                if (!styleTag) {
+                    styleTag = document.createElement('style');
+                    styleTag.id = 'works-animation-style';
+                    document.head.appendChild(styleTag);
+                }
+                
+                // 現在の位置を基準にしたキーフレームを定義
+                styleTag.textContent = `
+                    @keyframes scrollWorks {
+                        0% { transform: translateX(${currentPosition}px); }
+                        100% { transform: translateX(${currentPosition - originalItemsWidth}px); }
+                    }
+                `;
+                
+                // アニメーションを設定
+                worksSlider.style.animation = `scrollWorks ${animationDuration}s linear infinite`;
+                isAutoScrolling = true;
+            }
+        };
+        
+        // カードのクローンを作成する関数（先行してクローンを追加）
+        const createItemClones = (count = 1, prepend = false) => {
+            for (let i = 0; i < count; i++) {
+                const clonedItems = Array.from(workItems).map(item => {
+                    const clone = item.cloneNode(true);
+                    clone.classList.add('work-item-clone');
+                    
+                    // クローンにもホバーエフェクトとクリックイベントを追加
+                    clone.addEventListener('mouseenter', () => {
+                        clone.style.transition = 'none';
+                        clone.style.transform = 'translateY(-0.5rem) scale(1.05)';
+                    });
+                    
+                    clone.addEventListener('mouseleave', () => {
+                        clone.style.transition = 'none';
+                        clone.style.transform = '';
+                    });
+                    
+                    clone.addEventListener('click', () => {
+                        const beforeImg = clone.querySelector('.work-before img').src;
+                        const afterImg = clone.querySelector('.work-after img').src;
+                        
+                        modalBeforeImg.src = beforeImg;
+                        modalAfterImg.src = afterImg;
+                        
+                        modal.classList.add('show');
+                        body.classList.add('no-scroll');
+                    });
+                    
+                    return clone;
+                });
+                
+                // prepend=trueの場合は先頭に追加、そうでなければ末尾に追加
+                if (prepend) {
+                    // 先頭に追加する場合は逆順で追加（元の順序を維持するため）
+                    clonedItems.reverse().forEach(item => worksSlider.prepend(item));
+                } else {
+                    // 末尾に追加
+                    clonedItems.forEach(item => worksSlider.appendChild(item));
+                }
+            }
+        };
+        
+        // 左方向にスクロール
+        const scrollLeft = () => {
+            pauseAutoScroll();
+            
+            // 先行してクローンを追加（高速クリック対応）
+            if (currentPosition > -originalItemsWidth) {
+                // 先行して左側（先頭）にクローンを追加
+                createItemClones(1, true);
+                
+                // 位置を調整（1セット分左に移動して、見た目を維持）
+                currentPosition -= originalItemsWidth;
+                worksSlider.style.transform = `translateX(${currentPosition}px)`;
+            }
+            
+            // スムーズなスクロールのためのトランジション設定
+            worksSlider.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1)';
+            
+            // スクロール量を調整
+            const scrollAmount = itemWidth * 0.7;
+            currentPosition += scrollAmount; // 右に移動（左方向にスクロール）
+            
+            // 位置を更新
+            worksSlider.style.transform = `translateX(${currentPosition}px)`;
+            
+            // トランジション終了後に古いクローンを削除（表示に影響を与えないタイミングで）
+            setTimeout(() => {
+                // トランジションを一時的に無効化
+                worksSlider.style.transition = 'none';
+                
+                // 古いクローンを削除（DOM要素が増えすぎないように）
+                const oldClones = worksSlider.querySelectorAll('.work-item-clone');
+                if (oldClones.length > workItems.length * 6) { // 6セット以上ある場合
+                    // 最も古い1セット分を削除
+                    for (let i = 0; i < workItems.length; i++) {
+                        if (oldClones[i]) oldClones[i].remove();
+                    }
+                }
+                
+                // トランジションを再設定
+                setTimeout(() => {
+                    worksSlider.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1)';
+                }, 50);
+            }, 650); // トランジションの時間より少し長く
+        };
+        
+        // 右方向にスクロール
+        const scrollRight = () => {
+            pauseAutoScroll();
+            
+            // 先行してクローンを追加（高速クリック対応）
+            if (currentPosition < -originalItemsWidth * (worksSlider.querySelectorAll('.work-item-clone').length / workItems.length - 1)) {
+                // 先行して右側（末尾）にクローンを追加
+                createItemClones(1);
+            }
+            
+            // スムーズなスクロールのためのトランジション設定
+            worksSlider.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1)';
+            
+            // スクロール量を調整
+            const scrollAmount = itemWidth * 0.7;
+            currentPosition -= scrollAmount; // 左に移動（右方向にスクロール）
+            
+            // 位置を更新
+            worksSlider.style.transform = `translateX(${currentPosition}px)`;
+            
+            // トランジション終了後に古いクローンを削除（表示に影響を与えないタイミングで）
+            setTimeout(() => {
+                // トランジションを一時的に無効化
+                worksSlider.style.transition = 'none';
+                
+                // 古いクローンを削除（DOM要素が増えすぎないように）
+                const oldClones = worksSlider.querySelectorAll('.work-item-clone');
+                if (oldClones.length > workItems.length * 6) { // 6セット以上ある場合
+                    // 最も古い1セット分を削除
+                    for (let i = 0; i < workItems.length; i++) {
+                        if (oldClones[i]) oldClones[i].remove();
+                    }
+                }
+                
+                // トランジションを再設定
+                setTimeout(() => {
+                    worksSlider.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1)';
+                }, 50);
+            }, 650); // トランジションの時間より少し長く
+        };
+        
+        // ボタンのクリック制限（デバウンス）を管理する変数
+        let isButtonDisabled = false;
+        
+        // ボタンを一時的に無効化する関数
+        const disableButtons = () => {
+            if (!isButtonDisabled) {
+                isButtonDisabled = true;
+                
+                // ボタンの見た目を無効化状態に
+                if (worksPrevBtn) worksPrevBtn.style.opacity = '0.5';
+                if (worksNextBtn) worksNextBtn.style.opacity = '0.5';
+                
+                // 0.7秒後に再度有効化
+                setTimeout(() => {
+                    isButtonDisabled = false;
+                    // ボタンの見た目を元に戻す
+                    if (worksPrevBtn) worksPrevBtn.style.opacity = '1';
+                    if (worksNextBtn) worksNextBtn.style.opacity = '1';
+                }, 700); // 0.7秒間無効化
+            }
+        };
+        
+        // 左ボタンのイベント
+        if (worksPrevBtn) {
+            // クリック時
+            worksPrevBtn.addEventListener('click', () => {
+                if (!isButtonDisabled) {
+                    scrollLeft();
+                    disableButtons(); // ボタンを無効化
+                }
+            });
+            
+            // タッチデバイス対応
+            worksPrevBtn.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                if (!isButtonDisabled) {
+                    scrollLeft();
+                    disableButtons(); // ボタンを無効化
+                }
+            });
+        }
+        
+        // 右ボタンのイベント
+        if (worksNextBtn) {
+            // クリック時
+            worksNextBtn.addEventListener('click', () => {
+                if (!isButtonDisabled) {
+                    scrollRight();
+                    disableButtons(); // ボタンを無効化
+                }
+            });
+            
+            // タッチデバイス対応
+            worksNextBtn.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                if (!isButtonDisabled) {
+                    scrollRight();
+                    disableButtons(); // ボタンを無効化
+                }
+            });
+        }
+        
+        // スライダーの初期化
+        initWorksSlider();
+        
+        // ウィンドウリサイズ時にアニメーションを再調整
+        window.addEventListener('resize', () => {
+            // 少し遅延させて実行（リサイズ中に何度も実行されるのを防ぐ）
+            clearTimeout(window.resizeWorksTimer);
+            window.resizeWorksTimer = setTimeout(() => {
+                initWorksSlider(); // リサイズ時は完全に再初期化
+            }, 200);
+        });
+        
+        // マウスオーバー時にアニメーションを一時停止
+        worksContainer.addEventListener('mouseenter', () => {
+            if (isAutoScrolling) {
+                worksSlider.style.animationPlayState = 'paused';
+            }
+        });
+        
+        // マウスアウト時にアニメーションを再開
+        worksContainer.addEventListener('mouseleave', () => {
+            if (isAutoScrolling) {
+                worksSlider.style.animationPlayState = 'running';
+            } else {
+                // すぐに自動スクロールを再開（遅延なし）
+                resumeAutoScroll();
+            }
+        });
+    }
+    // ヘッダーの表示/非表示を制御
+    let lastScrollTop = 0;
+    const header = document.querySelector('.header');
+    
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        if (scrollTop > lastScrollTop) {
+            // 下スクロール時
+            header.style.transform = 'translateY(-100%)';
+        } else {
+            // 上スクロール時
+            header.style.transform = 'translateY(0)';
+        }
+        
+        lastScrollTop = scrollTop;
+    });
+    
+    // 口コミスライダーの実装
+    const reviewsSlider = document.querySelector('.reviews-slider');
+    const sliderDots = document.querySelector('.slider-dots');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    
+    if (reviewsSlider) {
+        const reviewCards = reviewsSlider.querySelectorAll('.review-card');
+        let cardWidth = reviewCards[0].offsetWidth + parseInt(window.getComputedStyle(reviewCards[0]).marginRight);
+        let currentIndex = 0;
+        let autoSlideInterval;
+        
+        // タッチイベント用の変数
+        let startX = 0;
+        let endX = 0;
+        let isDragging = false;
+        let startTranslate = 0;
+        let isMobileDevice = window.innerWidth <= 768;
+        
+        // スライダーの初期化
+        const initSlider = () => {
+            // カードの幅を再計算
+            cardWidth = reviewCards[0].offsetWidth + parseInt(window.getComputedStyle(reviewCards[0]).marginRight);
+            
+            // スライダーの幅を設定
+            reviewsSlider.style.width = `${cardWidth * reviewCards.length}px`;
+            
+            // 各カードの幅を設定
+            reviewCards.forEach(card => {
+                card.style.width = `${cardWidth}px`;
+            });
+            
+            // 初期位置に移動
+            goToSlide(0);
+            
+            // 現在のデバイスタイプを確認
+            isMobileDevice = window.innerWidth <= 768;
+            
+            // モバイルの場合、スライダーにスクロール可能なスタイルを適用
+            if (isMobileDevice) {
+                reviewsSlider.style.overflowX = 'auto';
+                reviewsSlider.style.scrollBehavior = 'smooth';
+                reviewsSlider.style.WebkitOverflowScrolling = 'touch'; // iOSのスムーススクロール
+                reviewsSlider.style.scrollSnapType = 'x mandatory';
+                
+                // 各カードにスクロールスナップを適用
+                reviewCards.forEach(card => {
+                    card.style.scrollSnapAlign = 'start';
+                });
+            } else {
+                // PCの場合は従来のスライダースタイルを維持
+                reviewsSlider.style.overflowX = 'hidden';
+                reviewsSlider.style.scrollBehavior = 'auto';
+                reviewsSlider.style.WebkitOverflowScrolling = 'auto';
+                reviewsSlider.style.scrollSnapType = 'none';
+                
+                reviewCards.forEach(card => {
+                    card.style.scrollSnapAlign = 'none';
+                });
+            }
+        };
+        
+        // スライダードットの生成（3つのグループに対応する3つのドット）
+        const totalGroups = Math.ceil(reviewCards.length / 3); // 3枚ずつのグループ数を計算
+        
+        for (let i = 0; i < totalGroups; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => {
+                goToSlide(i * 3); // 各グループの最初のカードのインデックス
+                resetAutoSlide();
+            });
+            sliderDots.appendChild(dot);
+        }
+        
+        // スライドを指定位置に移動
+        const goToSlide = (index) => {
+            // モバイル表示では1枚ずつ、PC表示では3枚ずつ表示
+            const isMobile = window.innerWidth <= 768;
+            const visibleCards = isMobile ? 1 : 3;
+            
+            // 最大インデックスを計算（表示枚数を考慮）
+            const maxIndex = reviewCards.length - visibleCards;
+            
+            // インデックスの範囲を制限
+            currentIndex = Math.max(0, Math.min(index, maxIndex));
+            
+            // スライダーの位置を更新
+            reviewsSlider.style.transform = `translateX(-${currentIndex * cardWidth}px)`;
+            
+            // アクティブなドットを更新（3枚ずつのグループに対応）
+            const activeGroupIndex = Math.floor(currentIndex / 3); // 現在のグループのインデックス
+            document.querySelectorAll('.dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === activeGroupIndex);
+            });
+            
+            // すべてのカードを完全に表示
+            reviewCards.forEach((card) => {
+                card.style.opacity = '1';
+                card.style.visibility = 'visible';
+            });
+            
+            // モバイルデバイスの場合はスクロール位置も更新
+            if (isMobileDevice) {
+                reviewsSlider.scrollLeft = currentIndex * cardWidth;
+            }
+        };
+        
+        // 前のスライドへ
+        const goToPrevSlide = () => {
+            // モバイル表示では1枚ずつ、PC表示では3枚ずつ表示
+            const isMobile = window.innerWidth <= 768;
+            // モバイル表示時は0.5枚分だけ移動（移動距離を小さく）、PC表示では3枚ずつ移動
+            const step = isMobile ? 0.5 : 3;
+            const visibleCards = isMobile ? 1 : 3;
+            const maxIndex = reviewCards.length - visibleCards;
+            
+            // 前のインデックスを計算
+            let prevIndex = currentIndex - step;
+            
+            // 最初のスライドより前に戻ったら最後に移動
+            if (prevIndex < 0) {
+                // 最後のスライドグループの開始位置に移動
+                // 例：9枚のカードがあり、3枚ずつ表示する場合、最後のグループは6から始まる
+                prevIndex = Math.floor(maxIndex / step) * step;
+                if (prevIndex > maxIndex) prevIndex = maxIndex;
+            }
+            
+            goToSlide(prevIndex);
+            resetAutoSlide();
+        };
+        
+        // 次のスライドへ
+        const goToNextSlide = () => {
+            // モバイル表示では1枚ずつ、PC表示では3枚ずつ表示
+            const isMobile = window.innerWidth <= 768;
+            const visibleCards = isMobile ? 3 : 3;
+            
+            // モバイル表示時は0.5枚分だけ移動（移動距離を小さく）、PC表示では3枚ずつ移動
+            const step = isMobile ? 1 : 3;
+            const maxIndex = reviewCards.length - visibleCards;
+            
+            // 次のインデックスを計算
+            let nextIndex = currentIndex + step;
+            
+            // 最後のスライドを超えたら最初に戻る
+            if (nextIndex > maxIndex) {
+                nextIndex = 0;
+            }
+            
+            goToSlide(nextIndex);
+            resetAutoSlide();
+        };
+        
+        // 自動スライド機能
+        const startAutoSlide = () => {
+            autoSlideInterval = setInterval(goToNextSlide, 8000); // 8秒ごとに次のスライドへ
+        };
+        
+        // 自動スライドのリセット
+        const resetAutoSlide = () => {
+            clearInterval(autoSlideInterval);
+            startAutoSlide();
+        };
+        
+        // ボタンイベントの設定
+        if (prevBtn) prevBtn.addEventListener('click', goToPrevSlide);
+        if (nextBtn) nextBtn.addEventListener('click', goToNextSlide);
+        
+        // タッチイベントの設定（モバイル用のタッチスワイプ）
+        reviewsSlider.addEventListener('touchstart', (e) => {
+            // 自動スクロールを一時停止
+            clearInterval(autoSlideInterval);
+            
+            startX = e.touches[0].clientX;
+            startTranslate = currentIndex * cardWidth;
+            isDragging = true;
+            
+            // トランジションを一時的に無効化
+            reviewsSlider.style.transition = 'none';
+        }, { passive: true });
+        
+        reviewsSlider.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            
+            endX = e.touches[0].clientX;
+            const diffX = startX - endX;
+            
+            // スライダーをドラッグに合わせて移動
+            if (isMobileDevice) {
+                // モバイルでは自由なスクロールを許可（何もしない）
+            } else {
+                // PCではJavaScriptによる制御
+                const translateX = -startTranslate - diffX;
+                reviewsSlider.style.transform = `translateX(${translateX}px)`;
+            }
+        }, { passive: true });
+        
+        reviewsSlider.addEventListener('touchend', (e) => {
+            if (!isDragging) return;
+            isDragging = false;
+            
+            // トランジションを再度有効化
+            reviewsSlider.style.transition = 'transform 0.3s ease-out';
+            
+            endX = e.changedTouches[0].clientX;
+            const diffX = startX - endX;
+            
+            // スワイプの方向と距離に基づいてスライドを切り替え
+            if (Math.abs(diffX) > cardWidth * 0.2) { // スワイプが十分な距離であれば
+                if (diffX > 0) {
+                    // 左スワイプの場合、次のスライドへ
+                    goToNextSlide();
+                } else {
+                    // 右スワイプの場合、前のスライドへ
+                    goToPrevSlide();
+                }
+            } else {
+                // スワイプが十分でない場合は現在のスライドに戻る
+                goToSlide(currentIndex);
+            }
+            
+            // 自動スクロールを再開
+            startAutoSlide();
+        }, { passive: true });
+        
+        // スクロールイベントを監視して現在のインデックスを更新（モバイル用）
+        reviewsSlider.addEventListener('scroll', () => {
+            if (isMobileDevice) {
+                // スクロール位置からインデックスを計算
+                const scrollLeft = reviewsSlider.scrollLeft;
+                const approxIndex = Math.round(scrollLeft / cardWidth);
+                
+                if (approxIndex !== currentIndex) {
+                    currentIndex = approxIndex;
+                    
+                    // ドットの更新
+                    const activeGroupIndex = Math.floor(currentIndex / 3);
+                    document.querySelectorAll('.dot').forEach((dot, i) => {
+                        dot.classList.toggle('active', i === activeGroupIndex);
+                    });
+                    
+                    // 自動スクロールのリセット
+                    resetAutoSlide();
+                }
+            }
+        }, { passive: true });
+        
+        // スライダーの初期化
+        initSlider();
+        
+        // ウィンドウリサイズ時にスライダーを再初期化
+        window.addEventListener('resize', () => {
+            // 少し遅延させて実行（リサイズ中に何度も実行されるのを防ぐ）
+            clearTimeout(window.resizeTimer);
+            window.resizeTimer = setTimeout(() => {
+                initSlider();
+            }, 200);
+        });
+        
+        // 自動スライドの開始
+        startAutoSlide();
+    }
+
+    // 顧客会員数10000人のカウンターアニメーション関数
+    const animateCounter = (counter) => {
+        // 遅延を追加（2秒待ってからカウントアップを開始）
+        setTimeout(() => {
+            const target = +counter.getAttribute('data-target');
+            const duration = 1500; // カウンターアニメーションの合計時間（ミリ秒）
+            const increment = target / (duration / 16);
+            let current = 0;
+            
+            const updateCounter = () => {
+                current += increment;
+                counter.textContent = Math.floor(current);
+                
+                if (current < target) {
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    counter.textContent = target;
+                }
+            };
+            
+            updateCounter();
+        }, 1500); // 1500ミリ秒（1.5秒）の遅延を追加
+    };
+
+    // バナーのカウンターを監視
+    const bannerCounter = document.querySelector('.achievement-banner .counter');
+    if (bannerCounter) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(bannerCounter);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        observer.observe(bannerCounter);
+    }
+
+    // 統計セクションのカウンターを監視
+    const statsItems = document.querySelectorAll('.stats-item');
+    if (statsItems.length > 0) {
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target.querySelector('.counter');
+                    if (counter) {
+                        animateCounter(counter);
+                        statsObserver.unobserve(entry.target);
+                    }
+                }
+            });
+        }, { threshold: 0.5 });
+
+        statsItems.forEach(item => statsObserver.observe(item));
+    }
+
+    // スムーズスクロール
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                const headerHeight = document.querySelector('.header').offsetHeight;
+                const targetPosition = targetElement.offsetTop - headerHeight + 200; // +200 を追加してスクロール位置を下げる
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+
+    // 動画の自動再生設定
+    const video = document.getElementById('myVideo');
+    if (video) {
+        video.play().catch(function(error) {
+            console.log("動画の自動再生に失敗しました:", error);
+        });
+    }
+
+    // モバイル表示時のサービス項目クリック制御
+    const isMobile = window.innerWidth <= 768;
+    
+    // サービス項目の取得
+    const serviceItems = document.querySelectorAll('.service-item');
+    const detailLinks = document.querySelectorAll('.detail-link');
+    
+    if (isMobile) {
+        // モバイル表示の場合
+        serviceItems.forEach(item => {
+            // 項目全体のクリックイベントを無効化
+            item.onclick = null;
+            item.style.cursor = 'default';
+        });
+        
+        // DETAILリンクにクリックイベントを設定
+        detailLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.stopPropagation(); // 親要素へのイベント伝播を停止
+                const parentItem = this.closest('.service-item');
+                const url = parentItem.getAttribute('onclick').replace("window.location.href='", "").replace("'", "");
+                window.location.href = url;
+            });
+        });
+    }
+    
+    // ウィンドウサイズ変更時にも対応
+    window.addEventListener('resize', function() {
+        const isMobileNow = window.innerWidth <= 768;
+        if (isMobileNow !== isMobile) {
+            location.reload(); // 表示モードが変わったらページを再読み込み
+        }
+    });
+});
