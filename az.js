@@ -248,21 +248,53 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // モーダルを表示
             modal.classList.add('show');
-            body.classList.add('no-scroll'); // スクロールを無効化
+            disableScroll(); // スクロールを無効化
         });
     });
+    
+    // スクロールを無効化する関数
+    const disableScroll = () => {
+        // スクロール位置を保存
+        const scrollY = window.scrollY;
+        
+        // スクロールを無効化
+        body.classList.add('no-scroll');
+        
+        // スクロール位置を維持するためのスタイルを追加
+        body.style.position = 'fixed';
+        body.style.top = `-${scrollY}px`;
+        body.style.width = '100%';
+        
+        // スクロール位置を保存
+        body.setAttribute('data-scroll-position', scrollY.toString());
+    };
+    
+    // スクロールを有効化する関数
+    const enableScroll = () => {
+        // スクロールを有効化
+        body.classList.remove('no-scroll');
+        
+        // スタイルをリセット
+        body.style.position = '';
+        body.style.top = '';
+        body.style.width = '';
+        
+        // 保存したスクロール位置に戻る
+        const scrollY = parseInt(body.getAttribute('data-scroll-position') || '0');
+        window.scrollTo(0, scrollY);
+    };
     
     // 閉じるボタンのクリックイベント
     modalClose.addEventListener('click', () => {
         modal.classList.remove('show');
-        body.classList.remove('no-scroll'); // スクロールを有効化
+        enableScroll(); // スクロールを有効化
     });
     
     // モーダルの外側をクリックしたときにも閉じる
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
             modal.classList.remove('show');
-            body.classList.remove('no-scroll'); // スクロールを有効化
+            enableScroll(); // スクロールを有効化
         }
     });
     
@@ -282,36 +314,35 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // スライダーの初期化
         const initWorksSlider = () => {
-            // 既存のクローンを削除（再初期化時のため）
-            const existingClones = worksSlider.querySelectorAll('.work-item-clone');
-            existingClones.forEach(clone => clone.remove());
+            // モバイル表示かどうかを確認
+            const isMobile = window.innerWidth <= 768;
             
-            // スライダーを無限ループさせるために、アイテムを複数回複製して追加
-            // 最初のセットは既にあるので、さらに5セット追加（合計6セット表示）
-            // 多めにクローンを用意しておくことで、高速クリック時にも対応
-            for (let i = 0; i < 5; i++) {
-                const clonedItems = Array.from(workItems).map(item => {
-                    const clone = item.cloneNode(true);
-                    clone.classList.add('work-item-clone'); // クローンにクラスを追加（再初期化時の識別用）
+            if (isMobile) {
+                // モバイル表示の場合はスワイプスクロール用の設定
+                // 既存のクローンを削除
+                const existingClones = worksSlider.querySelectorAll('.work-item-clone');
+                existingClones.forEach(clone => clone.remove());
+                
+                // スライダーのスタイルをリセット
+                worksSlider.style.animation = 'none';
+                worksSlider.style.width = '';
+                worksSlider.style.transform = '';
+                
+                // 各カードのスタイルをリセット
+                workItems.forEach(item => {
+                    item.style.transform = '';
+                });
+                
+                // クリックイベントだけを残す
+                workItems.forEach(item => {
+                    // ホバーイベントを削除
+                    item.removeEventListener('mouseenter', () => {});
+                    item.removeEventListener('mouseleave', () => {});
                     
-                    // クローンにもホバーエフェクトとクリックイベントを追加
-                    clone.addEventListener('mouseenter', () => {
-                        // CSSトランジションを無効化
-                        clone.style.transition = 'none';
-                        // 即座に拡大
-                        clone.style.transform = 'translateY(-0.5rem) scale(1.05)';
-                    });
-                    
-                    clone.addEventListener('mouseleave', () => {
-                        // CSSトランジションを無効化
-                        clone.style.transition = 'none';
-                        // 即座に元のサイズに戻す
-                        clone.style.transform = '';
-                    });
-                    
-                    clone.addEventListener('click', () => {
-                        const beforeImg = clone.querySelector('.work-before img').src;
-                        const afterImg = clone.querySelector('.work-after img').src;
+                    // クリックイベントを再設定
+                    item.addEventListener('click', () => {
+                        const beforeImg = item.querySelector('.work-before img').src;
+                        const afterImg = item.querySelector('.work-after img').src;
                         
                         modalBeforeImg.src = beforeImg;
                         modalAfterImg.src = afterImg;
@@ -319,22 +350,69 @@ document.addEventListener('DOMContentLoaded', () => {
                         modal.classList.add('show');
                         body.classList.add('no-scroll');
                     });
-                    
-                    return clone;
                 });
-                clonedItems.forEach(item => worksSlider.appendChild(item));
+                
+                // 自動スクロールを停止
+                isAutoScrolling = false;
+            } else {
+                // PC表示の場合は通常のスライダー設定
+                // 既存のクローンを削除（再初期化時のため）
+                const existingClones = worksSlider.querySelectorAll('.work-item-clone');
+                existingClones.forEach(clone => clone.remove());
+                
+                // スライダーを無限ループさせるために、アイテムを複数回複製して追加
+                // 最初のセットは既にあるので、さらに5セット追加（合計6セット表示）
+                // 多めにクローンを用意しておくことで、高速クリック時にも対応
+                for (let i = 0; i < 5; i++) {
+                    const clonedItems = Array.from(workItems).map(item => {
+                        const clone = item.cloneNode(true);
+                        clone.classList.add('work-item-clone'); // クローンにクラスを追加（再初期化時の識別用）
+                        
+                        // クローンにもホバーエフェクトとクリックイベントを追加
+                        clone.addEventListener('mouseenter', () => {
+                            // CSSトランジションを無効化
+                            clone.style.transition = 'none';
+                            // 即座に拡大
+                            clone.style.transform = 'translateY(-0.5rem) scale(1.05)';
+                        });
+                        
+                        clone.addEventListener('mouseleave', () => {
+                            // CSSトランジションを無効化
+                            clone.style.transition = 'none';
+                            // 即座に元のサイズに戻す
+                            clone.style.transform = '';
+                        });
+                        
+                        clone.addEventListener('click', () => {
+                            const beforeImg = clone.querySelector('.work-before img').src;
+                            const afterImg = clone.querySelector('.work-after img').src;
+                            
+                            modalBeforeImg.src = beforeImg;
+                            modalAfterImg.src = afterImg;
+                            
+                            modal.classList.add('show');
+                            body.classList.add('no-scroll');
+                        });
+                        
+                        return clone;
+                    });
+                    clonedItems.forEach(item => worksSlider.appendChild(item));
+                }
+                
+                // アイテムの幅を計算
+                itemWidth = workItems[0].offsetWidth + parseInt(window.getComputedStyle(workItems[0]).marginRight);
+                originalItemsWidth = workItems.length * itemWidth;
+                
+                // スライダーのアニメーションを開始
+                startWorksAnimation();
             }
-            
-            // アイテムの幅を計算
-            itemWidth = workItems[0].offsetWidth + parseInt(window.getComputedStyle(workItems[0]).marginRight);
-            originalItemsWidth = workItems.length * itemWidth;
-            
-            // スライダーのアニメーションを開始
-            startWorksAnimation();
         };
         
         // スライダーのアニメーションを開始
         const startWorksAnimation = () => {
+            // モバイル表示では何もしない
+            if (window.innerWidth <= 768) return;
+            
             // アニメーションをリセット
             worksSlider.style.animation = 'none';
             worksSlider.offsetHeight; // リフロー（再描画）を強制
@@ -661,19 +739,41 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // スライダーの初期化
         const initSlider = () => {
-            // カードの幅を再計算
-            cardWidth = reviewCards[0].offsetWidth + parseInt(window.getComputedStyle(reviewCards[0]).marginRight);
+            // モバイル表示かどうかを確認
+            const isMobile = window.innerWidth <= 768;
             
-            // スライダーの幅を設定
-            reviewsSlider.style.width = `${cardWidth * reviewCards.length}px`;
-            
-            // 各カードの幅を設定
-            reviewCards.forEach(card => {
-                card.style.width = `${cardWidth}px`;
-            });
-            
-            // 初期位置に移動
-            goToSlide(0);
+            if (isMobile) {
+                // モバイル表示の場合はスワイプスクロール用の設定
+                // スライダーのスタイルをリセット
+                reviewsSlider.style.width = '';
+                reviewsSlider.style.transform = '';
+                
+                // 各カードの幅をリセット
+                reviewCards.forEach(card => {
+                    card.style.width = '';
+                });
+                
+                // 自動スライドを停止
+                clearInterval(autoSlideInterval);
+            } else {
+                // PC表示の場合は通常のスライダー設定
+                // カードの幅を再計算
+                cardWidth = reviewCards[0].offsetWidth + parseInt(window.getComputedStyle(reviewCards[0]).marginRight);
+                
+                // スライダーの幅を設定
+                reviewsSlider.style.width = `${cardWidth * reviewCards.length}px`;
+                
+                // 各カードの幅を設定
+                reviewCards.forEach(card => {
+                    card.style.width = `${cardWidth}px`;
+                });
+                
+                // 初期位置に移動
+                goToSlide(0);
+                
+                // 自動スライドを開始
+                startAutoSlide();
+            }
         };
         
         // スライダードットの生成（3つのグループに対応する3つのドット）
@@ -692,9 +792,11 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // スライドを指定位置に移動
         const goToSlide = (index) => {
-            // モバイル表示では1枚ずつ、PC表示では3枚ずつ表示
-            const isMobile = window.innerWidth <= 768;
-            const visibleCards = isMobile ? 1 : 3;
+            // モバイル表示では何もしない（スワイプスクロールを使用）
+            if (window.innerWidth <= 768) return;
+            
+            // PC表示では3枚ずつ表示
+            const visibleCards = 3;
             
             // 最大インデックスを計算（表示枚数を考慮）
             const maxIndex = reviewCards.length - visibleCards;
@@ -720,10 +822,12 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // 前のスライドへ
         const goToPrevSlide = () => {
-            // モバイル表示では1枚ずつ、PC表示では3枚ずつ表示
-            const isMobile = window.innerWidth <= 768;
-            const step = isMobile ? 1 : 3; // モバイルでは1枚ずつ、PCでは3枚ずつ移動
-            const visibleCards = isMobile ? 1 : 3;
+            // モバイル表示では何もしない
+            if (window.innerWidth <= 768) return;
+            
+            // PC表示では3枚ずつ表示
+            const step = 3;
+            const visibleCards = 3;
             const maxIndex = reviewCards.length - visibleCards;
             
             // 前のインデックスを計算
@@ -743,10 +847,12 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // 次のスライドへ
         const goToNextSlide = () => {
-            // モバイル表示では1枚ずつ、PC表示では3枚ずつ表示
-            const isMobile = window.innerWidth <= 768;
-            const visibleCards = isMobile ? 1 : 3;
-            const step = isMobile ? 1 : 3; // モバイルでは1枚ずつ、PCでは3枚ずつ移動
+            // モバイル表示では何もしない
+            if (window.innerWidth <= 768) return;
+            
+            // PC表示では3枚ずつ表示
+            const step = 3;
+            const visibleCards = 3;
             const maxIndex = reviewCards.length - visibleCards;
             
             // 次のインデックスを計算
@@ -763,6 +869,10 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // 自動スライド機能
         const startAutoSlide = () => {
+            // モバイル表示では自動スライドを無効化
+            if (window.innerWidth <= 768) return;
+            
+            clearInterval(autoSlideInterval); // 既存のインターバルをクリア
             autoSlideInterval = setInterval(goToNextSlide, 8000); // 8秒ごとに次のスライドへ
         };
         
@@ -787,9 +897,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 initSlider();
             }, 200);
         });
-        
-        // 自動スライドの開始
-        startAutoSlide();
     }
 
     // 顧客会員数10000人のカウンターアニメーション関数
@@ -858,7 +965,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (targetElement) {
                 const headerHeight = document.querySelector('.header').offsetHeight;
-                const targetPosition = targetElement.offsetTop - headerHeight + 200; // +200 を追加してスクロール位置を下げる
+                const targetPosition = targetElement.offsetTop - headerHeight + 100; // +200から+100に変更してスクロール位置を上げる
                 
                 window.scrollTo({
                     top: targetPosition,
