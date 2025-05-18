@@ -1,6 +1,6 @@
 /* LINEページ専用のスタイル */
 .line-content {
-    padding: 22rem 0;
+    padding: 16rem 0 9rem 0;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -21,6 +21,7 @@
 
 .step-container {
     margin-bottom: 5rem; /* 8remから5remに減らして間隔を狭く */
+    padding-left: 1.5rem;
 }
 
 .step-title {
@@ -267,7 +268,7 @@
     padding: 2rem;
     border-radius: 10px;
     text-align: center;
-    margin: 5rem auto;
+    margin: 5rem auto 0;
     max-width: 600px;
 }
 
@@ -290,6 +291,22 @@
 }
 
 @media (max-width: 768px) {
+    .line-description {
+        font-size: 1.6rem;
+    }
+    
+    .step-title {
+        font-size: 2.6rem;
+    }
+    
+    .step-number {
+        font-size: 2rem;
+    }
+    
+    .step-number span {
+        font-size: 3.8rem;
+    }
+    
     .step-content {
         flex-direction: column;
         align-items: center;
