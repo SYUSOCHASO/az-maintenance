@@ -1,0 +1,529 @@
+/* 基本設定 */
+:root {
+    --primary-color: #003399;
+    --secondary-color: #FFD700;
+    --text-color: #000;
+    --light-gray: #f5f5f5;
+    --dark-gray: #666;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    overflow-x: hidden;
+}
+
+/* ヘッダー */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
+    padding: 0.2rem 0;
+    transition: transform 0.3s ease;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 4rem;
+}
+
+.header-contact {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.contact-message {
+    font-size: 1.5rem;
+    color: #333;
+    margin-top: 0.5rem; /* 上部に余白を追加して下に移動 */
+    margin-bottom: 0.2rem; /* 間隔を詰める */
+    font-weight: 900; /* 最大の太さ（900）を設定 */
+    text-shadow: 0 0 0.05px #333; /* テキストに影を追加して視覚的に太く見せる（より小さく） */
+}
+
+.message-text {
+    position: relative;
+    top: 1px; /* テキストのみを下に1px移動 */
+    display: inline-block;
+}
+
+.contact-phone {
+    font-size: 3.3rem;
+    font-weight: bold;
+    color: #06C755;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: color 0.3s ease;
+    font-weight: 900;
+    position: relative;
+    left: -1rem; /* 電話番号の位置を左に移動 */
+}
+
+.phone-number {
+    display: inline-block;
+    transform: scale(1.06, 0.92); /* 横に1.06倍、縦に0.92倍 */
+    position: relative;
+    right: -5px; /* 右に5px移動 */
+    top: -2px; /* 上に2px移動 */
+}
+
+.contact-phone::before {
+    content: '\f095';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 2.4rem;
+    display: inline-block;
+    transform: rotate(-360deg);
+    position: relative;
+    left: -2px; /* 左に2px移動 */
+    top: 2px; /* 下に2px移動 */
+}
+
+.contact-hours {
+    color: #333;
+    margin-top: 0.2rem;
+    font-weight: bold;
+    position: relative;
+    left: -1px;
+    top: -3px; /* 上に3px移動 */
+}
+
+.hours-label {
+    font-size: 1.3rem; /* 「受付時間」の部分 */
+}
+
+.hours-time {
+    font-size: 1.5rem; /* 「9:00~18:00」の部分だけ少し大きく */
+}
+
+.hours-note {
+    font-size: 1.3rem; /* 「(土日祝も受付可能)」の部分 */
+}
+
+.contact-phone:hover {
+    color: #003399;
+}
+
+.logo img {
+    height: 9.5rem;
+    transition: transform 0.3s ease;
+}
+
+.logo img:hover {
+    transform: scale(1.05);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 3rem;
+    margin-left: -10px; /* 左に移動。値は適宜調整してください */
+    position: relative;
+    top: -2px; /* 上に2px移動 */
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-size: 2rem;
+    font-weight: bold;
+    position: relative;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* メインコンテンツのスタイル */
+.reform-main {
+    padding-top: 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 120px 20px 80px;
+}
+
+/* ページタイトルのアニメーション */
+.page-title {
+    text-align: center;
+    font-size: 3.5rem;
+    padding-top: 40px;
+    margin-bottom: 50px;
+    position: relative;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: 0.1s; /* 最初に表示させる */
+}
+
+/* アニメーションのキーフレーム */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLine {
+    from {
+        opacity: 0;
+        transform: scaleX(0);
+    }
+    to {
+        opacity: 1;
+        transform: scaleX(1);
+    }
+}
+
+/* タイトルの下線アニメーション */
+.page-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--primary-color);
+    margin: 15px auto;
+    opacity: 0;
+    transform: scaleX(0);
+    animation: fadeInLine 0.8s ease forwards;
+    animation-delay: 0.3s; /* タイトルの後に表示 */
+}
+
+.reform-section {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+}
+
+.reform-content {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* トランジションを調整 */
+    padding: 0 30px;
+    background-color: #f5f9ff;
+}
+
+/* 初期表示時のアニメーション */
+.reform-item {
+    background-color: #f5f9ff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    padding: 0;
+    transition: all 0.5s ease-in-out;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.reform-item:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.reform-item:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+.reform-item:nth-child(4) {
+    animation-delay: 0.6s;
+}
+
+.reform-item:nth-child(5) {
+    animation-delay: 0.8s;
+}
+
+.reform-item h2 {
+    color: var(--primary-color);
+    font-size: 2.6rem;
+    margin: 0;
+    text-align: center;
+    position: relative;
+    padding: 20px;
+}
+
+/* アニメーション用のクラス */
+@keyframes slideDown {
+    from {
+        max-height: 0;
+        opacity: 0;
+    }
+    to {
+        max-height: 1000px;
+        opacity: 1;
+    }
+}
+
+/* .activeクラスのスタイルを追加 */
+.reform-item.active h2 {
+    margin-bottom: 20px;
+}
+
+.reform-item.active .reform-content {
+    opacity: 1;
+    max-height: 1000px;
+    padding: 0 30px 30px;
+}
+
+.reform-image {
+    flex: 1;
+    max-width: 500px;
+    opacity: 0; /* 初期状態で非表示 */
+}
+
+.reform-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.reform-text {
+    flex: 1;
+    opacity: 0; /* 初期状態で非表示 */
+}
+
+.reform-text p {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+}
+
+.reform-item.active .reform-image {
+    animation: slideDownImage 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    /* アニメーション時間を1.2秒に延長し、cubic-bezierで滑らかさを調整 */
+}
+
+.reform-item.active .reform-text {
+    animation: slideUpText 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    /* テキストも同様に調整 */
+}
+
+/* アニメーション用のクラスを修正・追加 */
+@keyframes slideDownImage {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUpText {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.btn-more {
+    display: inline-block;
+    padding: 10px 30px;
+    margin-top: 20px;
+    background: var(--primary-color);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+    font-size: 1.6rem;
+}
+
+.btn-more:hover {
+    background: var(--secondary-color);
+}
+
+/* Footer */
+.footer {
+    background-color: #f5f5f5;
+    color: black;
+    padding: 5rem 0 2rem;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+}
+
+.footer-logo img {
+    height: 7.5rem;
+}
+
+.footer-links ul {
+    display: flex;
+    gap: 3rem;
+    list-style: none;
+}
+
+.footer-links a {
+    color: black;
+    text-decoration: none;
+    font-size: 1.8rem;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #003399;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 1.4rem;
+    color: black;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 1200px) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .assurance-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        display: none; /* モバイル表示時にヘッダーを非表示に */
+    }
+
+    .assurance-grid {
+        grid-template-columns: 1fr;
+        gap: 5rem;
+    }
+
+    html {
+        font-size: 56.25%;
+    }
+
+    .nav-links,
+    .header-contact {
+        display: none;
+    }
+
+    .hero-title {
+        font-size: 3.2rem;
+    }
+
+    .hero-text {
+        font-size: 1.8rem;
+    }
+
+    .page-title {
+        font-size: 3.1rem; /* モバイル表示時のフォントサイズを3.1remに変更 */
+    }
+
+    .assurance-house::before {
+        font-size: 20rem; /* モバイル表示時は少し小さめに */
+    }
+    
+    .assurance-house {
+        padding: 6rem 2rem 3rem;
+    }
+
+    .service-icons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .company-content,
+    .contact-content {
+        grid-template-columns: 1fr;
+    }
+
+    /* モバイル表示時のreform-contentを縦並びに */
+    .reform-content {
+        flex-direction: column;
+    }
+
+    .reform-image {
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .reform-text {
+        width: 100%;
+        text-align: center;
+    }
+    
+    .btn-more {
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        width: fit-content;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 3rem;
+        text-align: center;
+    }
+
+    .footer-links ul {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+}
